@@ -1,0 +1,63 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.example.base_widget'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.base_widget"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+
+        dataBinding true
+
+        // for view binding:
+         viewBinding true
+    }
+
+}
+
+dependencies {
+
+    implementation libs.core.ktx
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.sdp
+    implementation libs.ssp
+    implementation libs.firebase.messaging.ktx
+    implementation libs.firebase.crashlytics.buildtools
+    implementation libs.room
+    implementation libs.room.ktx
+    kapt libs.room.compiler
+    implementation libs.gson
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.espresso.core
+}

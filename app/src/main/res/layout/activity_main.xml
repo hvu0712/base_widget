@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_100sdp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_100sdp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv_small"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:text="Widget small"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@android:color/holo_blue_light" />
+
+    <TextView
+        android:id="@+id/tv_small_1"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:text="Widget small 1"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@android:color/holo_green_light" />
+
+    <TextView
+        android:id="@+id/tv_medium"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:text="Widget medium "
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@android:color/holo_blue_light" />
+
+    <TextView
+        android:id="@+id/tv_medium_1"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:text="Widget medium 1"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@android:color/holo_green_light" />
+
+    <TextView
+        android:id="@+id/tv_large"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:text="Widget large"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:background="@android:color/holo_blue_light" />
+
+    <TextView
+        android:id="@+id/tv_large_1"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:text="Widget large 1"
+        android:gravity="center"
+        android:background="@android:color/holo_green_light" />
+
+</LinearLayout>
