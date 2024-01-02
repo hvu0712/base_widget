@@ -3,6 +3,7 @@
     <style name="Base.Theme.Base_widget" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@drawable/bg_default_app</item>
     </style>
 
     <style name="Theme.Base_widget" parent="Base.Theme.Base_widget" />
