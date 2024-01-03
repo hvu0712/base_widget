@@ -5,4 +5,7 @@
     <color name="color_theme">#F56D7E</color>
     <color name="color_D2D2D2">#D2D2D2</color>
 
+    <color name="color_shadow">#580000</color>
+    <color name="color_bg_details_plant">#F5DAA5</color>
+
 </resources>
