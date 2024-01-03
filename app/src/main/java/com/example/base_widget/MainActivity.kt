@@ -6,7 +6,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.colorwidgets.ios.widget.base.BaseActivity
+import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.databinding.ActivityMainBinding
 import com.example.base_widget.utils.LargeWidget
@@ -22,6 +22,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
+
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun setUpListener() {
         binding.apply {
             tvSmall.setOnSingleClickListener {
                 createSmallWidget(1, WidgetSize.SIZE_S)

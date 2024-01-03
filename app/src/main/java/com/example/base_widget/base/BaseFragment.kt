@@ -1,4 +1,4 @@
-package com.colorwidgets.ios.widget.base
+package com.example.base_widget.base
 
 import android.Manifest
 import android.app.Activity

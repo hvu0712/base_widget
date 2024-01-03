@@ -1,4 +1,4 @@
-package com.colorwidgets.ios.widget.base
+package com.example.base_widget.base
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -52,6 +52,7 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
         binding = inflateViewBinding()
         setContentView(binding.root)
         initView()
+        setUpListener()
     }
 
     override fun onCreateView(
@@ -69,6 +70,8 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
     abstract fun inflateViewBinding(): T
 
     abstract fun initView()
+
+    abstract fun setUpListener()
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
