@@ -7,4 +7,6 @@
     <string name="tvAnimal">Pets</string>
     <string name="tvPlant">Plant</string>
     <string name="tvNewWidget">New widget</string>
+
+    <string name="languages">Languages</string>
 </resources>
