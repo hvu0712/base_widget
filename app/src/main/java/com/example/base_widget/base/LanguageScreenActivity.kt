@@ -2,7 +2,6 @@ package com.example.base_widget.base
 
 import android.content.Intent
 import android.view.View
-import com.colorwidgets.ios.widget.base.BaseActivity
 import com.example.base_widget.MainActivity
 import com.example.base_widget.R
 import com.example.base_widget.common.RemoteConfig
@@ -19,6 +18,10 @@ class LanguageScreenActivity : BaseActivity<ActivityLanguageBinding>() {
     override fun inflateViewBinding() = ActivityLanguageBinding.inflate(layoutInflater)
 
     override fun initView() {
+
+    }
+
+    override fun setUpListener() {
         val isFromSplash = intent?.getBooleanExtra(LANGUAGE_FIRST_OPEN, false) ?: false
         binding.ivTick.setOnSingleClickListener {
             SharePrefUtils.language = languageAdapter.selectedLang
