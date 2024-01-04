@@ -29,15 +29,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btnGet"
+        <LinearLayout
+            android:id="@+id/llGet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-10dp"
-            android:src="@drawable/ic_button_get"
+            android:background="@drawable/bg_button_large"
+            android:orientation="vertical"
+            android:padding="@dimen/_1sdp"
             app:layout_constraintEnd_toEndOf="@id/ivItem"
             app:layout_constraintStart_toStartOf="@id/ivItem"
-            app:layout_constraintTop_toBottomOf="@id/ivItem" />
+            app:layout_constraintTop_toBottomOf="@id/ivItem">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_button_small"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_1sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvGet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

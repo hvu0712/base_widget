@@ -6,7 +6,14 @@
     <string name="tvShop">Shop</string>
     <string name="tvAnimal">Pets</string>
     <string name="tvPlant">Plant</string>
+    <string name="tvPhoto">Photo</string>
+    <string name="tvMyGarden">My Garden</string>
     <string name="tvNewWidget">New widget</string>
+    <string name="tvGet">Get</string>
+    <string name="tvTitleAddWidget">Select a seed or a plant</string>
+    <string name="tvContentAddWidget">Seed/Plant not select</string>
+    <string name="tvSelect">Select</string>
+    <string name="tvPlantName">Plant Name</string>
 
     <string name="languages">Languages</string>
 </resources>

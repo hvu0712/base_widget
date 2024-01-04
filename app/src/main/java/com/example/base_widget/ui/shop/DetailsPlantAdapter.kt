@@ -36,7 +36,7 @@ class DetailsPlantAdapter : RecyclerView.Adapter<DetailsPlantAdapter.DetailsPlan
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemCommon) {
             binding.ivItem.setImageResource(item.image)
-            binding.btnGet.setOnClickAffect {
+            binding.llGet.setOnClickAffect {
                 onItemClick?.invoke(item)
             }
         }

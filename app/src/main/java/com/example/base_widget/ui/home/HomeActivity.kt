@@ -4,7 +4,8 @@ import android.content.Intent
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ActivityHomeBinding
-import com.example.base_widget.ui.shop.ShopActivity
+import com.example.base_widget.ui.shop.AllShopActivity
+import com.example.base_widget.ui.shop.PlantShopActivity
 
 class HomeActivity: BaseActivity<ActivityHomeBinding>() {
 
@@ -20,13 +21,13 @@ class HomeActivity: BaseActivity<ActivityHomeBinding>() {
 
             }
             llShop.setOnClickAffect {
-                startActivity(Intent(this@HomeActivity,ShopActivity::class.java))
+                startActivity(Intent(this@HomeActivity,AllShopActivity::class.java))
             }
             llAnimal.setOnClickAffect {
 
             }
             llPlant.setOnClickAffect {
-
+                startActivity(Intent(this@HomeActivity,PlantShopActivity::class.java))
             }
             cvAnimal.setOnClickAffect {
 

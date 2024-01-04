@@ -8,7 +8,7 @@ object AppUtils {
     const val PRIVACY = "https://creative.lgapps.store/privacy-policy"
     const val BASE_ICON_URL = "https://www.gstatic.com/android/keyboard/emojikitchen/"
 
-    fun getItemPetShop(): ArrayList<ItemCommon> {
+    fun getItemAllShop(): ArrayList<ItemCommon> {
         return arrayListOf(
             ItemCommon(R.drawable.ic_pet_egg_one),
             ItemCommon(R.drawable.ic_pet_egg_two),
@@ -22,11 +22,21 @@ object AppUtils {
     fun getItemDetailsPlant(): ArrayList<ItemCommon> {
         return arrayListOf(
             ItemCommon(R.drawable.ic_details_plant_one),
+            ItemCommon(R.drawable.ic_details_plant_four),
+            ItemCommon(R.drawable.ic_details_plant_two),
+            ItemCommon(R.drawable.ic_details_plant_three),
+        )
+    }
+
+    fun getItemPlantShop(): ArrayList<ItemCommon> {
+        return arrayListOf(
             ItemCommon(R.drawable.ic_details_plant_one),
-            ItemCommon(R.drawable.ic_details_plant_one),
-            ItemCommon(R.drawable.ic_details_plant_one),
-            ItemCommon(R.drawable.ic_details_plant_one),
-            ItemCommon(R.drawable.ic_details_plant_one),
+            ItemCommon(R.drawable.ic_details_plant_two),
+            ItemCommon(R.drawable.ic_details_plant_three),
+            ItemCommon(R.drawable.ic_details_plant_four),
+            ItemCommon(R.drawable.ic_plant_one),
+            ItemCommon(R.drawable.ic_plant_two),
+            ItemCommon(R.drawable.ic_plant_three),
         )
     }
 
