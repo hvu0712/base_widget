@@ -20,7 +20,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/_9sdp"
         android:layout_toEndOf="@id/ivAvatar"
-        android:fontFamily="@font/lato_light"
+        android:fontFamily="@font/lato_bold"
         android:textColor="#24282D"
         android:textSize="@dimen/_12ssp" />
 
