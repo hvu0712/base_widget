@@ -197,6 +197,7 @@
                 app:cardCornerRadius="8dp">
 
                 <ImageView
+                    android:id="@+id/iv_animal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
@@ -211,6 +212,7 @@
                 app:cardCornerRadius="8dp">
 
                 <ImageView
+                    android:id="@+id/iv_plant"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
