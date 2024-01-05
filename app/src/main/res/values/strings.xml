@@ -3,6 +3,7 @@
 
     <string name="tvHello">Hello!</string>
     <string name="tvContentHello">Have a good day</string>
+    <string name="tvTitleDialog">Add to the waiting screen.</string>
     <string name="tvShop">Shop</string>
     <string name="tvAnimal">Pets</string>
     <string name="tvPlant">Plant</string>
@@ -14,6 +15,12 @@
     <string name="tvContentAddWidget">Seed/Plant not select</string>
     <string name="tvSelect">Select</string>
     <string name="tvPlantName">Plant Name</string>
+    <string name="tvAddWidget">Add Widget</string>
+    <string name="tvWidget">Widget:</string>
+    <string name="tv2x2">2x2</string>
+    <string name="tv4x2">4x2</string>
+    <string name="tv4x3">4x3</string>
+    <string name="tvContentDialog">Touch and hold an icon or touch more to add it to\nthe waiting screen.</string>
 
     <string name="languages">Languages</string>
 </resources>
