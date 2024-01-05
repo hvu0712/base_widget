@@ -216,7 +216,6 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/iv_plant" />
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
 
 

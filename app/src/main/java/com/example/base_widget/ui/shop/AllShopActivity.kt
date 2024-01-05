@@ -31,7 +31,7 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
         val spacingInPixelsTwo = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._54sdp)
         val spacingInPixelsThree = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._60sdp)
         binding.rvAllShop.apply {
-            shopAdapter.setData(AppUtils.getItemAllShop())
+            shopAdapter.setData(AppUtils.getItemPetShop())
             adapter = shopAdapter
             layoutManager = GridLayoutManager(this@AllShopActivity, 3)
             addItemDecoration(GridSpacingItemDecoration(3,spacingInPixelsOne, spacingInPixelsTwo, spacingInPixelsThree))

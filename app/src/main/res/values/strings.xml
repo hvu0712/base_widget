@@ -7,6 +7,8 @@
     <string name="tvShop">Shop</string>
     <string name="tvAnimal">Pets</string>
     <string name="tvPlant">Plant</string>
+    <string name="tvCat">Cat</string>
+    <string name="tvPet">Pet</string>
     <string name="tvPhoto">Photo</string>
     <string name="tvMyGarden">My Garden</string>
     <string name="tvNewWidget">New widget</string>
