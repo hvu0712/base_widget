@@ -18,7 +18,8 @@ class HomeActivity: BaseActivity<ActivityHomeBinding>() {
     override fun inflateViewBinding() = ActivityHomeBinding.inflate(layoutInflater)
 
     override fun initView() {
-        Glide.with(this@HomeActivity).asGif().placeholder(R.drawable.iv_plant).load(R.raw.plant_animation).into(binding.ivPlant)
+        Glide.with(this@HomeActivity).asGif().centerCrop().placeholder(R.drawable.iv_plant).load(R.drawable.plant_animation).into(binding.ivPlant)
+        Glide.with(this@HomeActivity).asGif().centerCrop().placeholder(R.drawable.iv_animal).load(R.drawable.egg_animation).into(binding.ivAnimal)
     }
 
     override fun setUpListener() {
@@ -38,9 +39,9 @@ class HomeActivity: BaseActivity<ActivityHomeBinding>() {
             cvAnimal.setOnClickAffect {
 
             }
-//            cvPlant.setOnClickAffect {
-//
-//            }
+            cvPlant.setOnClickAffect {
+
+            }
         }
     }
 }
