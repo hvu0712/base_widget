@@ -1,11 +1,15 @@
 package com.example.base_widget.ui.shop
 
+import android.os.Bundle
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.base_widget.base.BaseActivity
+import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnClickAffect
+import com.example.base_widget.common.show
 import com.example.base_widget.databinding.ActivityAllShopBinding
-import com.example.base_widget.utils.AppUtils
 
 class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
 
@@ -13,7 +17,8 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
     override fun inflateViewBinding() = ActivityAllShopBinding.inflate(layoutInflater)
 
     override fun initView() {
-        setUpRecyclerView()
+        binding.viewPager.adapter = MyViewPagerAdapter()
+        binding.viewPager.registerOnPageChangeCallback(viewPagerListener)
     }
 
     override fun setUpListener() {
@@ -24,18 +29,57 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
         shopAdapter.onItemClick = {
             Toast.makeText(this, "ok", Toast.LENGTH_LONG).show()
         }
+        binding.llPlant.setOnClickAffect {
+            binding.viewPager.currentItem = 1
+        }
+        binding.llPlantDisable.setOnClickAffect {
+            binding.viewPager.currentItem = 1
+        }
+        binding.llPet.setOnClickAffect {
+            binding.viewPager.currentItem = 0
+        }
+        binding.llPetDisable.setOnClickAffect {
+            binding.viewPager.currentItem = 0
+        }
     }
 
-    private fun setUpRecyclerView() {
-        val spacingInPixelsOne = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._26sdp)
-        val spacingInPixelsTwo = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._54sdp)
-        val spacingInPixelsThree = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._60sdp)
-        binding.rvAllShop.apply {
-            shopAdapter.setData(AppUtils.getItemPetShop())
-            adapter = shopAdapter
-            layoutManager = GridLayoutManager(this@AllShopActivity, 3)
-            addItemDecoration(GridSpacingItemDecoration(3,spacingInPixelsOne, spacingInPixelsTwo, spacingInPixelsThree))
+    private var viewPagerListener = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            when (position) {
+                0 -> {
+                    binding.llPet.show()
+                    binding.llPetDisable.hide()
+                    binding.llPlantDisable.show()
+                    binding.llPlant.hide()
+                }
+
+                1 -> {
+                    binding.llPet.hide()
+                    binding.llPetDisable.show()
+                    binding.llPlantDisable.hide()
+                    binding.llPlant.show()
+                }
+            }
         }
 
+        override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {}
+        override fun onPageScrollStateChanged(arg0: Int) {}
+    }
+
+    inner class MyViewPagerAdapter : FragmentStateAdapter(this) {
+        override fun getItemCount(): Int {
+            return 2
+        }
+
+        override fun createFragment(position: Int): Fragment {
+            val bundle = Bundle()
+            bundle.putInt("page", position)
+            return ShopFragment().apply { arguments = bundle }
+        }
+    }
+
+    override fun onDestroy() {
+        binding.viewPager.unregisterOnPageChangeCallback(viewPagerListener)
+        super.onDestroy()
     }
 }

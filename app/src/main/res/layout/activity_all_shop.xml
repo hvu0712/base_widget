@@ -56,7 +56,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/rvAllShop"
-        app:layout_constraintTop_toTopOf="@id/rvAllShop">
+        app:layout_constraintTop_toTopOf="@id/viewPager">
 
         <LinearLayout
             android:id="@+id/llPet"
@@ -95,7 +95,44 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llPlant"
+            android:id="@+id/llPetDisable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/bg_button_large"
+            android:orientation="vertical"
+            android:padding="@dimen/_1sdp"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_button_small_disable"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_2sdp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_pet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="@string/tvPet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPlantDisable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
@@ -129,10 +166,47 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPlant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:background="@drawable/bg_button_large"
+            android:orientation="vertical"
+            android:padding="@dimen/_1sdp"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_button_small"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_2sdp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_leaves" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="@string/tvPlant"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAllShop"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_15sdp"
@@ -145,6 +219,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvShop" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
