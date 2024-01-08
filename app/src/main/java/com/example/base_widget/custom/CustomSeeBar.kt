@@ -16,8 +16,12 @@ class CustomSeeBar : FrameLayout {
     private val bgBorderPaint = Paint()
     private val bgBorderRect = RectF()
 
+    private val bgPaint = Paint()
+    private val bgRect = RectF()
+
     private val pgPaint = Paint()
     private val pgRect = RectF()
+
 
     private val thumbPaint = Paint()
     private val thumbRect = RectF()
@@ -87,6 +91,7 @@ class CustomSeeBar : FrameLayout {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
         setBackgroundColor(Color.TRANSPARENT)
         bgBorderPaint.isAntiAlias = true
+        bgPaint.isAntiAlias = true
         pgPaint.isAntiAlias = true
         thumbPaint.isAntiAlias = true
 
@@ -120,12 +125,18 @@ class CustomSeeBar : FrameLayout {
         invalidate()
     }
 
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawBorder(canvas)
+        drawBackground(canvas)
         drawProgress(canvas)
         drawThumb(canvas)
+    }
+
+    private fun drawBackground(canvas: Canvas) {
+        bgPaint.style = Paint.Style.FILL
+        bgPaint.color = Color.WHITE
+        canvas.drawRoundRect(bgRect, rectBgRound, rectBgRound, bgPaint)
     }
 
     private fun drawThumb(canvas: Canvas) {
@@ -182,6 +193,9 @@ class CustomSeeBar : FrameLayout {
         rectFBottomBG = (height * 0.6).toFloat()
         rectBgRound = (rectFBottomBG - rectFTopBG)
         bgBorderRect.set(rectFLeftBG, rectFTopBG, rectFRightBG, rectFBottomBG)
+
+        //background
+        bgRect.set(rectFLeftBG, rectFTopBG, rectFRightBG, rectFBottomBG)
 
         //thumb
         thumbHeight = (height * 0.6).toFloat()
