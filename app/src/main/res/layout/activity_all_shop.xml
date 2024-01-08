@@ -49,11 +49,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_37sdp"
+        android:layout_marginTop="-15dp"
         android:layout_marginBottom="@dimen/_40sdp"
         android:elevation="1dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/ivShelfOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/rvAllShop"
         app:layout_constraintTop_toTopOf="@id/rvAllShop">
@@ -130,19 +130,6 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/ivShelfOne"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_40sdp"
-        android:background="@android:color/transparent"
-        android:elevation="1dp"
-        android:src="@drawable/iv_shelf"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/rvAllShop" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAllShop"
