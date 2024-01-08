@@ -16,6 +16,28 @@ object AppUtils {
         )
     }
 
+    fun getItemPetFood(): ArrayList<ItemCommon> {
+        return arrayListOf(
+            ItemCommon(R.drawable.ic_food_one),
+            ItemCommon(R.drawable.ic_food_two),
+            ItemCommon(R.drawable.ic_food_three),
+        )
+    }
+
+    fun getItemPetToilet(): ArrayList<ItemCommon> {
+        return arrayListOf(
+            ItemCommon(R.drawable.ic_toilet_one),
+            ItemCommon(R.drawable.ic_toilet_two),
+            ItemCommon(R.drawable.ic_toilet_three),
+        )
+    }
+
+    fun getItemPetSleep(): ArrayList<ItemCommon> {
+        return arrayListOf(
+            ItemCommon(R.drawable.ic_sleep_one),
+        )
+    }
+
     fun getItemDetailsPlant(): ArrayList<ItemCommon> {
         return arrayListOf(
             ItemCommon(R.drawable.ic_details_plant_one),

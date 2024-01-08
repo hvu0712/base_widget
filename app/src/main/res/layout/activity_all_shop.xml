@@ -55,7 +55,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/rvAllShop"
+        app:layout_constraintStart_toStartOf="@id/viewPager"
         app:layout_constraintTop_toTopOf="@id/viewPager">
 
         <LinearLayout

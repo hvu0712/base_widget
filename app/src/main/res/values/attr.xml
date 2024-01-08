@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CustomSeekBar">
+        <attr name="ct_backgroundBorderColor" format="color"/>
+        <attr name="ct_progress" format="integer"/>
+        <attr name="ct_progressColor" format="color"/>
+        <attr name="ct_is_pet_thumb" format="boolean"/>
+    </declare-styleable>
+
+</resources>

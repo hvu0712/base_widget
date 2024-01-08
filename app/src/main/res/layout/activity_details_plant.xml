@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_bg_details_plant">
 
     <ImageView
@@ -53,19 +53,115 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/iv_plant_one"
+        android:src="@drawable/iv_plant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/ivTree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/iv_tree"
+        app:layout_constraintBottom_toBottomOf="@id/ivPlant"
+        app:layout_constraintEnd_toEndOf="@id/ivPlant"
+        app:layout_constraintStart_toStartOf="@id/ivPlant" />
+
+    <SeekBar
+        android:id="@+id/sbPlant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPlant" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        tools:text="Sprout in 23:23:12"
+        android:textColor="@color/color_shadow"
+        app:layout_constraintEnd_toEndOf="@id/sbPlant"
+        app:layout_constraintStart_toStartOf="@id/sbPlant"
+        app:layout_constraintTop_toBottomOf="@+id/sbPlant" />
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime">
+
+
+        <View
+            android:layout_width="@dimen/_77sdp"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:layout_weight="1"
+            android:background="@color/color_301919" />
+
+        <LinearLayout
+            android:id="@+id/llPlant"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_button_large"
+            android:orientation="vertical"
+            android:padding="@dimen/_1sdp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_button_small"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_2sdp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_leaves" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:text="@string/tvPlant"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/_77sdp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_weight="1"
+            android:background="@color/color_301919" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDetailsPlant"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingVertical="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPlant" />
-
+        app:layout_constraintEnd_toEndOf="@id/llTitle"
+        app:layout_constraintStart_toStartOf="@id/llTitle"
+        app:layout_constraintTop_toBottomOf="@id/llTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

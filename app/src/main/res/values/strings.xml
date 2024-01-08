@@ -9,6 +9,11 @@
     <string name="tvPlant">Plant</string>
     <string name="tvCat">Cat</string>
     <string name="tvPet">Pet</string>
+    <string name="tvLevel1">Lv.1</string>
+    <string name="tvLevel2">Lv.2</string>
+    <string name="tvLevel3">Lv.3</string>
+    <string name="tvLevel4">Lv.4</string>
+    <string name="tvLevel5">Lv.5</string>
     <string name="tvPhoto">Photo</string>
     <string name="tvMyGarden">My Garden</string>
     <string name="tvNewWidget">New widget</string>

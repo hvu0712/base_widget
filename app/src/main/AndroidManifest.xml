@@ -33,6 +33,11 @@
             android:exported="false"
             android:screenOrientation="nosensor">
         </activity>
+        <activity
+            android:name=".ui.shop.DetailsPetActivity"
+            android:exported="false"
+            android:screenOrientation="nosensor">
+        </activity>
 
         <receiver
             android:name=".utils.SmallWidget"
