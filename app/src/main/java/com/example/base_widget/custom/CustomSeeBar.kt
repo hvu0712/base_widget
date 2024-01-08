@@ -125,6 +125,12 @@ class CustomSeeBar : FrameLayout {
         invalidate()
     }
 
+//    private fun resetThumb() {
+//        if (trackMovableArea.height() == 0f) return
+//        val newPointerX = bgRect.left + (trackStrokeRectF.height() * (percent / 100f))
+//        thumbRect.set(newLeft, thumbRect.top, newRight, thumbRect.top + thumbHeight)
+//    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawBorder(canvas)
@@ -198,17 +204,17 @@ class CustomSeeBar : FrameLayout {
         bgRect.set(rectFLeftBG, rectFTopBG, rectFRightBG, rectFBottomBG)
 
         //thumb
-        thumbHeight = (height * 0.6).toFloat()
+        thumbHeight = (height * 0.8).toFloat() - (height * 0.2).toFloat()
 
-//        rectFLeftT = 0f
-//        rectFTopT = (height * 0.2).toFloat()
-//        rectFBottomT = (height * 0.8).toFloat()
-//        rectFRightT = rectFBottomT - rectFTopT
-
-        rectFLeftT = (height - thumbHeight) / 2f
+        rectFLeftT = 0f
         rectFTopT = (height * 0.8).toFloat() - thumbHeight
-        rectFRightT = rectFLeftT + thumbHeight
         rectFBottomT = rectFTopT + thumbHeight
+        rectFRightT = rectFBottomT - rectFTopT
+
+//        rectFLeftT = (height - thumbHeight) / 2f
+//        rectFTopT = (height * 0.8).toFloat() - thumbHeight
+//        rectFRightT = rectFLeftT + thumbHeight
+//        rectFBottomT = rectFTopT + thumbHeight
         thumbRect.set(rectFLeftT, rectFTopT, rectFRightT, rectFBottomT)
 
         invalidate()
