@@ -30,8 +30,6 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".utils.SmallWidget"
         <activity
             android:name=".ui.shop.AllShopActivity"
             android:exported="false"
@@ -47,9 +45,6 @@
             android:exported="false"
             android:screenOrientation="nosensor">
         </activity>
-
-        <receiver
-            android:name=".utils.SmallWidget"
 
         <receiver
             android:name=".utils.SmallWidget"
