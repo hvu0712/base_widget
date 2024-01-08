@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_bg_details_plant">
 
     <ImageView
@@ -67,12 +66,16 @@
         app:layout_constraintEnd_toEndOf="@id/ivPlant"
         app:layout_constraintStart_toStartOf="@id/ivPlant" />
 
-    <SeekBar
+    <com.example.base_widget.custom.CustomSeeBar
         android:id="@+id/sbPlant"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_gravity="center"
         android:layout_marginHorizontal="@dimen/_15sdp"
-        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:ct_backgroundBorderColor="@color/color_398032"
+        app:ct_is_pet_thumb="false"
+        app:ct_progressColor="@color/color_398032"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivPlant" />
@@ -81,8 +84,7 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        tools:text="Sprout in 23:23:12"
+        android:text="Sprout in 23:23:12"
         android:textColor="@color/color_shadow"
         app:layout_constraintEnd_toEndOf="@id/sbPlant"
         app:layout_constraintStart_toStartOf="@id/sbPlant"
@@ -159,6 +161,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/_20sdp"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/llTitle"
         app:layout_constraintStart_toStartOf="@id/llTitle"

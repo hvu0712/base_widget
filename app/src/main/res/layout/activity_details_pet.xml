@@ -81,15 +81,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_6sdp"
             android:text="@string/tvLevel1"
             android:textColor="@color/color_shadow"
             android:textSize="@dimen/_12ssp" />
 
-        <SeekBar
+        <com.example.base_widget.custom.CustomSeeBar
             android:id="@+id/sbPet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center"
+            app:ct_backgroundBorderColor="@color/color_FF7A7A"
+            app:ct_progressColor="@color/color_FF7A7A"
+            app:ct_is_pet_thumb="true" />
 
     </LinearLayout>
 

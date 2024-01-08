@@ -1,6 +1,7 @@
 package com.example.base_widget.ui.shop
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -9,6 +10,7 @@ import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.common.show
+import com.example.base_widget.custom.CreatedListener
 import com.example.base_widget.databinding.ActivityDetailsPetBinding
 
 class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
@@ -45,6 +47,16 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
         }
         binding.llSleepUnSelected.setOnClickAffect {
             binding.viewPager.currentItem = 2
+        }
+        if (binding.sbPet.isCreated) {
+            binding.sbPet.setValue(200)
+        } else {
+            binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                override fun isCreated() {
+                    binding.sbPet.setValue(200)
+                }
+
+            })
         }
     }
 

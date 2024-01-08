@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnClickAffect
+import com.example.base_widget.custom.CreatedListener
 import com.example.base_widget.databinding.ActivityDetailsPlantBinding
 import com.example.base_widget.utils.AppUtils
 
@@ -22,6 +23,16 @@ class DetailsPlantActivity: BaseActivity<ActivityDetailsPlantBinding>() {
         }
         detailsAdapter.onItemClick = {
             Toast.makeText(this,"ok", Toast.LENGTH_LONG).show()
+        }
+        if (binding.sbPlant.isCreated) {
+            binding.sbPlant.setValue(100)
+        } else {
+            binding.sbPlant.setViewCreatedListener(object : CreatedListener {
+                override fun isCreated() {
+                    binding.sbPlant.setValue(100)
+                }
+
+            })
         }
     }
 
