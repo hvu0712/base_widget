@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.base_widget.R
@@ -126,14 +127,10 @@ class CustomSeeBar : FrameLayout {
     }
 
     fun setValue(value: Int) {
-        var newLeft = 0f
-        if (value > maxProgress)
-        {
-            newLeft = ((maxProgress / maxProgress) * width).toFloat()
-        }
-        else
-        {
-            newLeft = ((value / maxProgress) * width).toFloat()
+        val newLeft = if (value >= maxProgress) {
+            (((maxProgress / maxProgress) * pgRect.width()) - thumbHeight)
+        } else {
+            ((((value.toFloat()) / maxProgress) * pgRect.width()) - thumbHeight)
         }
         val oldValue = thumbRect.left
 
@@ -146,6 +143,9 @@ class CustomSeeBar : FrameLayout {
         }
         animator.duration = 500
         animator.start()
+        Log.e("huynq", "maxProgress: ${maxProgress}")
+        Log.e("huynq", "thumbHeight: ${thumbHeight}")
+        Log.e("huynq", "newLeft: ${newLeft}")
     }
 
     override fun onDraw(canvas: Canvas) {
