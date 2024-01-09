@@ -1,6 +1,7 @@
 package com.example.base_widget.utils
 
 import com.example.base_widget.R
+import com.example.base_widget.ui.details.ItemSelect
 import com.example.base_widget.ui.shop.ItemCommon
 
 
@@ -55,4 +56,11 @@ object AppUtils {
         )
     }
 
+    fun getItemSelect(): ArrayList<ItemSelect> {
+        return arrayListOf(
+            ItemSelect(R.drawable.ic_plant_one,"Plant","Lv.1"),
+            ItemSelect(R.drawable.ic_plant_two,"Plant","Lv.1"),
+            ItemSelect(R.drawable.ic_plant_three,"Plant","Lv.1"),
+        )
+    }
 }

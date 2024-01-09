@@ -1,4 +1,4 @@
-package com.example.base_widget.ui.shop
+package com.example.base_widget.ui.details
 
 import android.os.Bundle
 import android.view.LayoutInflater

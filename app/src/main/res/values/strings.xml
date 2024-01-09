@@ -5,6 +5,8 @@
     <string name="tvContentHello">Have a good day</string>
     <string name="tvTitleDialog">Add to the waiting screen.</string>
     <string name="tvShop">Shop</string>
+    <string name="tvAllPlant">All Plant</string>
+    <string name="tvAllPet">All Pet</string>
     <string name="tvAnimal">Pets</string>
     <string name="tvPlant">Plant</string>
     <string name="tvCat">Cat</string>

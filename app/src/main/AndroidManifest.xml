@@ -39,6 +39,7 @@
             android:screenOrientation="nosensor">
         </activity>
 
+
         <receiver
             android:name=".utils.SmallWidget"
             android:exported="false">

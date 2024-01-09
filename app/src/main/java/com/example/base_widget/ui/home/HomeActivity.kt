@@ -4,9 +4,9 @@ import android.content.Intent
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ActivityHomeBinding
+import com.example.base_widget.ui.details.DetailsPetActivity
+import com.example.base_widget.ui.details.DetailsPlantActivity
 import com.example.base_widget.ui.shop.AllShopActivity
-import com.example.base_widget.ui.shop.DetailsPetActivity
-import com.example.base_widget.ui.shop.DetailsPlantActivity
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
