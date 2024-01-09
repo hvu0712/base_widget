@@ -8,9 +8,10 @@ import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ActivityHomeBinding
 import com.example.base_widget.ui.SettingsActivity
 import com.example.base_widget.ui.shop.AllShopActivity
-import com.example.base_widget.ui.shop.PlantShopActivity
+import com.example.base_widget.ui.shop.DetailsPetActivity
+import com.example.base_widget.ui.shop.DetailsPlantActivity
 
-class HomeActivity: BaseActivity<ActivityHomeBinding>() {
+class HomeActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun inflateViewBinding() = ActivityHomeBinding.inflate(layoutInflater)
 
@@ -25,15 +26,15 @@ class HomeActivity: BaseActivity<ActivityHomeBinding>() {
                 showActivity(SettingsActivity::class.java, null)
             }
             llShop.setOnClickAffect {
-                startActivity(Intent(this@HomeActivity,AllShopActivity::class.java))
+                startActivity(Intent(this@HomeActivity, AllShopActivity::class.java))
             }
-            llAnimal.setOnClickAffect {
-
+            llPet.setOnClickAffect {
+                startActivity(Intent(this@HomeActivity, DetailsPetActivity::class.java))
             }
             llPlant.setOnClickAffect {
-                startActivity(Intent(this@HomeActivity,PlantShopActivity::class.java))
+                startActivity(Intent(this@HomeActivity, DetailsPlantActivity::class.java))
             }
-            cvAnimal.setOnClickAffect {
+            cvPet.setOnClickAffect {
 
             }
             cvPlant.setOnClickAffect {

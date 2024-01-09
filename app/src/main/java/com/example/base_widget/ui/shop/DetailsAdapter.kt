@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ItemDetailsPlantBinding
 
-class DetailsPlantAdapter : RecyclerView.Adapter<DetailsPlantAdapter.DetailsPlantViewHolder>() {
+class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsPlantViewHolder>() {
     private var itemList: ArrayList<ItemCommon> = ArrayList()
     var onItemClick: ((ItemCommon) -> Unit)? = null
 
@@ -36,8 +36,10 @@ class DetailsPlantAdapter : RecyclerView.Adapter<DetailsPlantAdapter.DetailsPlan
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemCommon) {
             binding.ivItem.setImageResource(item.image)
-            binding.llGet.setOnClickAffect {
-                onItemClick?.invoke(item)
+            binding.ccItem.post {
+                binding.ccItem.setOnClickAffect {
+                    onItemClick?.invoke(item)
+                }
             }
         }
 
