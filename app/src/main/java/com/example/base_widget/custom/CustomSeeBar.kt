@@ -65,7 +65,6 @@ class CustomSeeBar : FrameLayout {
     private var petThumbDrawable: Drawable? = null
     private var plantThumbDrawable: Drawable? = null
 
-
     constructor(context: Context) : super(context) {
         initialize(context, null, 0, 0)
     }
@@ -125,18 +124,13 @@ class CustomSeeBar : FrameLayout {
         invalidate()
     }
 
-//    private fun resetThumb() {
-//        if (trackMovableArea.height() == 0f) return
-//        val newPointerX = bgRect.left + (trackStrokeRectF.height() * (percent / 100f))
-//        thumbRect.set(newLeft, thumbRect.top, newRight, thumbRect.top + thumbHeight)
-//    }
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawBorder(canvas)
         drawBackground(canvas)
         drawProgress(canvas)
         drawThumb(canvas)
+        Log.e("huynq", "onDraw: ", )
     }
 
     private fun drawBackground(canvas: Canvas) {
@@ -149,20 +143,20 @@ class CustomSeeBar : FrameLayout {
         if (isPetThumb == true) {
             petThumbDrawable?.let {
                 petThumbDrawable?.setBounds(
-                    rectFLeftT.toInt(),
-                    rectFTopT.toInt(),
-                    rectFRightT.toInt(),
-                    rectFBottomT.toInt()
+                    thumbRect.left.toInt(),
+                    thumbRect.top.toInt(),
+                    thumbRect.right.toInt(),
+                    thumbRect.bottom.toInt()
                 )
                 petThumbDrawable?.draw(canvas)
             }
         } else {
             plantThumbDrawable?.let {
                 plantThumbDrawable?.setBounds(
-                    rectFLeftT.toInt(),
-                    rectFTopT.toInt(),
-                    rectFRightT.toInt(),
-                    rectFBottomT.toInt()
+                    thumbRect.left.toInt(),
+                    thumbRect.top.toInt(),
+                    thumbRect.right.toInt(),
+                    thumbRect.bottom.toInt()
                 )
                 plantThumbDrawable?.draw(canvas)
             }
@@ -210,16 +204,17 @@ class CustomSeeBar : FrameLayout {
         rectFTopT = (height * 0.8).toFloat() - thumbHeight
         rectFBottomT = rectFTopT + thumbHeight
         rectFRightT = rectFBottomT - rectFTopT
+        thumbRect.set(rectFLeftT, rectFTopT, rectFRightT, rectFBottomT)
 
-//        rectFLeftT = (height - thumbHeight) / 2f
+//        rectFLeftT = (height - thumbHeight) / 4f
 //        rectFTopT = (height * 0.8).toFloat() - thumbHeight
 //        rectFRightT = rectFLeftT + thumbHeight
 //        rectFBottomT = rectFTopT + thumbHeight
-        thumbRect.set(rectFLeftT, rectFTopT, rectFRightT, rectFBottomT)
 
         invalidate()
         isCreated = true
         listener?.isCreated()
+        Log.e("huynq", "onSizeChanged: ", )
     }
 
     private var listener: CreatedListener? = null
