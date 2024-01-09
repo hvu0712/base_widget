@@ -93,8 +93,9 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center"
             app:ct_backgroundBorderColor="@color/color_FF7A7A"
-            app:ct_progressColor="@color/color_FF7A7A"
-            app:ct_is_pet_thumb="true" />
+            app:ct_is_pet_thumb="true"
+            app:ct_max_progress="100"
+            app:ct_progressColor="@color/color_FF7A7A" />
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.example.base_widget.custom
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -7,8 +8,8 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.widget.FrameLayout
+import androidx.appcompat.content.res.AppCompatResources
 import com.example.base_widget.R
 
 class CustomSeeBar : FrameLayout {
@@ -41,7 +42,13 @@ class CustomSeeBar : FrameLayout {
             invalidate()
         }
 
-    var progress = 0
+    var maxProgress = 100
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var setOnSeekBar: ISetOnSeekBar? = null
 
     private var rectFLeftBG = 0f
     private var rectFTopBG = 0f
@@ -94,8 +101,8 @@ class CustomSeeBar : FrameLayout {
         pgPaint.isAntiAlias = true
         thumbPaint.isAntiAlias = true
 
-        petThumbDrawable = context.getDrawable(R.drawable.ic_cat_hand_thumb)
-        plantThumbDrawable = context.getDrawable(R.drawable.ic_leaves_thumb)
+        petThumbDrawable = AppCompatResources.getDrawable(context,R.drawable.ic_cat_hand_thumb)
+        plantThumbDrawable = AppCompatResources.getDrawable(context,R.drawable.ic_leaves_thumb)
 
 
         val typedArray = context.obtainStyledAttributes(
@@ -109,19 +116,36 @@ class CustomSeeBar : FrameLayout {
             typedArray.getColor(R.styleable.CustomSeekBar_ct_backgroundBorderColor, Color.BLACK)
         isPetThumb = typedArray.getBoolean(R.styleable.CustomSeekBar_ct_is_pet_thumb, false)
         progressColor = typedArray.getColor(R.styleable.CustomSeekBar_ct_progressColor, Color.BLACK)
-        progress = typedArray.getInt(R.styleable.CustomSeekBar_ct_progress, 0)
+        maxProgress = typedArray.getInt(R.styleable.CustomSeekBar_ct_max_progress, 100)
 
         typedArray.recycle()
     }
 
+    fun setOnSeeBarChangeListener(setOnSeeBarChangeListener: ISetOnSeekBar) {
+        this.setOnSeekBar = setOnSeeBarChangeListener
+    }
+
     fun setValue(value: Int) {
-        val newLeft = value.toFloat()
-        val newRight = newLeft + thumbHeight
-        Log.e("huynq", "newLeft: ${newLeft}")
-        Log.e("huynq", "newRight: ${newRight}")
-        Log.e("huynq", "thumbHeight: ${thumbHeight}")
-        thumbRect.set(newLeft, thumbRect.top, newRight, thumbRect.top + thumbHeight)
-        invalidate()
+        var newLeft = 0f
+        if (value > maxProgress)
+        {
+            newLeft = ((maxProgress / maxProgress) * width).toFloat()
+        }
+        else
+        {
+            newLeft = ((value / maxProgress) * width).toFloat()
+        }
+        val oldValue = thumbRect.left
+
+        val animator = ValueAnimator.ofFloat(oldValue, newLeft)
+        animator.addUpdateListener { valueAnimator ->
+            val animatedValue = valueAnimator.animatedValue as Float
+            thumbRect.set(animatedValue, thumbRect.top, animatedValue + thumbHeight, thumbRect.top + thumbHeight)
+            setOnSeekBar?.onProgressChanged(this,value)
+            invalidate()
+        }
+        animator.duration = 500
+        animator.start()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -130,7 +154,6 @@ class CustomSeeBar : FrameLayout {
         drawBackground(canvas)
         drawProgress(canvas)
         drawThumb(canvas)
-        Log.e("huynq", "onDraw: ", )
     }
 
     private fun drawBackground(canvas: Canvas) {
@@ -214,7 +237,6 @@ class CustomSeeBar : FrameLayout {
         invalidate()
         isCreated = true
         listener?.isCreated()
-        Log.e("huynq", "onSizeChanged: ", )
     }
 
     private var listener: CreatedListener? = null

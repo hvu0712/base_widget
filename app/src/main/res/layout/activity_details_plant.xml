@@ -76,6 +76,7 @@
         app:ct_backgroundBorderColor="@color/color_398032"
         app:ct_is_pet_thumb="false"
         app:ct_progressColor="@color/color_398032"
+        app:ct_max_progress="100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivPlant" />
