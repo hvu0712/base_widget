@@ -102,8 +102,8 @@ class CustomSeeBar : FrameLayout {
         pgPaint.isAntiAlias = true
         thumbPaint.isAntiAlias = true
 
-        petThumbDrawable = AppCompatResources.getDrawable(context,R.drawable.ic_cat_hand_thumb)
-        plantThumbDrawable = AppCompatResources.getDrawable(context,R.drawable.ic_leaves_thumb)
+        petThumbDrawable = AppCompatResources.getDrawable(context, R.drawable.ic_cat_hand_thumb)
+        plantThumbDrawable = AppCompatResources.getDrawable(context, R.drawable.ic_leaves_thumb)
 
 
         val typedArray = context.obtainStyledAttributes(
@@ -128,17 +128,34 @@ class CustomSeeBar : FrameLayout {
 
     fun setValue(value: Int) {
         val newLeft = if (value >= maxProgress) {
-            (((maxProgress / maxProgress) * pgRect.width()) - thumbHeight)
+            if (isPetThumb == true) {
+                (((maxProgress / maxProgress) * pgRect.width()) - thumbHeight)
+            } else {
+                (((maxProgress / maxProgress) * pgRect.width()) - thumbHeight + 7f)
+            }
         } else {
-            ((((value.toFloat()) / maxProgress) * pgRect.width()) - thumbHeight)
+            if (value <= 0) {
+                if (isPetThumb == true) {
+                    0f
+                } else {
+                    -12f
+                }
+            } else {
+                ((((value.toFloat()) / maxProgress) * pgRect.width()) - thumbHeight)
+            }
         }
         val oldValue = thumbRect.left
 
         val animator = ValueAnimator.ofFloat(oldValue, newLeft)
         animator.addUpdateListener { valueAnimator ->
             val animatedValue = valueAnimator.animatedValue as Float
-            thumbRect.set(animatedValue, thumbRect.top, animatedValue + thumbHeight, thumbRect.top + thumbHeight)
-            setOnSeekBar?.onProgressChanged(this,value)
+            thumbRect.set(
+                animatedValue,
+                thumbRect.top,
+                animatedValue + thumbHeight,
+                thumbRect.top + thumbHeight
+            )
+            setOnSeekBar?.onProgressChanged(this, value)
             invalidate()
         }
         animator.duration = 500
@@ -223,11 +240,19 @@ class CustomSeeBar : FrameLayout {
         //thumb
         thumbHeight = (height * 0.8).toFloat() - (height * 0.2).toFloat()
 
-        rectFLeftT = 0f
-        rectFTopT = (height * 0.8).toFloat() - thumbHeight
-        rectFBottomT = rectFTopT + thumbHeight
-        rectFRightT = rectFBottomT - rectFTopT
-        thumbRect.set(rectFLeftT, rectFTopT, rectFRightT, rectFBottomT)
+        if (isPetThumb == true) {
+            rectFLeftT = 0f
+            rectFTopT = (height * 0.8).toFloat() - thumbHeight
+            rectFBottomT = rectFTopT + thumbHeight
+            rectFRightT = rectFBottomT - rectFTopT
+            thumbRect.set(rectFLeftT, rectFTopT, rectFRightT, rectFBottomT)
+        } else {
+            rectFLeftT = -12f
+            rectFTopT = (height * 0.8).toFloat() - thumbHeight
+            rectFBottomT = rectFTopT + thumbHeight
+            rectFRightT = rectFBottomT - rectFTopT
+            thumbRect.set(rectFLeftT, rectFTopT, rectFRightT, rectFBottomT)
+        }
 
 //        rectFLeftT = (height - thumbHeight) / 4f
 //        rectFTopT = (height * 0.8).toFloat() - thumbHeight

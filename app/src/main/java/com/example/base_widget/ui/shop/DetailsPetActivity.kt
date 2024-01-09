@@ -49,11 +49,11 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
             binding.viewPager.currentItem = 2
         }
         if (binding.sbPet.isCreated) {
-            binding.sbPet.setValue(50)
+            binding.sbPet.setValue(0)
         } else {
             binding.sbPet.setViewCreatedListener(object : CreatedListener {
                 override fun isCreated() {
-                    binding.sbPet.setValue(50)
+                    binding.sbPet.setValue(0)
                 }
 
             })

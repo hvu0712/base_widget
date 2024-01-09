@@ -25,11 +25,11 @@ class DetailsPlantActivity: BaseActivity<ActivityDetailsPlantBinding>() {
             Toast.makeText(this,"ok", Toast.LENGTH_LONG).show()
         }
         if (binding.sbPlant.isCreated) {
-            binding.sbPlant.setValue(100)
+            binding.sbPlant.setValue(10)
         } else {
             binding.sbPlant.setViewCreatedListener(object : CreatedListener {
                 override fun isCreated() {
-                    binding.sbPlant.setValue(100)
+                    binding.sbPlant.setValue(10)
                 }
 
             })
