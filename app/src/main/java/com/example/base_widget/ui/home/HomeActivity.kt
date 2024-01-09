@@ -3,9 +3,11 @@ package com.example.base_widget.ui.home
 import com.bumptech.glide.Glide
 import com.example.base_widget.R
 import android.content.Intent
+import android.os.Bundle
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ActivityHomeBinding
+import com.example.base_widget.ui.AddWidgetActivity
 import com.example.base_widget.ui.SettingsActivity
 import com.example.base_widget.ui.shop.AllShopActivity
 import com.example.base_widget.ui.shop.DetailsPetActivity
@@ -35,10 +37,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>() {
                 startActivity(Intent(this@HomeActivity, DetailsPlantActivity::class.java))
             }
             cvPet.setOnClickAffect {
-
+                val bundle = Bundle()
+                bundle.putString("addWidget", "pet")
+                showActivity(AddWidgetActivity::class.java, null)
             }
             cvPlant.setOnClickAffect {
-
+                val bundle = Bundle()
+                bundle.putString("addWidget", "plant")
+                showActivity(AddWidgetActivity::class.java, bundle)
             }
         }
     }
