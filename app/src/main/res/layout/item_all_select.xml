@@ -6,8 +6,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ccItem"
-        android:layout_width="@dimen/_95sdp"
-        android:layout_height="@dimen/_151sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_81sdp"
         android:layout_marginHorizontal="@dimen/_5sdp"
         android:background="@drawable/bg_item_all_select"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,17 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_33sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center"
             android:background="@drawable/bg_text_all_select"
             android:gravity="center"
             android:text="@string/tvPlant"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="@dimen/_12ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +41,7 @@
         <ImageView
             android:id="@+id/ivItem"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_gravity="center"
             android:src="@drawable/iv_plant_all_select"
             app:layout_constraintBottom_toTopOf="@id/tvName"

@@ -29,12 +29,37 @@
             android:screenOrientation="nosensor">
         </activity>
         <activity
-            android:name=".ui.shop.DetailsPlantActivity"
+            android:name=".ui.details.DetailsPlantActivity"
             android:exported="false"
             android:screenOrientation="nosensor">
         </activity>
         <activity
-            android:name=".ui.shop.DetailsPetActivity"
+            android:name=".ui.details.DetailsPetActivity"
+            android:exported="false"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".ui.AddNewWidget"
+            android:exported="false"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".ui.details.PlantSelectActivity"
+            android:exported="false"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".ui.details.PetSelectActivity"
+            android:exported="false"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".ui.GardenActivity"
+            android:exported="false"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".ui.PetsActivity"
             android:exported="false"
             android:screenOrientation="nosensor">
         </activity>
