@@ -1,10 +1,11 @@
-package com.example.base_widget.ui.shop
+package com.example.base_widget.ui.details
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ItemDetailsPlantBinding
+import com.example.base_widget.ui.shop.ItemCommon
 
 class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsPlantViewHolder>() {
     private var itemList: ArrayList<ItemCommon> = ArrayList()

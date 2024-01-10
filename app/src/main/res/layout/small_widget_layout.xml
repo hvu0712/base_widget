@@ -4,13 +4,11 @@
     android:background="@android:color/holo_blue_light"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
+        android:id="@+id/ivWidget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:text="Small Widget"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:gravity="center" />
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.base_widget.ui.shop
+package com.example.base_widget.ui.details
 
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
