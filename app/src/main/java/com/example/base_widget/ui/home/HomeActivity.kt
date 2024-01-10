@@ -9,11 +9,8 @@ import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ActivityHomeBinding
 import com.example.base_widget.ui.AddWidgetActivity
 import com.example.base_widget.ui.SettingsActivity
-import com.example.base_widget.ui.AddNewWidget
 import com.example.base_widget.ui.GardenActivity
 import com.example.base_widget.ui.PetsActivity
-import com.example.base_widget.ui.details.DetailsPetActivity
-import com.example.base_widget.ui.details.DetailsPlantActivity
 import com.example.base_widget.ui.shop.AllShopActivity
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>() {
