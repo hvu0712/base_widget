@@ -1,7 +1,6 @@
 package com.example.base_widget.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -12,15 +11,21 @@ import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.common.show
 import com.example.base_widget.custom.CreatedListener
 import com.example.base_widget.databinding.ActivityDetailsPetBinding
+import com.example.base_widget.model.PetModel
 
 class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
 
     private val detailsAdapter = DetailsAdapter()
+    private lateinit var itemPet: PetModel
     override fun inflateViewBinding() = ActivityDetailsPetBinding.inflate(layoutInflater)
 
     override fun initView() {
         binding.viewPager.adapter = MyViewPagerAdapter()
         binding.viewPager.registerOnPageChangeCallback(viewPagerListener)
+        val bundle = intent.extras
+        itemPet = bundle?.getSerializable("pet_details") as PetModel
+        binding.tvPet.text = itemPet.name
+        binding.tvLevel.text = itemPet.level
     }
 
     override fun setUpListener() {

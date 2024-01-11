@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvAllPlant"
+        android:id="@+id/tvAllPlantPet"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/lato_bold"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvSeed"
+        android:id="@+id/tvSeedEggs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
@@ -60,21 +60,21 @@
         app:layout_constraintTop_toTopOf="@id/frameLayout" />
 
     <TextView
-        android:id="@+id/tvPet"
+        android:id="@+id/tvPlantPet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:elevation="1dp"
-        android:text="@string/tvPet"
+        android:text="@string/tvPlant"
         android:textColor="@color/color_shadow"
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/rvAllPet"
-        app:layout_constraintTop_toBottomOf="@+id/rvAllSeed" />
+        app:layout_constraintStart_toStartOf="@id/rvAllPlantPet"
+        app:layout_constraintTop_toBottomOf="@+id/rvAllSeedEggs" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAllSeed"
+        android:id="@+id/rvAllSeedEggs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_15sdp"
@@ -84,11 +84,11 @@
         android:overScrollMode="never"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSeed" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSeedEggs" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAllPet"
+        android:id="@+id/rvAllPlantPet"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_15sdp"
@@ -102,7 +102,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPet" />
+        app:layout_constraintTop_toBottomOf="@id/tvPlantPet" />
 
     <FrameLayout
         android:id="@+id/frameLayout"

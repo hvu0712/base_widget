@@ -2,8 +2,6 @@ package com.example.base_widget.ui
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.os.SystemClock
 import android.widget.Toast
 import com.example.base_widget.R

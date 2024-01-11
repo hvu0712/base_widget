@@ -49,12 +49,7 @@
             android:screenOrientation="nosensor">
         </activity>
         <activity
-            android:name=".ui.AddNewWidget"
-            android:exported="false"
-            android:screenOrientation="nosensor">
-        </activity>
-        <activity
-            android:name=".ui.details.PlantSelectActivity"
+            android:name=".ui.details.PlantPetSelectActivity"
             android:exported="false"
             android:screenOrientation="nosensor">
         </activity>
@@ -64,7 +59,7 @@
             android:screenOrientation="nosensor">
         </activity>
         <activity
-            android:name=".ui.GardenActivity"
+            android:name=".ui.PetGardenActivity"
             android:exported="false"
             android:screenOrientation="nosensor">
         </activity>

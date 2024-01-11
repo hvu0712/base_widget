@@ -40,6 +40,7 @@ base-adapter = { group = "io.github.cymchad", name = "BaseRecyclerViewAdapterHel
 play-core = {group = "com.google.android.play", name = "core", version.ref = "rate"}
 glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
 glide-compiler = {group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide"}
+play-core-ktx = { group = "com.google.android.play", name = "core-ktx", version = "1.10.3" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

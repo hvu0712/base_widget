@@ -5,16 +5,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.base_widget.model.PetModel
+import com.example.base_widget.model.PlantModel
 import com.example.base_widget.model.WidgetModel
 
 @Database(
-    entities = [WidgetModel::class],
+    entities = [WidgetModel::class, PetModel::class, PlantModel::class],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun widgetDao(): WidgetDao
+    abstract fun petDao(): PetDao
+    abstract fun plantDao(): PlantDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null

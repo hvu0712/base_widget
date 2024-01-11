@@ -46,79 +46,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvSeed"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:elevation="1dp"
-        android:text="@string/tvSeed"
-        android:textColor="@color/color_shadow"
-        android:textSize="@dimen/_14ssp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/frameLayout"
-        app:layout_constraintTop_toTopOf="@id/frameLayout" />
-
-    <TextView
-        android:id="@+id/tvPlant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:elevation="1dp"
         android:text="@string/tvPlant"
         android:textColor="@color/color_shadow"
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/rvAllPlant"
-        app:layout_constraintTop_toBottomOf="@+id/rvAllSeed" />
+        app:layout_constraintStart_toStartOf="@id/rvAllPlantPet"
+        app:layout_constraintTop_toTopOf="@id/rvAllPlantPet" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAllSeed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:background="@android:color/transparent"
-        android:elevation="1dp"
-        android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSeed" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAllPlant"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_28sdp"
-        android:background="@android:color/transparent"
-        android:elevation="1dp"
-        android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        android:paddingHorizontal="@dimen/_5sdp"
-        android:paddingBottom="@dimen/_5sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPlant" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/rvAllPlantPet"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_80sdp"
         android:layout_marginBottom="@dimen/_28sdp"
-        android:background="@drawable/bg_recycler_view_"
+        android:background="@drawable/bg_recycler_view_all_plant"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        android:paddingHorizontal="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAllPlant">
-
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@id/tvAllPlant" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

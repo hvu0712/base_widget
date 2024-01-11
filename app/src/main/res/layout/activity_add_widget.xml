@@ -51,8 +51,8 @@
         android:background="@drawable/bg_add_widget"
         android:paddingHorizontal="@dimen/_8sdp"
         android:paddingVertical="@dimen/_8sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivWidget">
 
@@ -94,25 +94,29 @@
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="@dimen/_1sdp"
-            android:layout_toStartOf="@+id/ivArrowRightSmall"
-            android:fontFamily="@font/lato_bold"
-            android:text="@string/tvSelect"
-            android:textColor="@color/color_FF6477" />
-
-
-        <ImageView
-            android:id="@+id/ivArrowRightSmall"
+        <LinearLayout
+            android:id="@+id/llTextSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_arrow_right_small" />
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_1sdp"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/tvSelect"
+                android:textColor="@color/color_FF6477" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow_right_small" />
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -162,15 +166,18 @@
         app:layout_constraintStart_toStartOf="@id/llSelect"
         app:layout_constraintTop_toBottomOf="@id/llSelect" />
 
-    <TextView
+    <EditText
+        android:id="@+id/edtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_17sdp"
         android:background="@drawable/bg_add_widget"
+        android:enabled="false"
         android:hint="@string/tvMyGarden"
         android:padding="@dimen/_8sdp"
-        android:textColorHint="@color/black"
+        android:textColor="@color/color_1C1414"
+        android:textColorHint="@color/color_1C1414"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPlantName" />
@@ -184,14 +191,16 @@
 
     <LinearLayout
         android:id="@+id/llAddWidget"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/bg_button"
         android:orientation="vertical"
         android:paddingVertical="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="wrap_content"

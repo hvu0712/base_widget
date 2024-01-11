@@ -23,22 +23,21 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
 
     override fun setUpListener() {
         binding.ivBack.setOnClickAffect {
-//            onBackPressedDispatcher.onBackPressed()
-            finish()
+            onBackPressedDispatcher.onBackPressed()
         }
         shopAdapter.onItemClick = {
             Toast.makeText(this, "ok", Toast.LENGTH_LONG).show()
         }
-        binding.llPlant.setOnClickAffect {
+        binding.llPlant.setOnClickListener {
             binding.viewPager.currentItem = 1
         }
-        binding.llPlantDisable.setOnClickAffect {
+        binding.llPlantDisable.setOnClickListener {
             binding.viewPager.currentItem = 1
         }
-        binding.llPet.setOnClickAffect {
+        binding.llPet.setOnClickListener {
             binding.viewPager.currentItem = 0
         }
-        binding.llPetDisable.setOnClickAffect {
+        binding.llPetDisable.setOnClickListener {
             binding.viewPager.currentItem = 0
         }
     }
