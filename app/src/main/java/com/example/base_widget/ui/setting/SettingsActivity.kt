@@ -1,4 +1,4 @@
-package com.example.base_widget.ui
+package com.example.base_widget.ui.setting
 
 import android.content.Intent
 import android.net.Uri
@@ -12,6 +12,7 @@ import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.databinding.ActivitySettingsBinding
 import com.example.base_widget.ui.dialog.RatingDialog
+import com.example.base_widget.utils.AppUtils.PRIVACY
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -44,7 +45,7 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding>() {
                 shareApp()
             }
             llPrivacy.setOnSingleClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://lg.taurusplay.store/privacy-policy")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY)))
             }
         }
     }

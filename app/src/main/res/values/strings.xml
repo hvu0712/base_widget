@@ -6,6 +6,8 @@
     <string name="tvTitleDialog">Add to the waiting screen.</string>
     <string name="tvShop">Shop</string>
     <string name="tvAllPlant">All Plant</string>
+    <string name="tvRename">Rename</string>
+    <string name="tvDelete">Delete</string>
     <string name="tvAllPet">All Pet</string>
     <string name="tvAnimal">Pets</string>
     <string name="tvPlant">Plant</string>
@@ -13,11 +15,13 @@
     <string name="tvEggs">Eggs</string>
     <string name="tvCat">Cat</string>
     <string name="tvPet">Pet</string>
+
     <string name="tvLevel1">Lv.1</string>
     <string name="tvLevel2">Lv.2</string>
     <string name="tvLevel3">Lv.3</string>
     <string name="tvLevel4">Lv.4</string>
     <string name="tvLevel5">Lv.5</string>
+
     <string name="tvPhoto">Photo</string>
     <string name="tvMyGarden">My Garden</string>
     <string name="tvNewWidget">New widget</string>
@@ -28,10 +32,10 @@
     <string name="tvPlantName">Plant Name</string>
     <string name="tvAddWidget">Add Widget</string>
     <string name="tvWidget">Widget:</string>
+
     <string name="tv2x2">2x2</string>
     <string name="tv4x2">4x2</string>
     <string name="tv4x3">4x3</string>
-    <string name="tvContentDialog">Touch and hold an icon or touch more to add it to\nthe waiting screen.</string>
 
     <string name="languages">Languages</string>
     <string name="setting">Setting</string>

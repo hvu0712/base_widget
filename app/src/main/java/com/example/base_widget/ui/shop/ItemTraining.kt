@@ -1,6 +1,6 @@
 package com.example.base_widget.ui.shop
 
-data class ItemCommon(
+data class ItemTraining(
     val image: Int,
-    val name: String
+    val type: String
 )

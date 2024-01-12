@@ -2,84 +2,58 @@ package com.example.base_widget.utils
 
 import com.example.base_widget.R
 import com.example.base_widget.ui.shop.ItemCommon
+import com.example.base_widget.ui.shop.ItemTraining
 
 
 object AppUtils {
-    const val PRIVACY = "https://creative.lgapps.store/privacy-policy"
+    const val PRIVACY = "https://lg.taurusplay.store/privacy-policy"
     const val BASE_ICON_URL = "https://www.gstatic.com/android/keyboard/emojikitchen/"
 
-    fun getItemPetShop(): ArrayList<ItemCommon> {
+    fun getItemPetShop(): ArrayList<ItemTraining> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_pet_egg_one),
-            ItemCommon(R.drawable.ic_pet_egg_two),
-            ItemCommon(R.drawable.ic_pet_egg_three),
+            ItemTraining(R.drawable.ic_pet_egg_one,"pet"),
+            ItemTraining(R.drawable.ic_pet_egg_two,"pet"),
+            ItemTraining(R.drawable.ic_pet_egg_three,"pet"),
         )
     }
 
     fun getItemPetFood(): ArrayList<ItemCommon> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_food_one),
-            ItemCommon(R.drawable.ic_food_two),
-            ItemCommon(R.drawable.ic_food_three),
+            ItemCommon(R.drawable.ic_food_one,"chicken"),
+            ItemCommon(R.drawable.ic_food_two,"sushi"),
+            ItemCommon(R.drawable.ic_food_three, "milk"),
         )
     }
 
     fun getItemPetToilet(): ArrayList<ItemCommon> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_toilet_one),
-            ItemCommon(R.drawable.ic_toilet_two),
-            ItemCommon(R.drawable.ic_toilet_three),
+            ItemCommon(R.drawable.ic_toilet_one,"bathtub"),
+            ItemCommon(R.drawable.ic_toilet_two,"paper"),
+            ItemCommon(R.drawable.ic_toilet_three,"soap"),
         )
     }
 
     fun getItemPetSleep(): ArrayList<ItemCommon> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_sleep_one),
+            ItemCommon(R.drawable.ic_sleep_one,"bear"),
         )
     }
 
     fun getItemDetailsPlant(): ArrayList<ItemCommon> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_details_plant_one),
-            ItemCommon(R.drawable.ic_details_plant_four),
-            ItemCommon(R.drawable.ic_details_plant_two),
-            ItemCommon(R.drawable.ic_details_plant_three),
+            ItemCommon(R.drawable.ic_details_plant_one,"sprinklers"),
+            ItemCommon(R.drawable.ic_details_plant_four,"cut"),
+            ItemCommon(R.drawable.ic_details_plant_two,"fertilize"),
+            ItemCommon(R.drawable.ic_details_plant_three,"sunlight"),
         )
     }
 
-    fun getItemPlantShop(): ArrayList<ItemCommon> {
+    fun getItemPlantShop(): ArrayList<ItemTraining> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_plant_one),
-            ItemCommon(R.drawable.ic_plant_two),
-            ItemCommon(R.drawable.ic_plant_three),
+            ItemTraining(R.drawable.ic_plant_one,"plant"),
+            ItemTraining(R.drawable.ic_plant_two,"plant"),
+            ItemTraining(R.drawable.ic_plant_three,"plant"),
         )
     }
 
-    fun getItemPlantSelect(): ArrayList<Any> {
-        return arrayListOf(
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.1"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.2"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.3"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.4"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.5"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.1"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.1"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.2"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.4"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.3"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.2"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.1"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.4"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.5"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.2"),
-        )
-    }
-
-    fun getItemPetSelect(): ArrayList<Any> {
-        return arrayListOf(
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.2"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.3"),
-            ItemSelect(R.drawable.iv_plant_all_select,"Plant","Lv.4"),
-        )
-    }
 }

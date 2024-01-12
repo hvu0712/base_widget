@@ -7,7 +7,7 @@ import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.databinding.ActivityHomeBinding
 import com.example.base_widget.ui.AddWidgetActivity
-import com.example.base_widget.ui.SettingsActivity
+import com.example.base_widget.ui.setting.SettingsActivity
 import com.example.base_widget.ui.PetGardenActivity
 import com.example.base_widget.ui.shop.AllShopActivity
 

@@ -9,17 +9,17 @@ import com.example.base_widget.model.PlantModel
 @Dao
 interface PlantDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPlant(plant: PlantModel)
+    suspend fun insertPlant(plant: PlantModel)
 
     @Query("SELECT id FROM plant")
     fun getAllIds(): ArrayList<Int>
 
     @Query("UPDATE plant SET name = :newName WHERE id = :plantId")
-    fun updatePlantName(plantId: Int, newName: String)
+    suspend fun updatePlantName(plantId: Int, newName: String)
 
     @Query("SELECT * FROM plant")
     fun getAllPlant(): ArrayList<PlantModel>
 
     @Query("DELETE FROM plant WHERE id = :plantId")
-    fun deletePlant(plantId: Int)
+    suspend fun deletePlant(plantId: Int)
 }

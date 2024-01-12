@@ -9,7 +9,7 @@ import java.io.Serializable
 data class PlantModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0,
+    var id: Int? = 0,
     @ColumnInfo(name = "name")
     var name: String,
     @ColumnInfo(name = "image")

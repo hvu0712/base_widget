@@ -8,7 +8,6 @@ import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityPlantPetSelectBinding
 import com.example.base_widget.ui.shop.GridSpacingItemDecoration
-import com.example.base_widget.utils.AppUtils
 
 class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
 

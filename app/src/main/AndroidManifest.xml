@@ -18,7 +18,7 @@
             android:exported="false"
             android:screenOrientation="nosensor" />
         <activity
-            android:name=".ui.SettingsActivity"
+            android:name=".ui.setting.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.AddWidgetActivity"

@@ -1,17 +1,13 @@
 package com.example.base_widget.ui
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.PopupWindow
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityPetGardenBinding
+import com.example.base_widget.model.PetModel
 import com.example.base_widget.ui.details.DetailsPetActivity
 import com.example.base_widget.ui.details.DetailsPlantActivity
 import com.example.base_widget.ui.details.PetSelectAdapter
@@ -19,6 +15,9 @@ import com.example.base_widget.ui.details.PlantSelectAdapter
 import com.example.base_widget.ui.shop.GridSpacingItemDecoration
 import com.example.base_widget.ui.shop.ShopAdapter
 import com.example.base_widget.utils.AppUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
 
@@ -26,7 +25,8 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
     private val petSelectAdapter = PetSelectAdapter()
     private var shopAdapter = ShopAdapter()
     private var valueBundle: String? = null
-    private var detailsPopup: PopupWindow? = null
+    private var appDb: AppDatabase = AppDatabase.getInstance(this)
+
     override fun inflateViewBinding() = ActivityPetGardenBinding.inflate(layoutInflater)
     override fun initView() {
         val bundle = intent.extras
@@ -45,38 +45,6 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
             plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
         }
         setUpRecyclerView()
-        setUpPopupDetails()
-    }
-
-    private fun showPopupDetails() {
-        val anchorView = IntArray(2)
-        binding.ctlQuality.getLocationInWindow(anchorView)
-        detailsPopup?.showAtLocation(
-            window.decorView, Gravity.NO_GRAVITY,
-            anchorView[0] + binding.ctlQuality.width / 2,
-            anchorView[1] + binding.ctlQuality.height - 20
-        )
-    }
-
-    private fun setUpPopupDetails() {
-        val popupView = LayoutInflater.from(this).inflate(R.layout.popup_quality, null)
-        detailsPopup = PopupWindow(
-            popupView,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            true
-        )
-        detailsPopup?.elevation = 10f
-        popupView.findViewById<View>(R.id.txtLow).setOnClickListener {
-            quality = Quality.LOW
-            popupView.findViewById<View>(R.id.imgLow).alpha = 1f
-            popupView.findViewById<View>(R.id.imgHigh).alpha = 0f
-            popupView.findViewById<View>(R.id.imgStandard).alpha = 0f
-            qualityPopup?.dismiss()
-        }
-        qualityPopup?.setOnDismissListener {
-            setupQuality()
-        }
     }
 
     private fun setUpRecyclerView() {
@@ -133,11 +101,32 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
             bundle.putSerializable("pet_details", it)
             showActivity(DetailsPetActivity::class.java, bundle)
         }
-        petSelectAdapter.onDotsClick = {
-
+        shopAdapter.onItemClick = { it, pos ->
+            when (it.type)
+            {
+                "pet" -> addPet(pos,this)
+                "plant" -> addPlant(pos)
+            }
         }
-        shopAdapter.onItemClick = {
+    }
 
+    private fun addPet(position: Int,activity: PetGardenActivity)
+    {
+        GlobalScope.launch(Dispatchers.IO)
+        {
+            when(position)
+            {
+                1 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel1),0))
+                2 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel1),0))
+                3 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel1),0))
+            }
+            petSelectAdapter.setData(AppDatabase.getInstance(activity).petDao().getAllPet())
         }
+    }
+
+
+    private fun addPlant(position: Int)
+    {
+//        AppDatabase.getInstance(this).plantDao().insertPlant(PlantModel())
     }
 }
