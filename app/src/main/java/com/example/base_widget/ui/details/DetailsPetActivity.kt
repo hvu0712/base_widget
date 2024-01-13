@@ -1,22 +1,30 @@
 package com.example.base_widget.ui.details
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.common.show
 import com.example.base_widget.custom.CreatedListener
+import com.example.base_widget.custom.CustomSeeBar
+import com.example.base_widget.custom.ISetOnSeekBar
 import com.example.base_widget.databinding.ActivityDetailsPetBinding
 import com.example.base_widget.model.PetModel
+import com.example.base_widget.ui.shop.ItemCommon
+import kotlin.math.log
 
-class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
+class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFragmentListener {
 
-    private val detailsAdapter = DetailsAdapter()
     private lateinit var itemPet: PetModel
+    private var currentValue = 0
+    private var maxValue = 0
+    private var fillValue = 0
     override fun inflateViewBinding() = ActivityDetailsPetBinding.inflate(layoutInflater)
 
     override fun initView() {
@@ -26,14 +34,89 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
         itemPet = bundle?.getSerializable("pet_details") as PetModel
         binding.tvPet.text = itemPet.name
         binding.tvLevel.text = itemPet.level
+        when(itemPet.level)
+        {
+            getString(R.string.tvLevel1) -> {
+                if (binding.sbPet.isCreated) {
+                    binding.sbPet.maxValue = 100
+                    binding.sbPet.setValue(itemPet.experience)
+                } else {
+                    binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                        override fun isCreated() {
+                            binding.sbPet.maxValue = 100
+                            binding.sbPet.setValue(itemPet.experience)
+                        }
+                    })
+                }
+            }
+            getString(R.string.tvLevel2) -> {
+                if (binding.sbPet.isCreated) {
+                    binding.sbPet.maxValue = 150
+                    binding.sbPet.setValue(itemPet.experience)
+                } else {
+                    binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                        override fun isCreated() {
+                            binding.sbPet.maxValue = 150
+                            binding.sbPet.setValue(itemPet.experience)
+                        }
+                    })
+                }
+            }
+            getString(R.string.tvLevel3) -> {
+                if (binding.sbPet.isCreated) {
+                    binding.sbPet.maxValue = 200
+                    binding.sbPet.setValue(itemPet.experience)
+                } else {
+                    binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                        override fun isCreated() {
+                            binding.sbPet.maxValue = 200
+                            binding.sbPet.setValue(itemPet.experience)
+                        }
+                    })
+                }
+            }
+            getString(R.string.tvLevel4) -> {
+                if (binding.sbPet.isCreated) {
+                    binding.sbPet.maxValue = 250
+                    binding.sbPet.setValue(itemPet.experience)
+                } else {
+                    binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                        override fun isCreated() {
+                            binding.sbPet.maxValue = 250
+                            binding.sbPet.setValue(itemPet.experience)
+                        }
+                    })
+                }
+            }
+            getString(R.string.tvLevel5) -> {
+                if (binding.sbPet.isCreated) {
+                    binding.sbPet.maxValue = 300
+                    binding.sbPet.setValue(itemPet.experience)
+                } else {
+                    binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                        override fun isCreated() {
+                            binding.sbPet.maxValue = 300
+                            binding.sbPet.setValue(itemPet.experience)
+                        }
+                    })
+                }
+            }
+        }
+//        if (binding.sbPet.isCreated) {
+//            binding.sbPet.setValue(itemPet.experience)
+//        } else {
+//            binding.sbPet.setViewCreatedListener(object : CreatedListener {
+//                override fun isCreated() {
+//                    binding.sbPet.setValue(itemPet.experience)
+//                }
+//
+//            })
+//        }
     }
 
     override fun setUpListener() {
         binding.ivBack.setOnClickAffect {
-            finish()
-        }
-        detailsAdapter.onItemClick = {
-            Toast.makeText(this, "ok", Toast.LENGTH_LONG).show()
+            onBackPressedDispatcher.onBackPressed()
         }
         binding.llFoodSelected.setOnClickAffect {
             binding.viewPager.currentItem = 0
@@ -53,16 +136,21 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
         binding.llSleepUnSelected.setOnClickAffect {
             binding.viewPager.currentItem = 2
         }
-        if (binding.sbPet.isCreated) {
-            binding.sbPet.setValue(0)
-        } else {
-            binding.sbPet.setViewCreatedListener(object : CreatedListener {
-                override fun isCreated() {
-                    binding.sbPet.setValue(0)
-                }
+        binding.sbPet.setOnSeeBarChangeListener(object : ISetOnSeekBar{
+            override fun onProgressChanged(seekbar: CustomSeeBar, value: Int) {
+                currentValue = value
+                Log.e("value", "onProgressChanged: ${currentValue}")
+            }
 
-            })
-        }
+            override fun onStartTrackingTouch(seekbar: CustomSeeBar) {
+
+            }
+
+            override fun onStopTrackingTouch(seekbar: CustomSeeBar) {
+
+            }
+
+        })
     }
 
     private var viewPagerListener = object : ViewPager2.OnPageChangeCallback() {
@@ -109,12 +197,34 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>() {
         override fun createFragment(position: Int): Fragment {
             val bundle = Bundle()
             bundle.putInt("page", position)
-            return DetailsFragment().apply { arguments = bundle }
+            return DetailsFragment().apply {
+                arguments = bundle
+                setListener(this@DetailsPetActivity)
+            }
         }
     }
 
     override fun onDestroy() {
         binding.viewPager.unregisterOnPageChangeCallback(viewPagerListener)
         super.onDestroy()
+    }
+
+    override fun onDetailsItemSelected(itemCommon: ItemCommon, position: Int) {
+        when(position)
+        {
+            0 -> Toast.makeText(this,itemCommon.name,Toast.LENGTH_LONG).show()
+            1 -> Toast.makeText(this,itemCommon.name,Toast.LENGTH_LONG).show()
+            2 -> Toast.makeText(this,itemCommon.name,Toast.LENGTH_LONG).show()
+        }
+        currentValue += 10
+        if (binding.sbPet.isCreated) {
+            binding.sbPet.setValue(currentValue)
+        } else {
+            binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                override fun isCreated() {
+                    binding.sbPet.setValue(currentValue)
+                }
+            })
+        }
     }
 }

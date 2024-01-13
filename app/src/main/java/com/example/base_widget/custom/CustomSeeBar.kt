@@ -43,7 +43,7 @@ class CustomSeeBar : FrameLayout {
             invalidate()
         }
 
-    var maxProgress = 100
+    var maxValue = 100
         set(value) {
             field = value
             invalidate()
@@ -117,7 +117,7 @@ class CustomSeeBar : FrameLayout {
             typedArray.getColor(R.styleable.CustomSeekBar_ct_backgroundBorderColor, Color.BLACK)
         isPetThumb = typedArray.getBoolean(R.styleable.CustomSeekBar_ct_is_pet_thumb, false)
         progressColor = typedArray.getColor(R.styleable.CustomSeekBar_ct_progressColor, Color.BLACK)
-        maxProgress = typedArray.getInt(R.styleable.CustomSeekBar_ct_max_progress, 100)
+        maxValue = typedArray.getInt(R.styleable.CustomSeekBar_ct_max_value, 100)
 
         typedArray.recycle()
     }
@@ -127,11 +127,11 @@ class CustomSeeBar : FrameLayout {
     }
 
     fun setValue(value: Int) {
-        val newLeft = if (value >= maxProgress) {
+        val newLeft = if (value >= maxValue) {
             if (isPetThumb == true) {
-                (((maxProgress / maxProgress) * pgRect.width()) - thumbHeight)
+                (((maxValue / maxValue) * bgRect.width()) - thumbHeight)
             } else {
-                (((maxProgress / maxProgress) * pgRect.width()) - thumbHeight + 7f)
+                (((maxValue / maxValue) * bgRect.width()) - thumbHeight + 7f)
             }
         } else {
             if (value <= 0) {
@@ -141,7 +141,7 @@ class CustomSeeBar : FrameLayout {
                     -12f
                 }
             } else {
-                ((((value.toFloat()) / maxProgress) * pgRect.width()) - thumbHeight)
+                ((((value.toFloat()) / maxValue) * bgRect.width()) - thumbHeight)
             }
         }
         val oldValue = thumbRect.left
@@ -160,9 +160,20 @@ class CustomSeeBar : FrameLayout {
         }
         animator.duration = 500
         animator.start()
-        Log.e("huynq", "maxProgress: ${maxProgress}")
-        Log.e("huynq", "thumbHeight: ${thumbHeight}")
-        Log.e("huynq", "newLeft: ${newLeft}")
+        Log.e("huy", "oldValue: ${oldValue}")
+        Log.e("huy", "maxProgress: ${maxValue}")
+        Log.e("huy", "thumbHeight: ${thumbHeight}")
+        Log.e("huy", "newLeft: ${newLeft}")
+        Log.e("huy", "bgRect.width(): ${bgRect.width()}")
+    }
+
+    private fun updateThumbRect() {
+            thumbRect.set(
+                thumbRect.left,
+                thumbRect.top,
+                thumbRect.left + thumbHeight,
+                thumbRect.top + thumbHeight
+            )
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -171,6 +182,7 @@ class CustomSeeBar : FrameLayout {
         drawBackground(canvas)
         drawProgress(canvas)
         drawThumb(canvas)
+        Log.e("huy", "onDraw: ", )
     }
 
     private fun drawBackground(canvas: Canvas) {
@@ -262,6 +274,7 @@ class CustomSeeBar : FrameLayout {
         invalidate()
         isCreated = true
         listener?.isCreated()
+        Log.e("huy", "onSizeChanged: ", )
     }
 
     private var listener: CreatedListener? = null

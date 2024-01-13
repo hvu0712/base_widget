@@ -21,14 +21,14 @@ class AddWidgetActivity : BaseActivity<ActivityAddWidgetBinding>(){
     override fun inflateViewBinding() = ActivityAddWidgetBinding.inflate(layoutInflater)
 
     override fun initView() {
-        Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_plant).load(R.drawable.plant_animation).into(binding.ivWidget)
-        Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_animal).load(R.drawable.egg_animation).into(binding.ivWidget)
         val bundle = intent.extras
         valueBundle = bundle?.getString("addWidget")
         if (valueBundle.equals("pet")) {
             binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_widget_s))
+            Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_animal).load(R.drawable.egg_animation).into(binding.ivWidget)
         } else if (valueBundle.equals("plant")) {
             binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_preview_plant))
+            Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_plant).load(R.drawable.plant_animation).into(binding.ivWidget)
         }
     }
 

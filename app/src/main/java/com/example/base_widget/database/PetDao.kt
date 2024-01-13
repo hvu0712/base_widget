@@ -9,17 +9,17 @@ import com.example.base_widget.model.PetModel
 @Dao
 interface PetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPet(pet: PetModel)
+    fun insertPet(pet: PetModel)
 
     @Query("SELECT id FROM pet")
-    fun getAllIds(): ArrayList<Int>
+    fun getAllIds(): MutableList<Int>
 
     @Query("UPDATE pet SET name = :newName WHERE id = :petId")
-    suspend fun updatePetName(petId: Int, newName: String)
+    fun updatePetName(petId: Int, newName: String)
 
     @Query("SELECT * FROM pet")
-    fun getAllPet(): ArrayList<PetModel>
+    fun getAllPet(): MutableList<PetModel>
 
     @Query("DELETE FROM pet WHERE id = :petId")
-    suspend fun deletePet(petId: Int)
+    fun deletePet(petId: Int)
 }

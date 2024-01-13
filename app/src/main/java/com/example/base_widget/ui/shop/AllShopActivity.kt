@@ -25,7 +25,7 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
         binding.ivBack.setOnClickAffect {
             onBackPressedDispatcher.onBackPressed()
         }
-        shopAdapter.onItemClick = {
+        shopAdapter.onItemClick = {itemTraining, position ->
             Toast.makeText(this, "ok", Toast.LENGTH_LONG).show()
         }
         binding.llPlant.setOnClickListener {

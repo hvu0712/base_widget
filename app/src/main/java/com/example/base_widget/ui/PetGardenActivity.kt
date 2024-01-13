@@ -8,6 +8,7 @@ import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityPetGardenBinding
 import com.example.base_widget.model.PetModel
+import com.example.base_widget.model.PlantModel
 import com.example.base_widget.ui.details.DetailsPetActivity
 import com.example.base_widget.ui.details.DetailsPlantActivity
 import com.example.base_widget.ui.details.PetSelectAdapter
@@ -15,9 +16,6 @@ import com.example.base_widget.ui.details.PlantSelectAdapter
 import com.example.base_widget.ui.shop.GridSpacingItemDecoration
 import com.example.base_widget.ui.shop.ShopAdapter
 import com.example.base_widget.utils.AppUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
 
@@ -104,29 +102,32 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
         shopAdapter.onItemClick = { it, pos ->
             when (it.type)
             {
-                "pet" -> addPet(pos,this)
+                "pet" -> addPet(pos)
                 "plant" -> addPlant(pos)
             }
         }
     }
 
-    private fun addPet(position: Int,activity: PetGardenActivity)
+    private fun addPet(position: Int)
     {
-        GlobalScope.launch(Dispatchers.IO)
+        when(position)
         {
-            when(position)
-            {
-                1 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel1),0))
-                2 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel1),0))
-                3 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel1),0))
-            }
-            petSelectAdapter.setData(AppDatabase.getInstance(activity).petDao().getAllPet())
+            0 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel1),70))
+            1 ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel2),0))
+            2    ->  appDb.petDao().insertPet(PetModel(null,"Pet",R.drawable.iv_pet_details,getString(R.string.tvLevel3),0))
         }
+        petSelectAdapter.setData(appDb.petDao().getAllPet())
     }
 
 
     private fun addPlant(position: Int)
     {
-//        AppDatabase.getInstance(this).plantDao().insertPlant(PlantModel())
+        when(position)
+        {
+            0 ->  appDb.plantDao().insertPlant(PlantModel(null,"Pet",R.drawable.iv_plant_all_select,0L))
+            1 ->  appDb.plantDao().insertPlant(PlantModel(null,"Pet",R.drawable.iv_plant_all_select,0L))
+            2 ->  appDb.plantDao().insertPlant(PlantModel(null,"Pet",R.drawable.iv_plant_all_select,0L))
+        }
+        plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
     }
 }

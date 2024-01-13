@@ -14,11 +14,11 @@ import com.example.base_widget.databinding.ItemAllSelectBinding
 import com.example.base_widget.model.PetModel
 
 class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHolder>() {
-    private var itemList: ArrayList<PetModel> = ArrayList()
+    private var itemList: MutableList<PetModel> = mutableListOf()
     var onItemClick: ((PetModel) -> Unit)? = null
 //    var onDotsClick: ((PetModel) -> Unit)? = null
     private var detailsPopup: PopupWindow? = null
-    fun setData(newList: ArrayList<PetModel>) {
+    fun setData(newList: MutableList<PetModel>) {
         itemList.clear()
         itemList.addAll(newList)
         notifyDataSetChanged()

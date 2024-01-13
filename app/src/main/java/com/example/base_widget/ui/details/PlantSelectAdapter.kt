@@ -9,11 +9,11 @@ import com.example.base_widget.model.PlantModel
 
 
 class PlantSelectAdapter : RecyclerView.Adapter<PlantSelectAdapter.PlantSelectViewHolder>() {
-    private var itemList: ArrayList<PlantModel> = ArrayList()
+    private var itemList: MutableList<PlantModel> = mutableListOf()
     var onItemClick: ((PlantModel) -> Unit)? = null
     var onDotsClick: ((PlantModel) -> Unit)? = null
 
-    fun setData(newList: ArrayList<PlantModel>) {
+    fun setData(newList: MutableList<PlantModel>) {
         itemList.clear()
         itemList.addAll(newList)
         notifyDataSetChanged()

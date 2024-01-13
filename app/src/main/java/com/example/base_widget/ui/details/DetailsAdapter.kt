@@ -9,7 +9,7 @@ import com.example.base_widget.ui.shop.ItemCommon
 
 class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsPlantViewHolder>() {
     private var itemList: ArrayList<ItemCommon> = ArrayList()
-    var onItemClick: ((ItemCommon) -> Unit)? = null
+    var onItemClick: ((ItemCommon, position: Int) -> Unit)? = null
 
     fun setData(newList: ArrayList<ItemCommon>) {
         itemList.clear()
@@ -39,7 +39,7 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsPlantViewHolde
             binding.ivItem.setImageResource(item.image)
             binding.ccItem.post {
                 binding.ccItem.setOnClickAffect {
-                    onItemClick?.invoke(item)
+                    onItemClick?.invoke(item,bindingAdapterPosition)
                 }
             }
         }
