@@ -16,7 +16,6 @@ import com.example.base_widget.model.PetModel
 class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHolder>() {
     private var itemList: MutableList<PetModel> = mutableListOf()
     var onItemClick: ((PetModel) -> Unit)? = null
-//    var onDotsClick: ((PetModel) -> Unit)? = null
     private var detailsPopup: PopupWindow? = null
     fun setData(newList: MutableList<PetModel>) {
         itemList.clear()
@@ -55,7 +54,6 @@ class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHold
                     onItemClick?.invoke(item)
                 }
                 binding.ivDots.setOnClickListener {
-//                    onDotsClick?.invoke(item)
                     showPopupDetails(binding.ivDots)
                 }
             }

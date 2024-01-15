@@ -14,6 +14,7 @@ import com.example.base_widget.common.show
 import com.example.base_widget.custom.CreatedListener
 import com.example.base_widget.custom.CustomSeeBar
 import com.example.base_widget.custom.ISetOnSeekBar
+import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityDetailsPetBinding
 import com.example.base_widget.model.PetModel
 import com.example.base_widget.ui.shop.ItemCommon
@@ -24,7 +25,7 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
     private lateinit var itemPet: PetModel
     private var currentValue = 0
     private var maxValue = 0
-    private var fillValue = 0
+    private var appDb: AppDatabase = AppDatabase.getInstance(this)
     override fun inflateViewBinding() = ActivityDetailsPetBinding.inflate(layoutInflater)
 
     override fun initView() {
@@ -34,16 +35,19 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
         itemPet = bundle?.getSerializable("pet_details") as PetModel
         binding.tvPet.text = itemPet.name
         binding.tvLevel.text = itemPet.level
+        binding.ivPet.setImageResource(itemPet.image)
         when(itemPet.level)
         {
             getString(R.string.tvLevel1) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 100
+                    maxValue = 100
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 100
+                            maxValue = 100
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
@@ -52,11 +56,13 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             getString(R.string.tvLevel2) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 150
+                    maxValue = 150
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 150
+                            maxValue = 150
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
@@ -65,11 +71,13 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             getString(R.string.tvLevel3) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 200
+                    maxValue = 200
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 200
+                            maxValue = 200
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
@@ -78,40 +86,32 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             getString(R.string.tvLevel4) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 250
+                    maxValue = 250
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 250
+                            maxValue = 250
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
                 }
             }
-            getString(R.string.tvLevel5) -> {
+            getString(R.string.tvLevelMax) -> {
                 if (binding.sbPet.isCreated) {
-                    binding.sbPet.maxValue = 300
-                    binding.sbPet.setValue(itemPet.experience)
+                    binding.sbPet.setValue(500)
+                    binding.tvLevel.text = getString(R.string.tvLevelMax)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
-                            binding.sbPet.maxValue = 300
-                            binding.sbPet.setValue(itemPet.experience)
+                            binding.sbPet.setValue(500)
+                            binding.tvLevel.text = getString(R.string.tvLevelMax)
                         }
                     })
                 }
             }
         }
-//        if (binding.sbPet.isCreated) {
-//            binding.sbPet.setValue(itemPet.experience)
-//        } else {
-//            binding.sbPet.setViewCreatedListener(object : CreatedListener {
-//                override fun isCreated() {
-//                    binding.sbPet.setValue(itemPet.experience)
-//                }
-//
-//            })
-//        }
     }
 
     override fun setUpListener() {
@@ -139,7 +139,95 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
         binding.sbPet.setOnSeeBarChangeListener(object : ISetOnSeekBar{
             override fun onProgressChanged(seekbar: CustomSeeBar, value: Int) {
                 currentValue = value
-                Log.e("value", "onProgressChanged: ${currentValue}")
+                Log.e("huy", "onProgressChanged: ${currentValue}", )
+                when (itemPet.level)
+                {
+                    getString(R.string.tvLevel1) -> {
+                        if (currentValue == 100)
+                        {
+                            if (binding.sbPet.isCreated) {
+                                binding.sbPet.setValue(0)
+                                binding.sbPet.maxValue = 150
+                                maxValue = 150
+                                binding.tvLevel.text = getString(R.string.tvLevel2)
+//                                appDb.petDao().updatePetLevel()
+
+                            } else {
+                                binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                                    override fun isCreated() {
+                                        binding.sbPet.setValue(0)
+                                        binding.sbPet.maxValue = 150
+                                        maxValue = 150
+                                        binding.tvLevel.text = getString(R.string.tvLevel2)
+//                                        appDb.petDao().updatePetLevel()
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    getString(R.string.tvLevel2) -> {
+                        if (currentValue == 150)
+                        {
+                            if (binding.sbPet.isCreated) {
+                                binding.sbPet.setValue(0)
+                                binding.sbPet.maxValue = 200
+                                maxValue = 200
+                                binding.tvLevel.text = getString(R.string.tvLevel3)
+//                                appDb.petDao().updatePetLevel()
+                            } else {
+                                binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                                    override fun isCreated() {
+                                        binding.sbPet.setValue(0)
+                                        binding.sbPet.maxValue = 200
+                                        maxValue = 200
+                                        binding.tvLevel.text = getString(R.string.tvLevel3)
+//                                        appDb.petDao().updatePetLevel()
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    getString(R.string.tvLevel3) -> {
+                        if (currentValue == 200)
+                        {
+                            if (binding.sbPet.isCreated) {
+                                binding.sbPet.setValue(0)
+                                binding.sbPet.maxValue = 250
+                                maxValue = 250
+                                binding.tvLevel.text = getString(R.string.tvLevel4)
+//                                appDb.petDao().updatePetLevel()
+                            } else {
+                                binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                                    override fun isCreated() {
+                                        binding.sbPet.setValue(0)
+                                        binding.sbPet.maxValue = 250
+                                        maxValue = 250
+                                        binding.tvLevel.text = getString(R.string.tvLevel4)
+//                                        appDb.petDao().updatePetLevel()
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    getString(R.string.tvLevel4) -> {
+                        if (currentValue == 250)
+                        {
+                            if (binding.sbPet.isCreated) {
+                                binding.sbPet.setValue(500)
+                                binding.tvLevel.text = getString(R.string.tvLevelMax)
+//                                appDb.petDao().updatePetLevel()
+                            } else {
+                                binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                                    override fun isCreated() {
+                                        binding.sbPet.setValue(500)
+                                        binding.tvLevel.text = getString(R.string.tvLevelMax)
+//                                        appDb.petDao().updatePetLevel()
+                                    }
+                                })
+                            }
+                        }
+                    }
+                }
             }
 
             override fun onStartTrackingTouch(seekbar: CustomSeeBar) {
@@ -219,10 +307,12 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
         currentValue += 10
         if (binding.sbPet.isCreated) {
             binding.sbPet.setValue(currentValue)
+//            appDb.petDao().updatePetExperience()
         } else {
             binding.sbPet.setViewCreatedListener(object : CreatedListener {
                 override fun isCreated() {
                     binding.sbPet.setValue(currentValue)
+//                    appDb.petDao().updatePetExperience()
                 }
             })
         }

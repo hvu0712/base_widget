@@ -21,16 +21,17 @@ class DetailsPlantActivity: BaseActivity<ActivityDetailsPlantBinding>() {
         val bundle = intent.extras
         itemPlant = bundle?.getSerializable("plant_details") as PlantModel
         binding.tvPlant.text = itemPlant.name
-        if (binding.sbPlant.isCreated) {
-            binding.sbPlant.setValue(itemPlant.maturityTime.toInt())
-        } else {
-            binding.sbPlant.setViewCreatedListener(object : CreatedListener {
-                override fun isCreated() {
-                    binding.sbPlant.setValue(itemPlant.maturityTime.toInt())
-                }
-
-            })
-        }
+        binding.ivTree.setImageResource(itemPlant.image)
+//        if (binding.sbPlant.isCreated) {
+//            binding.sbPlant.setValue(itemPlant.maturityTime.toInt())
+//        } else {
+//            binding.sbPlant.setViewCreatedListener(object : CreatedListener {
+//                override fun isCreated() {
+//                    binding.sbPlant.setValue(itemPlant.maturityTime.toInt())
+//                }
+//
+//            })
+//        }
 
     }
 

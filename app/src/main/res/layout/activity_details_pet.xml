@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_49sdp"
-        android:src="@drawable/iv_pet_details"
+        android:src="@drawable/iv_cat"
         app:layout_constraintBottom_toBottomOf="@id/ivAnimals"
         app:layout_constraintEnd_toEndOf="@id/ivAnimals"
         app:layout_constraintStart_toStartOf="@id/ivAnimals" />

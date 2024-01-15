@@ -19,14 +19,17 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
     override fun initView() {
         val bundle = intent.extras
         valueBundle = bundle?.getString("addWidget")
-        if (valueBundle.equals("pet")) {
-            binding.tvAllPlant.text = getString(R.string.tvAllPet)
-            binding.tvName.text = getString(R.string.tvPet)
-            petSelectAdapter.setData(AppDatabase.getInstance(this).petDao().getAllPet())
-        } else if (valueBundle.equals("plant")) {
-            binding.tvAllPlant.text = getString(R.string.tvAllPlant)
-            binding.tvName.text = getString(R.string.tvPlant)
-            plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
+        if (valueBundle != null)
+        {
+            if (valueBundle.equals("pet")) {
+                binding.tvAllPlant.text = getString(R.string.tvAllPet)
+                binding.tvName.text = getString(R.string.tvPet)
+                petSelectAdapter.setData(AppDatabase.getInstance(this).petDao().getAllPet())
+            } else if (valueBundle.equals("plant")) {
+                binding.tvAllPlant.text = getString(R.string.tvAllPlant)
+                binding.tvName.text = getString(R.string.tvPlant)
+                plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
+            }
         }
         setUpRecyclerView()
     }

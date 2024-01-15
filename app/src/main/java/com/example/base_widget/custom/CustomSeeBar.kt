@@ -49,6 +49,7 @@ class CustomSeeBar : FrameLayout {
             invalidate()
         }
 
+
     var setOnSeekBar: ISetOnSeekBar? = null
 
     private var rectFLeftBG = 0f
@@ -81,11 +82,7 @@ class CustomSeeBar : FrameLayout {
         initialize(context, attrs, 0, 0)
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle
-    ) {
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle) {
         initialize(context, attrs, defStyle, 0)
     }
 
@@ -129,9 +126,9 @@ class CustomSeeBar : FrameLayout {
     fun setValue(value: Int) {
         val newLeft = if (value >= maxValue) {
             if (isPetThumb == true) {
-                (((maxValue / maxValue) * bgRect.width()) - thumbHeight)
+                (((maxValue / maxValue) * bgRect.width()) - (thumbHeight))
             } else {
-                (((maxValue / maxValue) * bgRect.width()) - thumbHeight + 7f)
+                (((maxValue / maxValue) * bgRect.width()) - ((thumbHeight) + 7f))
             }
         } else {
             if (value <= 0) {
@@ -141,7 +138,18 @@ class CustomSeeBar : FrameLayout {
                     -12f
                 }
             } else {
-                ((((value.toFloat()) / maxValue) * bgRect.width()) - thumbHeight)
+                if (value == 10)
+                {
+                    when(maxValue)
+                    {
+                        150 -> 26f
+                        200 -> 10.4f
+                        250 -> 2.64f
+                        else -> ((((value.toFloat()) / maxValue) * bgRect.width()) - (thumbHeight))
+                    }
+                } else {
+                    ((((value.toFloat()) / maxValue) * bgRect.width()) - (thumbHeight))
+                }
             }
         }
         val oldValue = thumbRect.left
@@ -165,15 +173,8 @@ class CustomSeeBar : FrameLayout {
         Log.e("huy", "thumbHeight: ${thumbHeight}")
         Log.e("huy", "newLeft: ${newLeft}")
         Log.e("huy", "bgRect.width(): ${bgRect.width()}")
-    }
-
-    private fun updateThumbRect() {
-            thumbRect.set(
-                thumbRect.left,
-                thumbRect.top,
-                thumbRect.left + thumbHeight,
-                thumbRect.top + thumbHeight
-            )
+        Log.e("huy", "(value.toFloat(): ${(value.toFloat())}")
+        Log.e("huy", "((((value.toFloat()) / maxValue) * bgRect.width()) - thumbHeight): ${((((value.toFloat()) / maxValue) * bgRect.width()) - thumbHeight)}")
     }
 
     override fun onDraw(canvas: Canvas) {

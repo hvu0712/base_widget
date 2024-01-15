@@ -20,7 +20,7 @@
     <string name="tvLevel2">Lv.2</string>
     <string name="tvLevel3">Lv.3</string>
     <string name="tvLevel4">Lv.4</string>
-    <string name="tvLevel5">Lv.5</string>
+    <string name="tvLevelMax">Lv.Max</string>
 
     <string name="tvPhoto">Photo</string>
     <string name="tvMyGarden">My Garden</string>
