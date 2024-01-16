@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/color_bg_details_plant">
 
     <ImageView
@@ -26,7 +27,7 @@
         android:shadowDx="4"
         android:shadowDy="4"
         android:shadowRadius="0.5"
-        android:text="@string/tvPlant"
+        tools:text="@string/tvPlant"
         android:textColor="@color/white"
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
@@ -59,9 +60,9 @@
 
     <ImageView
         android:id="@+id/ivTree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/iv_tree"
+        android:layout_width="@dimen/_129sdp"
+        android:layout_height="@dimen/_157sdp"
+        tools:src="@drawable/iv_rose"
         app:layout_constraintBottom_toBottomOf="@id/ivPlant"
         app:layout_constraintEnd_toEndOf="@id/ivPlant"
         app:layout_constraintStart_toStartOf="@id/ivPlant" />
@@ -85,7 +86,7 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sprout in 23:23:12"
+        tools:text="Sprout in 23:23:12"
         android:textColor="@color/color_shadow"
         app:layout_constraintEnd_toEndOf="@id/sbPlant"
         app:layout_constraintStart_toStartOf="@id/sbPlant"

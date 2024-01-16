@@ -18,17 +18,17 @@ interface PetDao {
     fun getId(name: String): Int
 
     @Query("UPDATE pet SET name = :newName WHERE id = :petId")
-    fun updatePetName(petId: Int, newName: String)
+    fun updatePetName(petId: Int?, newName: String)
 
     @Query("UPDATE pet SET level = :newLevel WHERE id = :petId")
-    fun updatePetLevel(petId: Int, newLevel: String)
+    fun updatePetLevel(petId: Int?, newLevel: String)
 
     @Query("UPDATE pet SET experience = :newExperience WHERE id = :petId")
-    fun updatePetExperience(petId: Int, newExperience: Int)
+    fun updatePetExperience(petId: Int?, newExperience: Int)
 
     @Query("SELECT * FROM pet")
     fun getAllPet(): MutableList<PetModel>
 
     @Query("DELETE FROM pet WHERE id = :petId")
-    fun deletePet(petId: Int)
+    fun deletePet(petId: Int?)
 }

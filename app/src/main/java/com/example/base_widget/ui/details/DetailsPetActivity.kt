@@ -1,8 +1,10 @@
 package com.example.base_widget.ui.details
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -18,19 +20,19 @@ import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityDetailsPetBinding
 import com.example.base_widget.model.PetModel
 import com.example.base_widget.ui.shop.ItemCommon
-import kotlin.math.log
+import com.example.base_widget.utils.BaseConfig.getGifByPos
 
 class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFragmentListener {
 
     private lateinit var itemPet: PetModel
     private var currentValue = 0
-    private var maxValue = 0
     private var appDb: AppDatabase = AppDatabase.getInstance(this)
     override fun inflateViewBinding() = ActivityDetailsPetBinding.inflate(layoutInflater)
 
     override fun initView() {
         binding.viewPager.adapter = MyViewPagerAdapter()
         binding.viewPager.registerOnPageChangeCallback(viewPagerListener)
+        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
         val bundle = intent.extras
         itemPet = bundle?.getSerializable("pet_details") as PetModel
         binding.tvPet.text = itemPet.name
@@ -41,13 +43,11 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             getString(R.string.tvLevel1) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 100
-                    maxValue = 100
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 100
-                            maxValue = 100
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
@@ -56,13 +56,11 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             getString(R.string.tvLevel2) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 150
-                    maxValue = 150
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 150
-                            maxValue = 150
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
@@ -71,13 +69,11 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             getString(R.string.tvLevel3) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 200
-                    maxValue = 200
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 200
-                            maxValue = 200
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
@@ -86,13 +82,11 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             getString(R.string.tvLevel4) -> {
                 if (binding.sbPet.isCreated) {
                     binding.sbPet.maxValue = 250
-                    maxValue = 250
                     binding.sbPet.setValue(itemPet.experience)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
                             binding.sbPet.maxValue = 250
-                            maxValue = 250
                             binding.sbPet.setValue(itemPet.experience)
                         }
                     })
@@ -114,8 +108,20 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
         }
     }
 
+    private var onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val resultIntent = Intent()
+            resultIntent.putExtra("update_list","update")
+            setResult(RESULT_OK, resultIntent)
+            finish()
+        }
+    }
+
     override fun setUpListener() {
         binding.ivBack.setOnClickAffect {
+            val resultIntent = Intent()
+            resultIntent.putExtra("update_list","update")
+            setResult(RESULT_OK, resultIntent)
             onBackPressedDispatcher.onBackPressed()
         }
         binding.llFoodSelected.setOnClickAffect {
@@ -148,18 +154,16 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
                             if (binding.sbPet.isCreated) {
                                 binding.sbPet.setValue(0)
                                 binding.sbPet.maxValue = 150
-                                maxValue = 150
                                 binding.tvLevel.text = getString(R.string.tvLevel2)
-//                                appDb.petDao().updatePetLevel()
+                                appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevel2))
 
                             } else {
                                 binding.sbPet.setViewCreatedListener(object : CreatedListener {
                                     override fun isCreated() {
                                         binding.sbPet.setValue(0)
                                         binding.sbPet.maxValue = 150
-                                        maxValue = 150
                                         binding.tvLevel.text = getString(R.string.tvLevel2)
-//                                        appDb.petDao().updatePetLevel()
+                                        appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevel2))
                                     }
                                 })
                             }
@@ -171,17 +175,15 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
                             if (binding.sbPet.isCreated) {
                                 binding.sbPet.setValue(0)
                                 binding.sbPet.maxValue = 200
-                                maxValue = 200
                                 binding.tvLevel.text = getString(R.string.tvLevel3)
-//                                appDb.petDao().updatePetLevel()
+                                appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevel3))
                             } else {
                                 binding.sbPet.setViewCreatedListener(object : CreatedListener {
                                     override fun isCreated() {
                                         binding.sbPet.setValue(0)
                                         binding.sbPet.maxValue = 200
-                                        maxValue = 200
                                         binding.tvLevel.text = getString(R.string.tvLevel3)
-//                                        appDb.petDao().updatePetLevel()
+                                        appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevel3))
                                     }
                                 })
                             }
@@ -193,17 +195,15 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
                             if (binding.sbPet.isCreated) {
                                 binding.sbPet.setValue(0)
                                 binding.sbPet.maxValue = 250
-                                maxValue = 250
                                 binding.tvLevel.text = getString(R.string.tvLevel4)
-//                                appDb.petDao().updatePetLevel()
+                                appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevel4))
                             } else {
                                 binding.sbPet.setViewCreatedListener(object : CreatedListener {
                                     override fun isCreated() {
                                         binding.sbPet.setValue(0)
                                         binding.sbPet.maxValue = 250
-                                        maxValue = 250
                                         binding.tvLevel.text = getString(R.string.tvLevel4)
-//                                        appDb.petDao().updatePetLevel()
+                                        appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevel4))
                                     }
                                 })
                             }
@@ -215,13 +215,13 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
                             if (binding.sbPet.isCreated) {
                                 binding.sbPet.setValue(500)
                                 binding.tvLevel.text = getString(R.string.tvLevelMax)
-//                                appDb.petDao().updatePetLevel()
+                                appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevelMax))
                             } else {
                                 binding.sbPet.setViewCreatedListener(object : CreatedListener {
                                     override fun isCreated() {
                                         binding.sbPet.setValue(500)
                                         binding.tvLevel.text = getString(R.string.tvLevelMax)
-//                                        appDb.petDao().updatePetLevel()
+                                        appDb.petDao().updatePetLevel(itemPet.id,getString(R.string.tvLevelMax))
                                     }
                                 })
                             }
@@ -303,16 +303,17 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetBinding>(), DetailsFra
             0 -> Toast.makeText(this,itemCommon.name,Toast.LENGTH_LONG).show()
             1 -> Toast.makeText(this,itemCommon.name,Toast.LENGTH_LONG).show()
             2 -> Toast.makeText(this,itemCommon.name,Toast.LENGTH_LONG).show()
+            else -> getGifByPos(this,position,binding.ivPet)
         }
         currentValue += 10
         if (binding.sbPet.isCreated) {
             binding.sbPet.setValue(currentValue)
-//            appDb.petDao().updatePetExperience()
+            appDb.petDao().updatePetExperience(itemPet.id,currentValue)
         } else {
             binding.sbPet.setViewCreatedListener(object : CreatedListener {
                 override fun isCreated() {
                     binding.sbPet.setValue(currentValue)
-//                    appDb.petDao().updatePetExperience()
+                    appDb.petDao().updatePetExperience(itemPet.id,currentValue)
                 }
             })
         }

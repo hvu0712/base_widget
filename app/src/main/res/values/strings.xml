@@ -22,6 +22,16 @@
     <string name="tvLevel4">Lv.4</string>
     <string name="tvLevelMax">Lv.Max</string>
 
+    <string name="ct_plant_1">Water the tree</string>
+    <string name="ct_plant_2">Prune</string>
+    <string name="ct_plant_3">Sun</string>
+    <string name="ct_plant_4">Fertilize</string>
+
+    <string name="ct_pet_1">Eat</string>
+    <string name="ct_pet_2">Take a shower</string>
+    <string name="ct_pet_3">WC</string>
+    <string name="ct_pet_4">Sleep</string>
+
     <string name="tvPhoto">Photo</string>
     <string name="tvMyGarden">My Garden</string>
     <string name="tvNewWidget">New widget</string>

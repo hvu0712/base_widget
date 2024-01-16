@@ -1,6 +1,8 @@
 package com.example.base_widget.ui
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
@@ -90,19 +92,18 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
             onBackPressedDispatcher.onBackPressed()
         }
         plantSelectAdapter.onItemClick = {
+            val intent = Intent(this, DetailsPlantActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable("plant_details", it)
-            showActivity(DetailsPlantActivity::class.java, bundle)
-        }
-        plantSelectAdapter.onDotsClick = {
-            val bundle = Bundle()
-            bundle.putSerializable("plant_details", it)
-            showActivity(DetailsPlantActivity::class.java, bundle)
+            intent.putExtras(bundle)
+            resultLauncher.launch(intent)
         }
         petSelectAdapter.onItemClick = {
+            val intent = Intent(this, DetailsPetActivity::class.java)
             val bundle = Bundle()
             bundle.putSerializable("pet_details", it)
-            showActivity(DetailsPetActivity::class.java, bundle)
+            intent.putExtras(bundle)
+            resultLauncher.launch(intent)
         }
         shopAdapter.onItemClick = { it, pos ->
             when (it.type)
@@ -115,12 +116,8 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
 
     private fun addPet(position: Int)
     {
-        val lastIndex = if (appDb.petDao().getAllPet().isEmpty()) {
-            0
-        } else {
-            appDb.petDao().getAllPet().lastIndex
-        }
-        val name = "Pet ${lastIndex + 1}"
+        val lastIndex = appDb.petDao().getAllPet().lastIndex
+        val name = "Pet ${lastIndex + 2}"
         when(position)
         {
             0 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.iv_cat,getString(R.string.tvLevel1),0))
@@ -132,18 +129,28 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
 
     private fun addPlant(position: Int)
     {
-        val lastIndex = if (appDb.plantDao().getAllPlant().isEmpty()) {
-            0
-        } else {
-            appDb.plantDao().getAllPlant().lastIndex
-        }
-        val name = "Plant ${lastIndex + 1}"
+        val lastIndex = appDb.plantDao().getAllPlant().lastIndex
+        val name = "Plant ${lastIndex + 2}"
         when(position)
         {
-            0 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_plant_all_select,0L))
-            1 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_plant_all_select,0L))
-            2 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_plant_all_select,0L))
+            0 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_rose,0L))
+            1 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_sunflower,0L))
+            2 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_peach_blossom,0L))
         }
         plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
     }
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                // get data
+                val data: Intent? = result.data
+                val updateList = data?.getSerializableExtra("update_list")
+                if(updateList != null && updateList == "update")
+                {
+                    petSelectAdapter.setData(appDb.petDao().getAllPet())
+                    plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                }
+            }
+        }
 }
