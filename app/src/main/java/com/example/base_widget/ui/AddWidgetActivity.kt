@@ -15,6 +15,10 @@ import com.example.base_widget.databinding.ActivityAddWidgetBinding
 import com.example.base_widget.model.PetModel
 import com.example.base_widget.model.PlantModel
 import com.example.base_widget.ui.details.PlantPetSelectActivity
+import com.example.base_widget.utils.BaseConfig.ADD_WIDGET
+import com.example.base_widget.utils.BaseConfig.ITEM_SELECT
+import com.example.base_widget.utils.BaseConfig.PET
+import com.example.base_widget.utils.BaseConfig.PLANT
 
 class AddWidgetActivity : BaseActivity<ActivityAddWidgetBinding>(){
 
@@ -23,13 +27,13 @@ class AddWidgetActivity : BaseActivity<ActivityAddWidgetBinding>(){
 
     override fun initView() {
         val bundle = intent.extras
-        valueBundle = bundle?.getString("addWidget")
+        valueBundle = bundle?.getString(ADD_WIDGET)
         if (valueBundle != null)
         {
-            if (valueBundle.equals("pet")) {
+            if (valueBundle.equals(PET)) {
                 binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_widget_s))
                 Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_animal).load(R.drawable.egg_animation).into(binding.ivWidget)
-            } else if (valueBundle.equals("plant")) {
+            } else {
                 binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_preview_plant))
                 Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_plant).load(R.drawable.plant_animation).into(binding.ivWidget)
             }
@@ -43,15 +47,15 @@ class AddWidgetActivity : BaseActivity<ActivityAddWidgetBinding>(){
         binding.llSelect.setOnClickAffect {
             val intent = Intent(this, PlantPetSelectActivity::class.java)
             val bundle = Bundle()
-            bundle.putString("addWidget", valueBundle)
-            intent.putExtras(bundle ?: Bundle())
+            bundle.putString(ADD_WIDGET, valueBundle)
+            intent.putExtras(bundle)
             resultLauncher.launch(intent)
         }
         binding.llTextSelect.setOnClickAffect {
             val intent = Intent(this, PlantPetSelectActivity::class.java)
             val bundle = Bundle()
-            bundle.putString("addWidget", valueBundle)
-            intent.putExtras(bundle ?: Bundle())
+            bundle.putString(ADD_WIDGET, valueBundle)
+            intent.putExtras(bundle)
             resultLauncher.launch(intent)
         }
     }
@@ -61,7 +65,7 @@ class AddWidgetActivity : BaseActivity<ActivityAddWidgetBinding>(){
             if (result.resultCode == RESULT_OK) {
                 // get data
                 val data: Intent? = result.data
-                when(val itemSelect = data?.getSerializableExtra("item_select"))
+                when(val itemSelect = data?.getSerializableExtra(ITEM_SELECT))
                 {
                     is PetModel -> {
                         binding.edtName.setText(itemSelect.name)

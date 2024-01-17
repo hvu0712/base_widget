@@ -15,6 +15,9 @@
     <string name="tvEggs">Eggs</string>
     <string name="tvCat">Cat</string>
     <string name="tvPet">Pet</string>
+    <string name="tvSproutIn">Sprout in</string>
+    <string name="tvExp">+ %d exp</string>
+
 
     <string name="tvLevel1">Lv.1</string>
     <string name="tvLevel2">Lv.2</string>

@@ -1,4 +1,4 @@
-package com.example.base_widget.ui.dialog;
+package com.example.base_widget.base;
 
 import android.app.Dialog;
 import android.content.Context;

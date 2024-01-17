@@ -1,19 +1,28 @@
 package com.example.base_widget.ui.shop
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.common.show
+import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityAllShopBinding
+import com.example.base_widget.model.PetModel
+import com.example.base_widget.model.PlantModel
+import com.example.base_widget.ui.details.PetSelectAdapter
+import com.example.base_widget.ui.details.PlantSelectAdapter
+import com.example.base_widget.utils.BaseConfig.PET
+import com.example.base_widget.utils.BaseConfig.PLANT
 
-class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
+class AllShopActivity : BaseActivity<ActivityAllShopBinding>(), ShopFragmentListener {
 
-    private val shopAdapter = ShopAdapter()
+    private val plantSelectAdapter = PlantSelectAdapter()
+    private val petSelectAdapter = PetSelectAdapter()
+    private var appDb: AppDatabase = AppDatabase.getInstance(this)
     override fun inflateViewBinding() = ActivityAllShopBinding.inflate(layoutInflater)
 
     override fun initView() {
@@ -24,9 +33,6 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
     override fun setUpListener() {
         binding.ivBack.setOnClickAffect {
             onBackPressedDispatcher.onBackPressed()
-        }
-        shopAdapter.onItemClick = {itemTraining, position ->
-            Toast.makeText(this, "ok", Toast.LENGTH_LONG).show()
         }
         binding.llPlant.setOnClickListener {
             binding.viewPager.currentItem = 1
@@ -40,6 +46,28 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
         binding.llPetDisable.setOnClickListener {
             binding.viewPager.currentItem = 0
         }
+    }
+
+    private fun addPet(position: Int) {
+        val lastIndex = appDb.petDao().getAllPet().lastIndex
+        val name = "Pet ${lastIndex + 2}"
+        when (position) {
+            0 -> appDb.petDao().insertPet(PetModel(null, name, R.drawable.iv_cat, getString(R.string.tvLevel1), 0))
+            1 -> appDb.petDao().insertPet(PetModel(null, name, R.drawable.iv_dog, getString(R.string.tvLevel1), 0))
+            2 -> appDb.petDao().insertPet(PetModel(null, name, R.drawable.iv_rabbit, getString(R.string.tvLevel1), 0))
+        }
+        petSelectAdapter.setData(appDb.petDao().getAllPet())
+    }
+
+    private fun addPlant(position: Int) {
+        val lastIndex = appDb.plantDao().getAllPlant().lastIndex
+        val name = "Plant ${lastIndex + 2}"
+        when (position) {
+            0 -> appDb.plantDao().insertPlant(PlantModel(null, name, R.drawable.iv_rose, 0L))
+            1 -> appDb.plantDao().insertPlant(PlantModel(null, name, R.drawable.iv_sunflower, 0L))
+            2 -> appDb.plantDao().insertPlant(PlantModel(null, name, R.drawable.iv_peach_blossom, 0L))
+        }
+        plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
     }
 
     private var viewPagerListener = object : ViewPager2.OnPageChangeCallback() {
@@ -73,12 +101,22 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>() {
         override fun createFragment(position: Int): Fragment {
             val bundle = Bundle()
             bundle.putInt("page", position)
-            return ShopFragment().apply { arguments = bundle }
+            return ShopFragment().apply {
+                arguments = bundle
+                setListener(this@AllShopActivity)}
         }
     }
 
     override fun onDestroy() {
         binding.viewPager.unregisterOnPageChangeCallback(viewPagerListener)
         super.onDestroy()
+    }
+
+    override fun setOnClickListener(it: ItemTraining, pos: Int) {
+        when (it.type)
+        {
+            PET -> addPet(pos)
+            PLANT -> addPlant(pos)
+        }
     }
 }

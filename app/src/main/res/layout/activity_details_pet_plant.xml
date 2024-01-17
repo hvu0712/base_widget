@@ -1,0 +1,272 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_details_plant">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="1dp"
+        android:src="@drawable/ic_back_shop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="1dp"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:shadowColor="@color/color_shadow"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="0.5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivBack"
+        app:layout_constraintEnd_toStartOf="@+id/ivBackEnd"
+        app:layout_constraintStart_toEndOf="@id/ivBack"
+        app:layout_constraintTop_toTopOf="@id/ivBack"
+        tools:text="@string/tvPet" />
+
+    <ImageView
+        android:id="@+id/ivBackEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:elevation="1dp"
+        android:src="@drawable/ic_back_shop"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/ccControl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/iv_animals" />
+
+    <ImageView
+        android:id="@+id/ivPets"
+        android:layout_width="@dimen/_129sdp"
+        android:layout_height="@dimen/_130sdp"
+        android:layout_marginBottom="@dimen/_49sdp"
+        app:layout_constraintBottom_toBottomOf="@id/ivBackground"
+        app:layout_constraintEnd_toEndOf="@id/ivBackground"
+        app:layout_constraintStart_toStartOf="@id/ivBackground"
+        tools:src="@drawable/iv_cat" />
+
+    <ImageView
+        android:id="@+id/ivPlants"
+        android:layout_width="@dimen/_148sdp"
+        android:layout_height="@dimen/_220sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/vBar"
+        app:layout_constraintEnd_toEndOf="@id/ivBackground"
+        app:layout_constraintStart_toStartOf="@id/ivBackground"
+        tools:src="@drawable/iv_rose" />
+
+    <View
+        android:id="@+id/vBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_19sdp"
+        android:background="@color/color_8E5022"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="@id/ivBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvExp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_80sdp"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:shadowColor="@color/color_shadow"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="0.5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/vBar"
+        app:layout_constraintEnd_toEndOf="@+id/ivBackEnd"
+        app:layout_constraintTop_toBottomOf="@id/ivBackEnd"
+        tools:text="+25" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ccControl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_320sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivBackground">
+
+        <LinearLayout
+            android:id="@+id/llSeekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/llSeekbarPet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_6sdp"
+                    android:text="@string/tvLevel1"
+                    android:textColor="@color/color_shadow"
+                    android:textSize="@dimen/_12ssp" />
+
+                <com.example.base_widget.custom.CustomSeeBar
+                    android:id="@+id/sbPet"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    app:ct_backgroundBorderColor="@color/color_FF7A7A"
+                    app:ct_is_pet_thumb="true"
+                    app:ct_max_value="100"
+                    app:ct_progressColor="@color/color_FF7A7A" />
+            </LinearLayout>
+
+            <com.example.base_widget.custom.CustomSeeBar
+                android:id="@+id/sbPlant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:ct_backgroundBorderColor="@color/color_398032"
+                app:ct_is_pet_thumb="false"
+                app:ct_max_value="100"
+                app:ct_progressColor="@color/color_398032" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/color_shadow"
+                android:visibility="gone"
+                tools:text="Sprout in 23:23:12" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llSeekbar">
+
+
+            <View
+                android:layout_width="@dimen/_77sdp"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_weight="1"
+                android:background="@color/color_301919" />
+
+            <LinearLayout
+                android:id="@+id/llPet"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_button_large"
+                android:orientation="vertical"
+                android:padding="@dimen/_1sdp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_button_small"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/_14sdp"
+                    android:paddingVertical="@dimen/_2sdp">
+
+                    <ImageView
+                        android:id="@+id/ivPet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_pet" />
+
+                    <ImageView
+                        android:id="@+id/ivPlant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_leaves"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:text="@string/tvPet"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/_77sdp"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_weight="1"
+                android:background="@color/color_301919" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvControl"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/llTitle"
+            app:layout_constraintStart_toStartOf="@id/llTitle"
+            app:layout_constraintTop_toBottomOf="@id/llTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

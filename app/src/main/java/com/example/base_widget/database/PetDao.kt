@@ -17,6 +17,9 @@ interface PetDao {
     @Query("SELECT id FROM pet WHERE name = :name")
     fun getId(name: String): Int
 
+    @Query("SELECT level FROM pet WHERE id = :petId")
+    fun getLevel(petId: Int?): String
+
     @Query("UPDATE pet SET name = :newName WHERE id = :petId")
     fun updatePetName(petId: Int?, newName: String)
 

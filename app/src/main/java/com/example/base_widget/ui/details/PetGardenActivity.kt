@@ -1,4 +1,4 @@
-package com.example.base_widget.ui
+package com.example.base_widget.ui.details
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,13 +11,16 @@ import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityPetGardenBinding
 import com.example.base_widget.model.PetModel
 import com.example.base_widget.model.PlantModel
-import com.example.base_widget.ui.details.DetailsPetActivity
-import com.example.base_widget.ui.details.DetailsPlantActivity
-import com.example.base_widget.ui.details.PetSelectAdapter
-import com.example.base_widget.ui.details.PlantSelectAdapter
 import com.example.base_widget.ui.shop.GridSpacingItemDecoration
 import com.example.base_widget.ui.shop.ShopAdapter
-import com.example.base_widget.utils.AppUtils
+import com.example.base_widget.utils.BaseConfig
+import com.example.base_widget.utils.BaseConfig.ADD_WIDGET
+import com.example.base_widget.utils.BaseConfig.PET
+import com.example.base_widget.utils.BaseConfig.PET_DETAILS
+import com.example.base_widget.utils.BaseConfig.PLANT
+import com.example.base_widget.utils.BaseConfig.PLANT_DETAILS
+import com.example.base_widget.utils.BaseConfig.UPDATE
+import com.example.base_widget.utils.BaseConfig.UPDATE_LIST
 
 class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
 
@@ -30,20 +33,20 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
     override fun inflateViewBinding() = ActivityPetGardenBinding.inflate(layoutInflater)
     override fun initView() {
         val bundle = intent.extras
-        valueBundle = bundle?.getString("addWidget")
+        valueBundle = bundle?.getString(ADD_WIDGET)
         if (valueBundle != null)
         {
-            if (valueBundle.equals("pet")) {
+            if (valueBundle.equals(PET)) {
                 binding.tvAllPlantPet.text = getString(R.string.tvAllPet)
                 binding.tvSeedEggs.text = getString(R.string.tvEggs)
                 binding.tvPlantPet.text = getString(R.string.tvPet)
-                shopAdapter.setData(AppUtils.getItemPetShop())
+                shopAdapter.setData(BaseConfig.getItemPetShop())
                 petSelectAdapter.setData(AppDatabase.getInstance(this).petDao().getAllPet())
-            } else if (valueBundle.equals("plant")) {
+            } else {
                 binding.tvAllPlantPet.text = getString(R.string.tvAllPlant)
                 binding.tvSeedEggs.text = getString(R.string.tvSeed)
                 binding.tvPlantPet.text = getString(R.string.tvPlant)
-                shopAdapter.setData(AppUtils.getItemPlantShop())
+                shopAdapter.setData(BaseConfig.getItemPlantShop())
                 plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
             }
         }
@@ -70,9 +73,9 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
         val spacingInPixelsTwoP = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         val spacingInPixelsThreeP = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         binding.rvAllPlantPet.apply {
-            if (valueBundle.equals("pet")) {
+            if (valueBundle.equals(PET)) {
                 adapter = petSelectAdapter
-            } else if (valueBundle.equals("plant")) {
+            } else if (valueBundle.equals(PLANT)) {
                 adapter = plantSelectAdapter
             }
             layoutManager = GridLayoutManager(this@PetGardenActivity, 4)
@@ -94,22 +97,22 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
         plantSelectAdapter.onItemClick = {
             val intent = Intent(this, DetailsPlantActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("plant_details", it)
+            bundle.putSerializable(PLANT_DETAILS, it)
             intent.putExtras(bundle)
             resultLauncher.launch(intent)
         }
         petSelectAdapter.onItemClick = {
             val intent = Intent(this, DetailsPetActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("pet_details", it)
+            bundle.putSerializable(PET_DETAILS, it)
             intent.putExtras(bundle)
             resultLauncher.launch(intent)
         }
         shopAdapter.onItemClick = { it, pos ->
             when (it.type)
             {
-                "pet" -> addPet(pos)
-                "plant" -> addPlant(pos)
+                PET -> addPet(pos)
+                PLANT -> addPlant(pos)
             }
         }
     }
@@ -145,8 +148,8 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
             if (result.resultCode == RESULT_OK) {
                 // get data
                 val data: Intent? = result.data
-                val updateList = data?.getSerializableExtra("update_list")
-                if(updateList != null && updateList == "update")
+                val updateList = data?.getSerializableExtra(UPDATE_LIST)
+                if(updateList != null && updateList == UPDATE)
                 {
                     petSelectAdapter.setData(appDb.petDao().getAllPet())
                     plantSelectAdapter.setData(appDb.plantDao().getAllPlant())

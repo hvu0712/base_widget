@@ -8,6 +8,10 @@ import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityPlantPetSelectBinding
 import com.example.base_widget.ui.shop.GridSpacingItemDecoration
+import com.example.base_widget.utils.BaseConfig.ADD_WIDGET
+import com.example.base_widget.utils.BaseConfig.ITEM_SELECT
+import com.example.base_widget.utils.BaseConfig.PET
+import com.example.base_widget.utils.BaseConfig.PLANT
 
 class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
 
@@ -18,14 +22,14 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
 
     override fun initView() {
         val bundle = intent.extras
-        valueBundle = bundle?.getString("addWidget")
+        valueBundle = bundle?.getString(ADD_WIDGET)
         if (valueBundle != null)
         {
-            if (valueBundle.equals("pet")) {
+            if (valueBundle.equals(PET)) {
                 binding.tvAllPlant.text = getString(R.string.tvAllPet)
                 binding.tvName.text = getString(R.string.tvPet)
                 petSelectAdapter.setData(AppDatabase.getInstance(this).petDao().getAllPet())
-            } else if (valueBundle.equals("plant")) {
+            } else {
                 binding.tvAllPlant.text = getString(R.string.tvAllPlant)
                 binding.tvName.text = getString(R.string.tvPlant)
                 plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
@@ -39,11 +43,11 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
         val spacingInPixelsTwo = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         val spacingInPixelsThree = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         binding.rvAllPlantPet.apply {
-            if (valueBundle.equals("pet"))
+            if (valueBundle.equals(PET))
             {
                 adapter = petSelectAdapter
             }
-            else if (valueBundle.equals("plant"))
+            else if (valueBundle.equals(PLANT))
             {
                 adapter = plantSelectAdapter
             }
@@ -58,13 +62,13 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
         }
         petSelectAdapter.onItemClick = {
             val resultIntent = Intent()
-            resultIntent.putExtra("item_select",it)
+            resultIntent.putExtra(ITEM_SELECT,it)
             setResult(RESULT_OK, resultIntent)
             finish()
         }
         plantSelectAdapter.onItemClick = {
             val resultIntent = Intent()
-            resultIntent.putExtra("item_select",it)
+            resultIntent.putExtra(ITEM_SELECT,it)
             setResult(RESULT_OK, resultIntent)
             finish()
         }

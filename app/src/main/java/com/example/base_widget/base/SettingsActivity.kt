@@ -1,17 +1,14 @@
-package com.example.base_widget.ui.setting
+package com.example.base_widget.base
 
 import android.content.Intent
 import android.net.Uri
 import android.os.SystemClock
 import android.widget.Toast
 import com.example.base_widget.R
-import com.example.base_widget.base.BaseActivity
-import com.example.base_widget.base.LanguageScreenActivity
 import com.example.base_widget.common.SharePrefUtils
 import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.databinding.ActivitySettingsBinding
-import com.example.base_widget.ui.dialog.RatingDialog
 import com.example.base_widget.utils.AppUtils.PRIVACY
 import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager

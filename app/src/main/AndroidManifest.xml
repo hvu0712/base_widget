@@ -18,13 +18,13 @@
             android:exported="false"
             android:screenOrientation="nosensor" />
         <activity
-            android:name=".ui.setting.SettingsActivity"
+            android:name=".base.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.AddWidgetActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,7 +59,7 @@
             android:screenOrientation="nosensor">
         </activity>
         <activity
-            android:name=".ui.PetGardenActivity"
+            android:name=".ui.details.PetGardenActivity"
             android:exported="false"
             android:screenOrientation="nosensor">
         </activity>
