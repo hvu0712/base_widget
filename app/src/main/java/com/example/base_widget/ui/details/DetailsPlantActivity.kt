@@ -15,6 +15,7 @@ import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityDetailsPetPlantBinding
 import com.example.base_widget.model.PlantModel
 import com.example.base_widget.utils.BaseConfig
+import com.example.base_widget.utils.BaseConfig.DURATION
 import com.example.base_widget.utils.BaseConfig.EXPERIENCE
 import com.example.base_widget.utils.BaseConfig.PLANT_DETAILS
 import com.example.base_widget.utils.BaseConfig.UPDATE
@@ -38,7 +39,6 @@ class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         binding.sbPlant.show()
         binding.tvTime.show()
         binding.tvTime.text = getString(R.string.tvSproutIn)
-//        binding.tvTime.text = itemPlant.maturityTime.toString()
         binding.ivPet.hide()
         binding.tvTitle.text = getString(R.string.tvPlant)
         binding.ivPlant.show()
@@ -115,6 +115,6 @@ class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         getGifByPos(activity, pos, image, isPet)
         Handler(Looper.getMainLooper()).postDelayed({
             image.setImageResource(itemPlant.image)
-        }, 500)
+        }, DURATION)
     }
 }

@@ -17,7 +17,7 @@ import com.example.base_widget.model.PetModel
 class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHolder>() {
     private var itemList: MutableList<PetModel> = mutableListOf()
     var onItemClick: ((PetModel) -> Unit)? = null
-    private var detailsPopup: PopupWindow? = null
+    private var listener: PetSelectAdapterListener? = null
     @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: MutableList<PetModel>) {
         itemList.clear()
@@ -26,17 +26,13 @@ class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHold
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetSelectViewHolder {
-        val context = parent.context
-        val viewHolder = PetSelectViewHolder(
+        return PetSelectViewHolder(
             ItemAllSelectBinding.inflate(
-                LayoutInflater.from(context),
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
-        // Gọi hàm setUpPopupDetails ở đây
-        viewHolder.setUpPopupDetails(context)
-        return viewHolder
     }
 
     override fun onBindViewHolder(holder: PetSelectViewHolder, position: Int) {
@@ -56,42 +52,19 @@ class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHold
                     onItemClick?.invoke(item)
                 }
                 binding.ivDots.setOnClickListener {
-                    showPopupDetails(binding.ivDots)
+                    listener?.setPetOnClickListener(it,bindingAdapterPosition)
                 }
             }
         }
 
-        fun setUpPopupDetails(context: Context) {
-            val popupView = LayoutInflater.from(context).inflate(R.layout.popup_details, null)
-            detailsPopup = PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                true
-            )
-            detailsPopup?.elevation = 10f
-            popupView.findViewById<View>(R.id.tvRename).setOnClickListener {
-                Toast.makeText(context,"",Toast.LENGTH_LONG).show()
-                detailsPopup?.dismiss()
-            }
-            popupView.findViewById<View>(R.id.tvDelete).setOnClickListener {
-                Toast.makeText(context,"",Toast.LENGTH_LONG).show()
-                detailsPopup?.dismiss()
-            }
-            detailsPopup?.setOnDismissListener {
-
-            }
-        }
     }
 
-    private fun showPopupDetails(ivDots: ImageView) {
-        val anchorView = IntArray(2)
-        ivDots.getLocationInWindow(anchorView)
-        detailsPopup?.showAtLocation(
-            ivDots, Gravity.NO_GRAVITY,
-            anchorView[0] + ivDots.width / 2,
-            anchorView[1] + ivDots.height - 20
-        )
+    fun setListener(listener: PetSelectAdapterListener) {
+        this.listener = listener
     }
 
+}
+
+interface PetSelectAdapterListener {
+    fun setPetOnClickListener(it: View, pos: Int)
 }

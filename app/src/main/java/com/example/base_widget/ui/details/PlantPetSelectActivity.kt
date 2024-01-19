@@ -1,6 +1,15 @@
 package com.example.base_widget.ui.details
 
+import android.content.Context
 import android.content.Intent
+import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
@@ -13,11 +22,15 @@ import com.example.base_widget.utils.BaseConfig.ITEM_SELECT
 import com.example.base_widget.utils.BaseConfig.PET
 import com.example.base_widget.utils.BaseConfig.PLANT
 
-class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
+class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), PetSelectAdapterListener, PlantSelectAdapterListener {
 
     private val petSelectAdapter = PetSelectAdapter()
     private val plantSelectAdapter = PlantSelectAdapter()
     private var valueBundle: String? = null
+    private var detailsPopup: PopupWindow? = null
+    private lateinit var popupView: View
+    private var appDb: AppDatabase = AppDatabase.getInstance(this)
+
     override fun inflateViewBinding() = ActivityPlantPetSelectBinding.inflate(layoutInflater)
 
     override fun initView() {
@@ -28,14 +41,17 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
             if (valueBundle.equals(PET)) {
                 binding.tvAllPlant.text = getString(R.string.tvAllPet)
                 binding.tvName.text = getString(R.string.tvPet)
-                petSelectAdapter.setData(AppDatabase.getInstance(this).petDao().getAllPet())
+                petSelectAdapter.setData(appDb.petDao().getAllPet())
+                petSelectAdapter.setListener(this)
             } else {
                 binding.tvAllPlant.text = getString(R.string.tvAllPlant)
                 binding.tvName.text = getString(R.string.tvPlant)
-                plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
+                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                plantSelectAdapter.setListener(this)
             }
         }
         setUpRecyclerView()
+        setUpPopupDetails()
     }
 
     private fun setUpRecyclerView() {
@@ -72,5 +88,65 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
             setResult(RESULT_OK, resultIntent)
             finish()
         }
+    }
+
+    override fun setPetOnClickListener(it: View, pos: Int) {
+        showPopupDetails(it)
+        setUpListenerPopup(pos)
+    }
+
+    override fun setPlantOnClickListener(it: View, pos: Int) {
+        showPopupDetails(it)
+        setUpListenerPopup(pos)
+    }
+
+    private fun setUpListenerPopup(pos: Int) {
+        popupView.findViewById<View>(R.id.tvRename).setOnClickListener {
+            Toast.makeText(this,"", Toast.LENGTH_LONG).show()
+            detailsPopup?.dismiss()
+        }
+        popupView.findViewById<View>(R.id.tvDelete).setOnClickListener {
+            if (valueBundle.equals(PET)) {
+                appDb.petDao().deletePet(pos+1)
+                petSelectAdapter.setData(appDb.petDao().getAllPet())
+            }
+            else {
+                appDb.plantDao().deletePlant(pos+1)
+                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+            }
+            detailsPopup?.dismiss()
+        }
+        popupView.setOnClickListener {
+            detailsPopup?.dismiss()
+        }
+        detailsPopup?.setOnDismissListener {
+            if (valueBundle.equals(PET)) {
+                petSelectAdapter.setData(appDb.petDao().getAllPet())
+            }
+            else {
+                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+            }
+        }
+    }
+
+    private fun showPopupDetails(view: View) {
+        val anchorView = IntArray(2)
+        view.getLocationInWindow(anchorView)
+        detailsPopup?.showAtLocation(
+            view, Gravity.NO_GRAVITY,
+            anchorView[0] + view.width / 2,
+            anchorView[1] + view.height - 20
+        )
+    }
+
+    private fun setUpPopupDetails() {
+        popupView = LayoutInflater.from(this).inflate(R.layout.popup_details, null)
+        detailsPopup = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        detailsPopup?.elevation = 10f
     }
 }

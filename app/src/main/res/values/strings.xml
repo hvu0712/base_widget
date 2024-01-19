@@ -73,4 +73,7 @@
     <string name="share_to">Share to</string>
     <string name="no_result_data">No result data</string>
 
+    <string name="confirm">Confirm</string>
+    <string name="rename">Rename</string>
+
 </resources>
