@@ -3,6 +3,7 @@ package com.example.base_widget.ui.details
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,12 +20,12 @@ import com.example.base_widget.databinding.ActivityDetailsPetPlantBinding
 import com.example.base_widget.model.PetModel
 import com.example.base_widget.utils.BaseConfig
 import com.example.base_widget.utils.BaseConfig.DEFAULT_VALUE
+import com.example.base_widget.utils.BaseConfig.DURATION
 import com.example.base_widget.utils.BaseConfig.EXPERIENCE
 import com.example.base_widget.utils.BaseConfig.LEVEL_1_EXPERIENCE
 import com.example.base_widget.utils.BaseConfig.LEVEL_2_EXPERIENCE
 import com.example.base_widget.utils.BaseConfig.LEVEL_3_EXPERIENCE
 import com.example.base_widget.utils.BaseConfig.LEVEL_4_EXPERIENCE
-import com.example.base_widget.utils.BaseConfig.LEVEL_MAX_EXPERIENCE
 import com.example.base_widget.utils.BaseConfig.PET_DETAILS
 import com.example.base_widget.utils.BaseConfig.UPDATE
 import com.example.base_widget.utils.BaseConfig.UPDATE_LIST
@@ -116,13 +117,13 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
 
             getString(R.string.tvLevelMax) -> {
                 if (binding.sbPet.isCreated) {
-                    binding.sbPet.setValue(LEVEL_MAX_EXPERIENCE)
-                    binding.tvLevel.text = getString(R.string.tvLevelMax)
+                    binding.sbPet.maxValue = LEVEL_1_EXPERIENCE
+                    binding.sbPet.setValue(LEVEL_1_EXPERIENCE)
                 } else {
                     binding.sbPet.setViewCreatedListener(object : CreatedListener {
                         override fun isCreated() {
-                            binding.sbPet.setValue(LEVEL_MAX_EXPERIENCE)
-                            binding.tvLevel.text = getString(R.string.tvLevelMax)
+                            binding.sbPet.maxValue = LEVEL_1_EXPERIENCE
+                            binding.sbPet.setValue(LEVEL_1_EXPERIENCE)
                         }
                     })
                 }
@@ -156,30 +157,18 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         }
         detailsAdapter.onItemClick = { _, position ->
             when (position) {
-                0 -> showGif(this, position, binding.ivPets, true)
-                1 -> showGif(this, position, binding.ivPets, true)
-                2 -> showGif(this, position, binding.ivPets, true)
-                else -> showGif(this, position, binding.ivPets, true)
+                0 -> handlerItemClick(position,true)
+                1 -> handlerItemClick(position,true)
+                2 -> handlerItemClick(position,true)
+                else -> handlerItemClick(position,true)
             }
-            currentValue += EXPERIENCE
-            if (binding.sbPet.isCreated) {
-                val level = appDb.petDao().getLevel(itemPet.id)
-                binding.sbPet.setValue(currentValue)
-                appDb.petDao().updatePetExperience(itemPet.id, currentValue)
-            } else {
-                binding.sbPet.setViewCreatedListener(object : CreatedListener {
-                    override fun isCreated() {
-                        binding.sbPet.setValue(currentValue)
-                        appDb.petDao().updatePetExperience(itemPet.id, currentValue)
-                    }
-                })
-            }
-            showExperienceUp(this,binding.tvExp)
         }
         binding.sbPet.setOnSeeBarChangeListener(object : ISetOnSeekBar {
             override fun onProgressChanged(seekbar: CustomSeeBar, value: Int) {
                 currentValue = value
-                when (itemPet.level) {
+                val level = appDb.petDao().getLevel(itemPet.id)
+                Log.e("huy", "currentValue: $currentValue")
+                when (level) {
                     getString(R.string.tvLevel1) -> {
                         if (currentValue == LEVEL_1_EXPERIENCE) {
                             if (binding.sbPet.isCreated) {
@@ -243,13 +232,15 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
                     getString(R.string.tvLevel4) -> {
                         if (currentValue == LEVEL_4_EXPERIENCE) {
                             if (binding.sbPet.isCreated) {
-                                binding.sbPet.setValue(LEVEL_MAX_EXPERIENCE)
+                                binding.sbPet.setValue(LEVEL_1_EXPERIENCE)
+                                binding.sbPet.maxValue = LEVEL_1_EXPERIENCE
                                 binding.tvLevel.text = getString(R.string.tvLevelMax)
                                 appDb.petDao().updatePetLevel(itemPet.id, getString(R.string.tvLevelMax))
                             } else {
                                 binding.sbPet.setViewCreatedListener(object : CreatedListener {
                                     override fun isCreated() {
-                                        binding.sbPet.setValue(LEVEL_MAX_EXPERIENCE)
+                                        binding.sbPet.setValue(LEVEL_1_EXPERIENCE)
+                                        binding.sbPet.maxValue = LEVEL_1_EXPERIENCE
                                         binding.tvLevel.text = getString(R.string.tvLevelMax)
                                         appDb.petDao().updatePetLevel(itemPet.id, getString(R.string.tvLevelMax))
                                     }
@@ -258,46 +249,47 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
                         }
                     }
 
-                    getString(R.string.tvLevelMax) -> {
-                        if (currentValue >= LEVEL_MAX_EXPERIENCE) {
-                            if (binding.sbPet.isCreated) {
-                                binding.sbPet.setValue(LEVEL_MAX_EXPERIENCE)
-                                binding.tvLevel.text = getString(R.string.tvLevelMax)
-                                appDb.petDao().updatePetLevel(itemPet.id, getString(R.string.tvLevelMax))
-                            } else {
-                                binding.sbPet.setViewCreatedListener(object : CreatedListener {
-                                    override fun isCreated() {
-                                        binding.sbPet.setValue(LEVEL_MAX_EXPERIENCE)
-                                        binding.tvLevel.text = getString(R.string.tvLevelMax)
-                                        appDb.petDao().updatePetLevel(itemPet.id, getString(R.string.tvLevelMax))
-                                    }
-                                })
-                            }
-                        }
-                    }
                 }
             }
-
-            override fun onStartTrackingTouch(seekbar: CustomSeeBar) {
-
-            }
-
-            override fun onStopTrackingTouch(seekbar: CustomSeeBar) {
-
-            }
-
         })
     }
 
     private fun showGif(
-        activity: DetailsPetActivity,
         pos: Int,
         image: ImageView,
         isPet: Boolean
     ) {
-        getGifByPos(activity, pos, image, isPet)
+        getGifByPos(this, pos, image, isPet)
         Handler(Looper.getMainLooper()).postDelayed({
             image.setImageResource(itemPet.image)
-        },500)
+        }, DURATION)
     }
+    private fun handlerItemClick(
+        pos: Int,
+        isPet: Boolean,
+    ) {
+        val level = appDb.petDao().getLevel(itemPet.id)
+        if (level == getString(R.string.tvLevelMax))
+        {
+            showExperienceUp(this,binding.tvExp,true)
+        }
+        else
+        {
+            showGif(pos, binding.ivPets, isPet)
+            currentValue += EXPERIENCE
+            if (binding.sbPet.isCreated) {
+                binding.sbPet.setValue(currentValue)
+                appDb.petDao().updatePetExperience(itemPet.id, currentValue)
+            } else {
+                binding.sbPet.setViewCreatedListener(object : CreatedListener {
+                    override fun isCreated() {
+                        binding.sbPet.setValue(currentValue)
+                        appDb.petDao().updatePetExperience(itemPet.id, currentValue)
+                    }
+                })
+            }
+            showExperienceUp(this, binding.tvExp, false)
+        }
+    }
+
 }

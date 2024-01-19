@@ -95,9 +95,18 @@ object BaseConfig {
         }
     }
 
-    fun showExperienceUp(context: Context,textView: TextView){
+
+    fun showExperienceUp(context: Context,textView: TextView,isLvMax: Boolean){
         textView.show()
-        textView.text = String.format(context.getString(R.string.tvExp), EXPERIENCE)
+        if (isLvMax)
+        {
+            textView.text = context.getString(R.string.tvToastLvMax)
+        }
+        else
+        {
+            textView.text = String.format(context.getString(R.string.tvExp), EXPERIENCE)
+        }
+
         var animatorSet = AnimatorSet()
         var translationY = ObjectAnimator.ofFloat(textView, View.TRANSLATION_Y, 0f, -300f)
         translationY.interpolator = AccelerateInterpolator()

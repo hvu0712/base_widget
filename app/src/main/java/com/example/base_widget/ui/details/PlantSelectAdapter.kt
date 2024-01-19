@@ -1,5 +1,6 @@
 package com.example.base_widget.ui.details
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ class PlantSelectAdapter : RecyclerView.Adapter<PlantSelectAdapter.PlantSelectVi
     var onItemClick: ((PlantModel) -> Unit)? = null
     private var detailsPopup: PopupWindow? = null
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: MutableList<PlantModel>) {
         itemList.clear()
         itemList.addAll(newList)

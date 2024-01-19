@@ -1,5 +1,6 @@
 package com.example.base_widget.ui.details
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsPlantViewHolde
     private var itemList: ArrayList<ItemCommon> = ArrayList()
     var onItemClick: ((ItemCommon, position: Int) -> Unit)? = null
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: ArrayList<ItemCommon>) {
         itemList.clear()
         itemList.addAll(newList)

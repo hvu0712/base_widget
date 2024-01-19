@@ -138,18 +138,18 @@ class CustomSeeBar : FrameLayout {
                     -12f
                 }
             } else {
-                if (value == 10)
-                {
-                    when(maxValue)
-                    {
-                        150 -> 26f
-                        200 -> 10.4f
-                        250 -> 2.64f
-                        else -> ((((value.toFloat()) / maxValue) * bgRect.width()) - (thumbHeight))
-                    }
-                } else {
+//                if (value == 10)
+//                {
+//                    when(maxValue)
+//                    {
+//                        150 -> 26f
+//                        200 -> 10.4f
+//                        250 -> 2.64f
+//                        else -> ((((value.toFloat()) / maxValue) * bgRect.width()) - (thumbHeight))
+//                    }
+//                } else {
                     ((((value.toFloat()) / maxValue) * bgRect.width()) - (thumbHeight))
-                }
+//                }
             }
         }
         val oldValue = thumbRect.left
@@ -168,13 +168,6 @@ class CustomSeeBar : FrameLayout {
         }
         animator.duration = 500
         animator.start()
-        Log.e("huy", "oldValue: ${oldValue}")
-        Log.e("huy", "maxProgress: ${maxValue}")
-        Log.e("huy", "thumbHeight: ${thumbHeight}")
-        Log.e("huy", "newLeft: ${newLeft}")
-        Log.e("huy", "bgRect.width(): ${bgRect.width()}")
-        Log.e("huy", "(value.toFloat(): ${(value.toFloat())}")
-        Log.e("huy", "((((value.toFloat()) / maxValue) * bgRect.width()) - thumbHeight): ${((((value.toFloat()) / maxValue) * bgRect.width()) - thumbHeight)}")
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -183,7 +176,6 @@ class CustomSeeBar : FrameLayout {
         drawBackground(canvas)
         drawProgress(canvas)
         drawThumb(canvas)
-        Log.e("huy", "onDraw: ", )
     }
 
     private fun drawBackground(canvas: Canvas) {
@@ -275,7 +267,6 @@ class CustomSeeBar : FrameLayout {
         invalidate()
         isCreated = true
         listener?.isCreated()
-        Log.e("huy", "onSizeChanged: ", )
     }
 
     private var listener: CreatedListener? = null

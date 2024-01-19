@@ -17,6 +17,7 @@
     <string name="tvPet">Pet</string>
     <string name="tvSproutIn">Sprout in</string>
     <string name="tvExp">+ %d exp</string>
+    <string name="tvToastLvMax">Level Max</string>
 
 
     <string name="tvLevel1">Lv.1</string>

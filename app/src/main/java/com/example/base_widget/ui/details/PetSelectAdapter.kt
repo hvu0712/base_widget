@@ -1,5 +1,6 @@
 package com.example.base_widget.ui.details
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHold
     private var itemList: MutableList<PetModel> = mutableListOf()
     var onItemClick: ((PetModel) -> Unit)? = null
     private var detailsPopup: PopupWindow? = null
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: MutableList<PetModel>) {
         itemList.clear()
         itemList.addAll(newList)

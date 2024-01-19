@@ -19,11 +19,11 @@ interface PlantDao {
     fun getId(name: String): Int
 
     @Query("UPDATE plant SET name = :newName WHERE id = :plantId")
-    fun updatePlantName(plantId: Int, newName: String)
+    fun updatePlantName(plantId: Int?, newName: String)
 
     @Query("SELECT * FROM plant")
     fun getAllPlant(): MutableList<PlantModel>
 
     @Query("DELETE FROM plant WHERE id = :plantId")
-    fun deletePlant(plantId: Int)
+    fun deletePlant(plantId: Int?)
 }

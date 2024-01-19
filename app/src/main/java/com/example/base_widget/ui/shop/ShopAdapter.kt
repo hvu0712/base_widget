@@ -1,5 +1,6 @@
 package com.example.base_widget.ui.shop
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ class ShopAdapter: RecyclerView.Adapter<ShopAdapter.ShopViewHolder>() {
     private var itemList: ArrayList<ItemTraining> = ArrayList()
     var onItemClick: ((ItemTraining, position: Int) -> Unit)? = null
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: ArrayList<ItemTraining>) {
         itemList.clear()
         itemList.addAll(newList)
