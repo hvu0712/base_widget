@@ -6,6 +6,7 @@ import android.os.Looper
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.hide
@@ -45,7 +46,7 @@ class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         binding.tvName.text = itemPlant.name
         binding.ivPlants.show()
         binding.ivPets.hide()
-        binding.ivPlants.setImageResource(itemPlant.image)
+        Glide.with(this).asGif().placeholder(R.drawable.iv_rose).load(itemPlant.image).into(binding.ivPlants)
         binding.ivBackground.setImageResource(R.drawable.iv_plant)
 //        if (binding.sbPlant.isCreated) {
 //            binding.sbPlant.setValue(itemPlant.maturityTime.toInt())
@@ -112,7 +113,7 @@ class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         image: ImageView,
         isPet: Boolean
     ) {
-        getGifByPos(activity, pos, image, isPet)
+        getGifByPos(activity, pos, image, isPet, itemPlant.type)
         Handler(Looper.getMainLooper()).postDelayed({
             image.setImageResource(itemPlant.image)
         }, DURATION)

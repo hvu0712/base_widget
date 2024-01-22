@@ -25,7 +25,6 @@ object BaseConfig {
     const val LEVEL_2_EXPERIENCE = 150
     const val LEVEL_3_EXPERIENCE = 200
     const val LEVEL_4_EXPERIENCE = 250
-    const val LEVEL_MAX_EXPERIENCE = 500
 
     const val DURATION = 500L
 
@@ -45,21 +44,57 @@ object BaseConfig {
 
 
 
-    fun getGifByPos(context: Context,pos: Int,imageView: ImageView,isPet: Boolean)
+    fun getGifByPos(context: Context,pos: Int,imageView: ImageView,isPet: Boolean,type: Int)
     {
-        val gifPetArray = intArrayOf(
-            R.drawable.egg_animation,
-            R.drawable.egg_animation,
-            R.drawable.egg_animation,
-            R.drawable.egg_animation,
-        )
+        val gifPetArray = when(type)
+        {
+            0 -> intArrayOf(
+                R.drawable.egg_animation,
+                R.drawable.shower_cat,
+                R.drawable.wc_cat,
+                R.drawable.sleep_cat,
+            )
 
-        val gifPlantArray = intArrayOf(
-            R.drawable.plant_animation,
-            R.drawable.plant_animation,
-            R.drawable.plant_animation,
-            R.drawable.plant_animation,
-        )
+            1 -> intArrayOf(
+                R.drawable.egg_animation,
+                R.drawable.shower_dog,
+                R.drawable.wc_dog,
+                R.drawable.sleep_dog,
+            )
+
+            else -> intArrayOf(
+                R.drawable.egg_animation,
+                R.drawable.shower_rabbit,
+                R.drawable.wc_rabbit,
+                R.drawable.sleep_rabbit,
+            )
+
+        }
+
+        val gifPlantArray = when(type)
+        {
+            0 -> intArrayOf(
+                R.drawable.egg_animation,
+                R.drawable.shower_cat,
+                R.drawable.wc_cat,
+                R.drawable.sleep_cat,
+            )
+
+            1 -> intArrayOf(
+                R.drawable.egg_animation,
+                R.drawable.shower_cat,
+                R.drawable.wc_cat,
+                R.drawable.sleep_cat,
+            )
+
+            else -> intArrayOf(
+                R.drawable.egg_animation,
+                R.drawable.shower_cat,
+                R.drawable.wc_cat,
+                R.drawable.sleep_cat,
+            )
+
+        }
 
         if (isPet)
         {
@@ -67,13 +102,12 @@ object BaseConfig {
                 Glide.with(context)
                     .asGif()
                     .centerCrop()
-                    .placeholder(R.drawable.iv_plant)
                     .load(gifPetArray[pos])
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView)
             } else {
                 Glide.with(context)
-                    .load(R.drawable.plant_animation)
+                    .load(R.drawable.iv_cat)
                     .into(imageView)
             }
         }
@@ -83,13 +117,12 @@ object BaseConfig {
                 Glide.with(context)
                     .asGif()
                     .centerCrop()
-                    .placeholder(R.drawable.iv_plant)
                     .load(gifPlantArray[pos])
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imageView)
             } else {
                 Glide.with(context)
-                    .load(R.drawable.plant_animation)
+                    .load(R.drawable.iv_rose)
                     .into(imageView)
             }
         }

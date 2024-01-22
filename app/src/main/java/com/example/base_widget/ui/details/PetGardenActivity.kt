@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base_widget.R
@@ -17,6 +16,7 @@ import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityPetGardenBinding
 import com.example.base_widget.model.PetModel
 import com.example.base_widget.model.PlantModel
+import com.example.base_widget.ui.CommonDialog
 import com.example.base_widget.ui.shop.GridSpacingItemDecoration
 import com.example.base_widget.ui.shop.ShopAdapter
 import com.example.base_widget.utils.BaseConfig
@@ -36,6 +36,7 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>(), PetSelectAda
     private var valueBundle: String? = null
     private var detailsPopup: PopupWindow? = null
     private lateinit var popupView: View
+    private var commonDialog: CommonDialog? = null
     private var appDb: AppDatabase = AppDatabase.getInstance(this)
 
     override fun inflateViewBinding() = ActivityPetGardenBinding.inflate(layoutInflater)
@@ -44,21 +45,27 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>(), PetSelectAda
         valueBundle = bundle?.getString(ADD_WIDGET)
         if (valueBundle != null)
         {
-            if (valueBundle.equals(PET)) {
-                binding.tvAllPlantPet.text = getString(R.string.tvAllPet)
-                binding.tvSeedEggs.text = getString(R.string.tvEggs)
-                binding.tvPlantPet.text = getString(R.string.tvPet)
-                shopAdapter.setData(BaseConfig.getItemPetShop())
-                petSelectAdapter.setData(AppDatabase.getInstance(this).petDao().getAllPet())
-            } else {
-                binding.tvAllPlantPet.text = getString(R.string.tvAllPlant)
-                binding.tvSeedEggs.text = getString(R.string.tvSeed)
-                binding.tvPlantPet.text = getString(R.string.tvPlant)
-                shopAdapter.setData(BaseConfig.getItemPlantShop())
-                plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
+            when(valueBundle) {
+                PET -> {
+                    binding.tvAllPlantPet.text = getString(R.string.tvAllPet)
+                    binding.tvSeedEggs.text = getString(R.string.tvEggs)
+                    binding.tvPlantPet.text = getString(R.string.tvPet)
+                    shopAdapter.setData(BaseConfig.getItemPetShop())
+                    petSelectAdapter.setData(AppDatabase.getInstance(this).petDao().getAllPet())
+                    petSelectAdapter.setListener(this)
+                }
+                PLANT -> {
+                    binding.tvAllPlantPet.text = getString(R.string.tvAllPlant)
+                    binding.tvSeedEggs.text = getString(R.string.tvSeed)
+                    binding.tvPlantPet.text = getString(R.string.tvPlant)
+                    shopAdapter.setData(BaseConfig.getItemPlantShop())
+                    plantSelectAdapter.setData(AppDatabase.getInstance(this).plantDao().getAllPlant())
+                    plantSelectAdapter.setListener(this)
+                }
             }
         }
         setUpRecyclerView()
+        setUpPopupDetails()
     }
 
     private fun setUpRecyclerView() {
@@ -81,10 +88,9 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>(), PetSelectAda
         val spacingInPixelsTwoP = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         val spacingInPixelsThreeP = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         binding.rvAllPlantPet.apply {
-            if (valueBundle.equals(PET)) {
-                adapter = petSelectAdapter
-            } else if (valueBundle.equals(PLANT)) {
-                adapter = plantSelectAdapter
+            when(valueBundle) {
+                PET -> adapter = petSelectAdapter
+                PLANT -> adapter = plantSelectAdapter
             }
             layoutManager = GridLayoutManager(this@PetGardenActivity, 4)
             addItemDecoration(
@@ -131,9 +137,9 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>(), PetSelectAda
         val name = "Pet ${lastIndex + 2}"
         when(position)
         {
-            0 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.iv_cat,getString(R.string.tvLevel1),0))
-            1 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.iv_dog,getString(R.string.tvLevel1),0))
-            2 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.iv_rabbit,getString(R.string.tvLevel1),0))
+            0 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_cat,R.drawable.iv_cat,getString(R.string.tvLevel1),0,position))
+            1 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_dog,R.drawable.iv_dog,getString(R.string.tvLevel1),0,position))
+            2 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_rabbit,R.drawable.iv_rabbit,getString(R.string.tvLevel1),0,position))
         }
         petSelectAdapter.setData(appDb.petDao().getAllPet())
     }
@@ -144,9 +150,9 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>(), PetSelectAda
         val name = "Plant ${lastIndex + 2}"
         when(position)
         {
-            0 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_rose,0L))
-            1 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_sunflower,0L))
-            2 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_peach_blossom,0L))
+            0 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_rose,R.drawable.iv_rose,0L,position))
+            1 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_sunflower,R.drawable.iv_sunflower,0L,position))
+            2 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_peach_blossom,R.drawable.iv_peach_blossom,0L,position))
         }
         plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
     }
@@ -165,28 +171,35 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>(), PetSelectAda
             }
         }
 
-    override fun setPetOnClickListener(it: View, pos: Int) {
+    override fun setPetOnClickListener(it: View, pos: Int, item: PetModel) {
         showPopupDetails(it)
-        setUpListenerPopup(pos)
+        setUpListenerPopup(pos, pet = item)
     }
 
-    override fun setPlantOnClickListener(it: View, pos: Int) {
+    override fun setPlantOnClickListener(it: View, pos: Int, item: PlantModel) {
         showPopupDetails(it)
-        setUpListenerPopup(pos)
+        setUpListenerPopup(pos, plant = item)
     }
-    private fun setUpListenerPopup(pos: Int) {
+    private fun setUpListenerPopup(pos: Int,pet: PetModel? = null, plant: PlantModel? = null) {
         popupView.findViewById<View>(R.id.tvRename).setOnClickListener {
-            Toast.makeText(this,"", Toast.LENGTH_LONG).show()
+            when(valueBundle)
+            {
+                PET -> showRenameDialog(pet = pet)
+                PLANT -> showRenameDialog(plant = plant)
+            }
             detailsPopup?.dismiss()
         }
         popupView.findViewById<View>(R.id.tvDelete).setOnClickListener {
-            if (valueBundle.equals(PET)) {
-                appDb.petDao().deletePet(pos+1)
-                petSelectAdapter.setData(appDb.petDao().getAllPet())
-            }
-            else {
-                appDb.plantDao().deletePlant(pos+1)
-                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+            when(valueBundle)
+            {
+                PET -> {
+                    appDb.petDao().deletePet(pos+1)
+                    petSelectAdapter.setData(appDb.petDao().getAllPet())
+                }
+                PLANT -> {
+                    appDb.plantDao().deletePlant(pos+1)
+                    plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                }
             }
             detailsPopup?.dismiss()
         }
@@ -194,13 +207,41 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>(), PetSelectAda
             detailsPopup?.dismiss()
         }
         detailsPopup?.setOnDismissListener {
-            if (valueBundle.equals(PET)) {
-                petSelectAdapter.setData(appDb.petDao().getAllPet())
-            }
-            else {
-                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+            when(valueBundle)
+            {
+                PET -> petSelectAdapter.setData(appDb.petDao().getAllPet())
+                PLANT -> plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
             }
         }
+    }
+
+    private fun showRenameDialog(pet: PetModel? = null, plant: PlantModel? = null) {
+        commonDialog = CommonDialog(this,false)
+        when(valueBundle) {
+            PET -> commonDialog!!.setUpDialog(pet!!.imagePlaceHolder,pet.name)
+            PLANT -> commonDialog!!.setUpDialog(plant!!.imagePlaceHolder,plant.name)
+        }
+        commonDialog!!.setListener(object : CommonDialog.Listener {
+            override fun confirm() {
+                when(valueBundle) {
+                    PET -> {
+                        appDb.petDao().updatePetName(pet?.id,commonDialog!!.getEditTextValue())
+                        petSelectAdapter.setData(appDb.petDao().getAllPet())
+                    }
+                    PLANT -> {
+                        appDb.plantDao().updatePlantName(plant?.id,commonDialog!!.getEditTextValue())
+                        plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                    }
+                }
+                commonDialog?.dismiss()
+            }
+
+            override fun close() {
+                commonDialog?.dismiss()
+            }
+
+        })
+        commonDialog!!.showDialog()
     }
 
     private fun showPopupDetails(view: View) {

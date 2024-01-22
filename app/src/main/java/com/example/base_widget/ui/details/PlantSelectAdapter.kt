@@ -14,6 +14,7 @@ import com.example.base_widget.R
 import com.example.base_widget.common.hide
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ItemAllSelectBinding
+import com.example.base_widget.model.PetModel
 import com.example.base_widget.model.PlantModel
 import com.example.base_widget.ui.shop.ItemTraining
 import com.example.base_widget.ui.shop.ShopFragmentListener
@@ -57,7 +58,7 @@ class PlantSelectAdapter : RecyclerView.Adapter<PlantSelectAdapter.PlantSelectVi
                     onItemClick?.invoke(item)
                 }
                 binding.ivDots.setOnClickListener {
-                    listener?.setPlantOnClickListener(it,bindingAdapterPosition)
+                    listener?.setPlantOnClickListener(it,bindingAdapterPosition, item)
                 }
             }
         }
@@ -73,5 +74,5 @@ class PlantSelectAdapter : RecyclerView.Adapter<PlantSelectAdapter.PlantSelectVi
 }
 
 interface PlantSelectAdapterListener {
-    fun setPlantOnClickListener(it: View, pos: Int)
+    fun setPlantOnClickListener(it: View, pos: Int, item: PlantModel)
 }

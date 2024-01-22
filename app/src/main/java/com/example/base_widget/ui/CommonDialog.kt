@@ -33,42 +33,63 @@ class CommonDialog(private val context: Context,private val isConfirmDialog: Boo
         window!!.attributes = attributes
         window!!.setSoftInputMode(16)
         onclick()
-        changeRating()
     }
 
     interface Listener {
-        fun send()
-        fun rating()
-        fun later()
+        fun confirm()
+
+        fun close()
     }
 
     fun setListener(listener: Listener?) {
         this.listener = listener
     }
 
-    private fun changeRating() {
+    fun getEditTextValue(): String {
+        return when (isConfirmDialog) {
+            true -> {
+                cBinding.tvTitle.text.toString()
+            }
+            else -> {
+                rBinding.editName.text.toString()
+            }
+        }
+    }
 
+
+    fun setUpDialog(iconResId: Int, name: String) {
+        when(isConfirmDialog) {
+            true -> {
+                cBinding.ivSelected.setImageResource(iconResId)
+            }
+
+            else -> {
+                rBinding.editName.setText(name)
+                rBinding.ivSelected.setImageResource(iconResId)
+            }
+        }
     }
 
     private fun onclick() {
-        binding.btnRate.setOnClickListener {
-            if (binding.rtb.rating == 0f) {
-                Toast.makeText(
-                    context,
-                    context.resources.getString(R.string.please_feedback),
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
+        when(isConfirmDialog)
+        {
+            true -> {
+                cBinding.btConfirm.setOnClickListener {
+                   listener?.confirm()
+                }
+                cBinding.btClose.setOnClickListener {
+                    listener?.close()
+                }
             }
-            if (binding.rtb.rating <= 4.0) {
-                listener?.send()
-            } else {
-                listener?.rating()
+
+            else -> {
+                rBinding.btConfirm.setOnClickListener {
+                    listener?.confirm()
+                }
+                rBinding.btClose.setOnClickListener {
+                    listener?.close()
+                }
             }
-        }
-        binding.btnLater.setOnClickListener {
-            dismiss()
-            listener?.later()
         }
     }
 

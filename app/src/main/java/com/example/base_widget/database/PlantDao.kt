@@ -26,4 +26,7 @@ interface PlantDao {
 
     @Query("DELETE FROM plant WHERE id = :plantId")
     fun deletePlant(plantId: Int?)
+
+    @Query("SELECT * FROM plant ORDER BY id DESC LIMIT 1")
+    fun getPlantLatest(): PlantModel
 }

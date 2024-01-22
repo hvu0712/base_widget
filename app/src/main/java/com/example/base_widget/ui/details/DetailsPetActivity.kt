@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.hide
@@ -52,7 +53,11 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         binding.ivPet.show()
         binding.ivPlants.hide()
         binding.ivPets.show()
-        binding.ivPets.setImageResource(itemPet.image)
+        when (itemPet.type) {
+            0 -> Glide.with(this).asGif().placeholder(R.drawable.normal_cat).load(itemPet.image).into(binding.ivPets)
+            1 -> Glide.with(this).asGif().placeholder(R.drawable.normal_dog).load(itemPet.image).into(binding.ivPets)
+            2 -> Glide.with(this).asGif().placeholder(R.drawable.normal_rabbit).load(itemPet.image).into(binding.ivPets)
+        }
         binding.tvTitle.text = getString(R.string.tvPet)
         binding.tvName.text = itemPet.name
         binding.ivBackground.setImageResource(R.drawable.iv_animals)
@@ -257,9 +262,10 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
     private fun showGif(
         pos: Int,
         image: ImageView,
-        isPet: Boolean
+        isPet: Boolean,
+        type: Int,
     ) {
-        getGifByPos(this, pos, image, isPet)
+        getGifByPos(this, pos, image, isPet, type)
         Handler(Looper.getMainLooper()).postDelayed({
             image.setImageResource(itemPet.image)
         }, DURATION)
@@ -275,7 +281,7 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         }
         else
         {
-            showGif(pos, binding.ivPets, isPet)
+            showGif(pos, binding.ivPets, isPet, itemPet.type)
             currentValue += EXPERIENCE
             if (binding.sbPet.isCreated) {
                 binding.sbPet.setValue(currentValue)

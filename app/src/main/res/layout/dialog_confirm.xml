@@ -28,112 +28,113 @@
         app:layout_constraintGuide_percent="0.001" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline3"
-        app:srcCompat="@drawable/drop_shadow_rate_0" />
+        android:id="@+id/btClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:elevation="10dp"
+        android:src="@drawable/ic_button_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline2" />
 
-    <ImageView
-        android:id="@+id/imgIcon"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:elevation="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        tools:srcCompat="@drawable/ic_pet_egg_one" />
-
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/creenRating"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginHorizontal="@dimen/_47sdp"
         android:layout_marginBottom="@dimen/_2sdp"
-        app:cardCornerRadius="10dp"
+        android:background="@drawable/bg_button"
+        android:backgroundTint="@color/color_926531"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:paddingTop="@dimen/_1sdp"
+        android:paddingBottom="@dimen/_8sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline1">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingHorizontal="5dp"
-            android:paddingVertical="20dp">
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/lato_bold"
-                android:gravity="center"
-                android:maxLines="2"
-                android:paddingHorizontal="5dp"
-                android:text="@string/we_are_working_hard_for_a_better_user_experience"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="10dp"
-                android:fontFamily="@font/lato_bold"
-                android:gravity="center"
-                android:maxLines="2"
-                android:paddingHorizontal="10dp"
-                android:text="@string/we_d_greatly_appreciate_if_you_can_rate_us"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/_10ssp" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/ivSelected"
-                    android:layout_width="@dimen/_129sdp"
-                    android:layout_height="@dimen/_130sdp"
-                    android:layout_gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/iv_cat" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            app:cardCornerRadius="30dp">
 
             <LinearLayout
-                android:layout_width="@dimen/_200sdp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:background="@color/color_EFE2D3"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingVertical="@dimen/_20sdp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btConfirm"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_background"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <ImageView
+                        android:id="@+id/ivSelected"
+                        android:layout_width="@dimen/_129sdp"
+                        android:layout_height="@dimen/_130sdp"
+                        android:layout_gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/iv_cat" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
                     android:fontFamily="@font/lato_bold"
-                    android:maxLines="1"
-                    android:text="@string/confirm"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:text="@string/congratulation"
+                    android:textColor="@color/color_33A9FF"
+                    android:textSize="@dimen/_16ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:text="@string/congratulation_content"
+                    android:textColor="@color/color_00084E"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="@dimen/_200sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_36sdp"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:background="@drawable/bg_button"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="@string/got_it"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

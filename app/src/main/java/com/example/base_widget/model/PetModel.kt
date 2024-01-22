@@ -14,8 +14,12 @@ data class PetModel(
     var name: String,
     @ColumnInfo(name = "image")
     var image: Int,
+    @ColumnInfo(name = "imagePlaceHolder")
+    var imagePlaceHolder: Int,
     @ColumnInfo(name = "level")
     var level: String,
     @ColumnInfo(name = "experience")
     var experience: Int,
+    @ColumnInfo(name = "type")
+    var type: Int,
 ): Serializable

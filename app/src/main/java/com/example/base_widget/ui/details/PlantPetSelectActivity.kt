@@ -16,6 +16,9 @@ import com.example.base_widget.base.BaseActivity
 import com.example.base_widget.common.setOnSingleClickListener
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityPlantPetSelectBinding
+import com.example.base_widget.model.PetModel
+import com.example.base_widget.model.PlantModel
+import com.example.base_widget.ui.CommonDialog
 import com.example.base_widget.ui.shop.GridSpacingItemDecoration
 import com.example.base_widget.utils.BaseConfig.ADD_WIDGET
 import com.example.base_widget.utils.BaseConfig.ITEM_SELECT
@@ -29,6 +32,7 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
     private var valueBundle: String? = null
     private var detailsPopup: PopupWindow? = null
     private lateinit var popupView: View
+    private var commonDialog: CommonDialog? = null
     private var appDb: AppDatabase = AppDatabase.getInstance(this)
 
     override fun inflateViewBinding() = ActivityPlantPetSelectBinding.inflate(layoutInflater)
@@ -38,16 +42,19 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
         valueBundle = bundle?.getString(ADD_WIDGET)
         if (valueBundle != null)
         {
-            if (valueBundle.equals(PET)) {
-                binding.tvAllPlant.text = getString(R.string.tvAllPet)
-                binding.tvName.text = getString(R.string.tvPet)
-                petSelectAdapter.setData(appDb.petDao().getAllPet())
-                petSelectAdapter.setListener(this)
-            } else {
-                binding.tvAllPlant.text = getString(R.string.tvAllPlant)
-                binding.tvName.text = getString(R.string.tvPlant)
-                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
-                plantSelectAdapter.setListener(this)
+            when(valueBundle) {
+                PET -> {
+                    binding.tvAllPlant.text = getString(R.string.tvAllPet)
+                    binding.tvName.text = getString(R.string.tvPet)
+                    petSelectAdapter.setData(appDb.petDao().getAllPet())
+                    petSelectAdapter.setListener(this)
+                }
+                PLANT -> {
+                    binding.tvAllPlant.text = getString(R.string.tvAllPlant)
+                    binding.tvName.text = getString(R.string.tvPlant)
+                    plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                    plantSelectAdapter.setListener(this)
+                }
             }
         }
         setUpRecyclerView()
@@ -59,13 +66,9 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
         val spacingInPixelsTwo = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         val spacingInPixelsThree = resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._15sdp)
         binding.rvAllPlantPet.apply {
-            if (valueBundle.equals(PET))
-            {
-                adapter = petSelectAdapter
-            }
-            else if (valueBundle.equals(PLANT))
-            {
-                adapter = plantSelectAdapter
+            when(valueBundle) {
+                PET -> adapter = petSelectAdapter
+                PLANT -> adapter = plantSelectAdapter
             }
             layoutManager = GridLayoutManager(this@PlantPetSelectActivity, 4)
             addItemDecoration(GridSpacingItemDecoration(4,spacingInPixelsOne, spacingInPixelsTwo, spacingInPixelsThree))
@@ -90,29 +93,36 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
         }
     }
 
-    override fun setPetOnClickListener(it: View, pos: Int) {
+    override fun setPetOnClickListener(it: View, pos: Int, item: PetModel) {
         showPopupDetails(it)
-        setUpListenerPopup(pos)
+        setUpListenerPopup(pos, pet = item)
     }
 
-    override fun setPlantOnClickListener(it: View, pos: Int) {
+    override fun setPlantOnClickListener(it: View, pos: Int, item: PlantModel) {
         showPopupDetails(it)
-        setUpListenerPopup(pos)
+        setUpListenerPopup(pos, plant = item)
     }
 
-    private fun setUpListenerPopup(pos: Int) {
+    private fun setUpListenerPopup(pos: Int,pet: PetModel? = null, plant: PlantModel? = null) {
         popupView.findViewById<View>(R.id.tvRename).setOnClickListener {
-            Toast.makeText(this,"", Toast.LENGTH_LONG).show()
+            when(valueBundle)
+            {
+                PET -> showRenameDialog(pet = pet)
+                PLANT -> showRenameDialog(plant = plant)
+            }
             detailsPopup?.dismiss()
         }
         popupView.findViewById<View>(R.id.tvDelete).setOnClickListener {
-            if (valueBundle.equals(PET)) {
-                appDb.petDao().deletePet(pos+1)
-                petSelectAdapter.setData(appDb.petDao().getAllPet())
-            }
-            else {
-                appDb.plantDao().deletePlant(pos+1)
-                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+            when(valueBundle)
+            {
+                PET -> {
+                    appDb.petDao().deletePet(pos+1)
+                    petSelectAdapter.setData(appDb.petDao().getAllPet())
+                }
+                PLANT -> {
+                    appDb.plantDao().deletePlant(pos+1)
+                    plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                }
             }
             detailsPopup?.dismiss()
         }
@@ -120,13 +130,41 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
             detailsPopup?.dismiss()
         }
         detailsPopup?.setOnDismissListener {
-            if (valueBundle.equals(PET)) {
-                petSelectAdapter.setData(appDb.petDao().getAllPet())
-            }
-            else {
-                plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+            when(valueBundle)
+            {
+                PET -> petSelectAdapter.setData(appDb.petDao().getAllPet())
+                PLANT -> plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
             }
         }
+    }
+
+    private fun showRenameDialog(pet: PetModel? = null, plant: PlantModel? = null) {
+        commonDialog = CommonDialog(this,false)
+        when(valueBundle) {
+            PET -> commonDialog!!.setUpDialog(pet!!.imagePlaceHolder,pet.name)
+            PLANT -> commonDialog!!.setUpDialog(plant!!.imagePlaceHolder,plant.name)
+        }
+        commonDialog!!.setListener(object : CommonDialog.Listener {
+            override fun confirm() {
+                when(valueBundle) {
+                    PET -> {
+                        appDb.petDao().updatePetName(pet?.id,commonDialog!!.getEditTextValue())
+                        petSelectAdapter.setData(appDb.petDao().getAllPet())
+                    }
+                    PLANT -> {
+                        appDb.plantDao().updatePlantName(plant?.id,commonDialog!!.getEditTextValue())
+                        plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                    }
+                }
+                commonDialog?.dismiss()
+            }
+
+            override fun close() {
+                commonDialog?.dismiss()
+            }
+
+        })
+        commonDialog!!.showDialog()
     }
 
     private fun showPopupDetails(view: View) {

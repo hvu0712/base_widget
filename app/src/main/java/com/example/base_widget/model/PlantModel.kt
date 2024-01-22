@@ -14,6 +14,10 @@ data class PlantModel(
     var name: String,
     @ColumnInfo(name = "image")
     var image: Int,
+    @ColumnInfo(name = "imagePlaceHolder")
+    var imagePlaceHolder: Int,
     @ColumnInfo(name = "maturity_time")
     var maturityTime: Long,
+    @ColumnInfo(name = "type")
+    var type: Int,
 ): Serializable
