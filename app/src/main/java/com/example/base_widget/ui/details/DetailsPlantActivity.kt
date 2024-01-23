@@ -106,6 +106,7 @@ class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>(), Det
             adapter = detailsAdapter
             layoutManager = GridLayoutManager(this@DetailsPlantActivity, 2)
         }
+        detailsAdapter.setListener(this)
     }
 
     private fun showGif(

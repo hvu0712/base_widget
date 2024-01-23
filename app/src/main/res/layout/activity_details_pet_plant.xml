@@ -156,6 +156,17 @@
                     app:ct_is_pet_thumb="true"
                     app:ct_max_value="100"
                     app:ct_progressColor="@color/color_FF7A7A" />
+
+                <com.example.base_widget.custom.CustomSeeBar
+                    android:id="@+id/sbPetMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:ct_backgroundBorderColor="@color/color_FF7A7A"
+                    app:ct_is_pet_thumb="true"
+                    app:ct_max_value="100"
+                    app:ct_progressColor="@color/color_FF7A7A" />
             </LinearLayout>
 
             <com.example.base_widget.custom.CustomSeeBar

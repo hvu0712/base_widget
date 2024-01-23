@@ -144,6 +144,7 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>(), Detai
             adapter = detailsAdapter
             layoutManager = GridLayoutManager(this@DetailsPetActivity, 2)
         }
+        detailsAdapter.setListener(this)
     }
 
     private var onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -239,16 +240,33 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>(), Detai
                     getString(R.string.tvLevel4) -> {
                         if (currentValue == LEVEL_4_EXPERIENCE) {
                             if (binding.sbPet.isCreated) {
-                                binding.sbPet.setValue(LEVEL_1_EXPERIENCE)
-                                binding.sbPet.maxValue = LEVEL_1_EXPERIENCE
                                 binding.tvLevel.text = getString(R.string.tvLevelMax)
+                                binding.sbPet.hide()
+                                binding.sbPetMax.show()
+                                if (binding.sbPetMax.isCreated) {
+                                    binding.sbPetMax.setValue(LEVEL_1_EXPERIENCE)
+                                } else {
+                                    binding.sbPetMax.setViewCreatedListener(object : CreatedListener {
+                                        override fun isCreated() {
+                                            binding.sbPetMax.setValue(LEVEL_1_EXPERIENCE)
+                                        }
+                                    })
+                                }
                                 appDb.petDao().updatePetLevel(itemPet.id, getString(R.string.tvLevelMax))
                             } else {
                                 binding.sbPet.setViewCreatedListener(object : CreatedListener {
                                     override fun isCreated() {
-                                        binding.sbPet.setValue(LEVEL_1_EXPERIENCE)
-                                        binding.sbPet.maxValue = LEVEL_1_EXPERIENCE
                                         binding.tvLevel.text = getString(R.string.tvLevelMax)
+                                        binding.sbPetMax.show()
+                                        if (binding.sbPetMax.isCreated) {
+                                            binding.sbPetMax.setValue(LEVEL_1_EXPERIENCE)
+                                        } else {
+                                            binding.sbPetMax.setViewCreatedListener(object : CreatedListener {
+                                                override fun isCreated() {
+                                                    binding.sbPetMax.setValue(LEVEL_1_EXPERIENCE)
+                                                }
+                                            })
+                                        }
                                         appDb.petDao().updatePetLevel(itemPet.id, getString(R.string.tvLevelMax))
                                     }
                                 })
@@ -305,7 +323,7 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>(), Detai
             binding.root.enable()
             binding.tvTime.hide()
             binding.vCountDown.hide()
-        }, 500)
+        }, DURATION)
     }
 
 }
