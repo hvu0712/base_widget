@@ -55,42 +55,41 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>(), ShopFragmentList
         val name = "Pet ${lastIndex + 2}"
         when (position) {
             0 ->  handlerAddPet(name,position)
-            1 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_dog,R.drawable.iv_dog,getString(R.string.tvLevel1),0,position))
-            2 ->  appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_rabbit,R.drawable.iv_rabbit,getString(R.string.tvLevel1),0,position))
+            1 ->  handlerAddPet(name,position)
+            2 ->  handlerAddPet(name,position)
         }
         petSelectAdapter.setData(appDb.petDao().getAllPet())
     }
 
     private fun handlerAddPlant(name: String,position: Int) {
-        appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_rose,R.drawable.iv_rose,0L,position))
-        val pet: PetModel = appDb.petDao().getPetLatest()
-        showConfirmDialog(pet = pet)
+        when(position) {
+            0 -> appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_rose,R.drawable.iv_rose,0L,position))
+            1 -> appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_sunflower,R.drawable.iv_sunflower,0L,position))
+            2 -> appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_peach_blossom,R.drawable.iv_peach_blossom,0L,position))
+        }
+        val plant: PlantModel = appDb.plantDao().getPlantLatest()
+        showConfirmDialog(plant = plant)
     }
 
     private fun handlerAddPet(name: String,position: Int) {
-        appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_cat,R.drawable.iv_cat,getString(R.string.tvLevel1),0,position))
+        when(position) {
+            0 -> appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_cat,R.drawable.iv_cat,getString(R.string.tvLevel1),0,position))
+            1 -> appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_dog,R.drawable.iv_dog,getString(R.string.tvLevel1),0,position))
+            2 -> appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_rabbit,R.drawable.iv_rabbit,getString(R.string.tvLevel1),0,position))
+        }
         val pet: PetModel = appDb.petDao().getPetLatest()
         showConfirmDialog(pet = pet)
     }
 
     private fun showConfirmDialog(pet: PetModel? = null, plant: PlantModel? = null) {
-        commonDialog = CommonDialog(this,false)
+        commonDialog = CommonDialog(this,true)
         when(binding.viewPager.currentItem) {
             0 -> commonDialog!!.setUpDialog(pet!!.imagePlaceHolder,pet.name)
             1 -> commonDialog!!.setUpDialog(plant!!.imagePlaceHolder,plant.name)
         }
         commonDialog!!.setListener(object : CommonDialog.Listener {
             override fun confirm() {
-                when(binding.viewPager.currentItem) {
-                    0 -> {
-                        appDb.petDao().updatePetName(pet?.id,commonDialog!!.getEditTextValue())
-                        petSelectAdapter.setData(appDb.petDao().getAllPet())
-                    }
-                    1 -> {
-                        appDb.plantDao().updatePlantName(plant?.id,commonDialog!!.getEditTextValue())
-                        plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
-                    }
-                }
+
                 commonDialog?.dismiss()
             }
 
@@ -106,9 +105,9 @@ class AllShopActivity : BaseActivity<ActivityAllShopBinding>(), ShopFragmentList
         val lastIndex = appDb.plantDao().getAllPlant().lastIndex
         val name = "Plant ${lastIndex + 2}"
         when (position) {
-            0 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_rose,R.drawable.iv_rose,0L,position))
-            1 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_sunflower,R.drawable.iv_sunflower,0L,position))
-            2 ->  appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_peach_blossom,R.drawable.iv_peach_blossom,0L,position))
+            0 ->  handlerAddPlant(name,position)
+            1 ->  handlerAddPlant(name,position)
+            2 ->  handlerAddPlant(name,position)
         }
         plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
     }

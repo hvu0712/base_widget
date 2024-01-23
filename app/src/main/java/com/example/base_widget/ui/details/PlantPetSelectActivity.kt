@@ -116,11 +116,11 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
             when(valueBundle)
             {
                 PET -> {
-                    appDb.petDao().deletePet(pos+1)
+                    appDb.petDao().deletePet(pet!!)
                     petSelectAdapter.setData(appDb.petDao().getAllPet())
                 }
                 PLANT -> {
-                    appDb.plantDao().deletePlant(pos+1)
+                    appDb.plantDao().deletePlant(plant!!)
                     plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
                 }
             }

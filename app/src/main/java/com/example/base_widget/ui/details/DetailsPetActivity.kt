@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
+import com.example.base_widget.common.enable
 import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.common.show
@@ -18,6 +19,7 @@ import com.example.base_widget.custom.CustomSeeBar
 import com.example.base_widget.custom.ISetOnSeekBar
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityDetailsPetPlantBinding
+import com.example.base_widget.databinding.ItemDetailsPetPlantBinding
 import com.example.base_widget.model.PetModel
 import com.example.base_widget.utils.BaseConfig
 import com.example.base_widget.utils.BaseConfig.DEFAULT_VALUE
@@ -33,7 +35,7 @@ import com.example.base_widget.utils.BaseConfig.UPDATE_LIST
 import com.example.base_widget.utils.BaseConfig.getGifByPos
 import com.example.base_widget.utils.BaseConfig.showExperienceUp
 
-class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
+class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>(), DetailsAdapterListener {
 
     private lateinit var itemPet: PetModel
     private var currentValue = 0
@@ -296,6 +298,14 @@ class DetailsPetActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
             }
             showExperienceUp(this, binding.tvExp, false)
         }
+    }
+
+    override fun setItemClickListener(binding: ItemDetailsPetPlantBinding) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.root.enable()
+            binding.tvTime.hide()
+            binding.vCountDown.hide()
+        }, 500)
     }
 
 }

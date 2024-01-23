@@ -14,6 +14,7 @@ import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.common.show
 import com.example.base_widget.database.AppDatabase
 import com.example.base_widget.databinding.ActivityDetailsPetPlantBinding
+import com.example.base_widget.databinding.ItemDetailsPetPlantBinding
 import com.example.base_widget.model.PlantModel
 import com.example.base_widget.utils.BaseConfig
 import com.example.base_widget.utils.BaseConfig.DURATION
@@ -23,7 +24,7 @@ import com.example.base_widget.utils.BaseConfig.UPDATE
 import com.example.base_widget.utils.BaseConfig.UPDATE_LIST
 import com.example.base_widget.utils.BaseConfig.getGifByPos
 
-class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
+class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>(), DetailsAdapterListener {
 
     private val detailsAdapter = DetailsAdapter()
     private lateinit var itemPlant: PlantModel
@@ -117,5 +118,9 @@ class DetailsPlantActivity : BaseActivity<ActivityDetailsPetPlantBinding>() {
         Handler(Looper.getMainLooper()).postDelayed({
             image.setImageResource(itemPlant.image)
         }, DURATION)
+    }
+
+    override fun setItemClickListener(binding: ItemDetailsPetPlantBinding) {
+
     }
 }

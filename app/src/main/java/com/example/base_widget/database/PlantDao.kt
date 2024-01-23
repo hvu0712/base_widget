@@ -1,6 +1,7 @@
 package com.example.base_widget.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -29,4 +30,7 @@ interface PlantDao {
 
     @Query("SELECT * FROM plant ORDER BY id DESC LIMIT 1")
     fun getPlantLatest(): PlantModel
+
+    @Delete
+    fun deletePlant(plant: PlantModel)
 }
