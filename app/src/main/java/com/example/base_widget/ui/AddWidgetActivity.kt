@@ -21,6 +21,7 @@ import com.example.base_widget.ui.details.PlantPetSelectActivity
 import com.example.base_widget.utils.BaseConfig.ADD_WIDGET
 import com.example.base_widget.utils.BaseConfig.ITEM_SELECT
 import com.example.base_widget.utils.BaseConfig.PET
+import com.example.base_widget.utils.BaseConfig.PLANT
 
 class AddWidgetActivity : BaseActivity<ActivityAddWidgetBinding>(){
 
@@ -34,12 +35,16 @@ class AddWidgetActivity : BaseActivity<ActivityAddWidgetBinding>(){
         valueBundle = bundle?.getString(ADD_WIDGET)
         if (valueBundle != null)
         {
-            if (valueBundle.equals(PET)) {
-                binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_widget_s))
-                Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_animal).load(R.drawable.egg_animation).into(binding.ivWidget)
-            } else {
-                binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_preview_plant))
-                Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_plant).load(R.drawable.plant_animation).into(binding.ivWidget)
+            when(valueBundle) {
+                PET -> {
+                    binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_widget_s))
+                    Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_animal).load(R.drawable.egg_animation).into(binding.ivWidget)
+                }
+
+                PLANT -> {
+                    binding.ivWidget.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.iv_preview_plant))
+                    Glide.with(this@AddWidgetActivity).asGif().centerCrop().placeholder(R.drawable.iv_plant).load(R.drawable.plant_animation).into(binding.ivWidget)
+                }
             }
         }
     }

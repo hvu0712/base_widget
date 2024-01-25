@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="CustomSeekBar">
+    <declare-styleable name="PLSeekBar">
         <attr name="ct_backgroundBorderColor" format="color"/>
         <attr name="ct_max_value" format="integer"/>
         <attr name="ct_progressColor" format="color"/>

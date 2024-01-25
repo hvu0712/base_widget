@@ -5,7 +5,6 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
@@ -13,8 +12,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.base_widget.R
+import com.example.base_widget.common.enable
 import com.example.base_widget.common.hide
 import com.example.base_widget.common.show
+import com.example.base_widget.databinding.ItemDetailsPetPlantBinding
 import com.example.base_widget.ui.shop.ItemCommon
 import com.example.base_widget.ui.shop.ItemTraining
 
@@ -27,6 +28,42 @@ object BaseConfig {
     const val LEVEL_4_EXPERIENCE = 250
 
     const val DURATION = 500L
+    const val DURATION_PROGRESS_CHANGE = 505L
+
+    const val FIRST_TIME_STAMP_PET1 = "FIRST_TIME_STAMP_PET1"
+    const val CURRENT_TIME_STAMP_PET1 = "CURRENT_TIME_STAMP_PET1"
+    const val LATEST_TIME_STAMP_PET1 = "LATEST_TIME_STAMP_PET1"
+    const val TIME_STAMP_PET1 = "TIME_STAMP_PET1"
+    const val FIRST_TIME_STAMP_PET2 = "FIRST_TIME_STAMP_PET2"
+    const val CURRENT_TIME_STAMP_PET2 = "CURRENT_TIME_STAMP_PET2"
+    const val LATEST_TIME_STAMP_PET2 = "LATEST_TIME_STAMP_PET2"
+    const val TIME_STAMP_PET2 = "TIME_STAMP_PET2"
+    const val FIRST_TIME_STAMP_PET3 = "FIRST_TIME_STAMP_PET3"
+    const val CURRENT_TIME_STAMP_PET3 = "CURRENT_TIME_STAMP_PET3"
+    const val LATEST_TIME_STAMP_PET3 = "LATEST_TIME_STAMP_PET3"
+    const val TIME_STAMP_PET3 = "TIME_STAMP_PET3"
+    const val FIRST_TIME_STAMP_PET4 = "FIRST_TIME_STAMP_PET4"
+    const val CURRENT_TIME_STAMP_PET4 = "CURRENT_TIME_STAMP_PET4"
+    const val LATEST_TIME_STAMP_PET4 = "LATEST_TIME_STAMP_PET4"
+    const val TIME_STAMP_PET4 = "TIME_STAMP_PET4"
+
+    const val FIRST_TIME_STAMP_PLANT1 = "FIRST_TIME_STAMP_PLANT1"
+    const val CURRENT_TIME_STAMP_PLANT1 = "CURRENT_TIME_STAMP_PLANT1"
+    const val LATEST_TIME_STAMP_PLANT1 = "LATEST_TIME_STAMP_PLANT1"
+    const val TIME_STAMP_PLANT1 = "TIME_STAMP_PLANT1"
+    const val FIRST_TIME_STAMP_PLANT2 = "FIRST_TIME_STAMP_PLANT2"
+    const val CURRENT_TIME_STAMP_PLANT2 = "CURRENT_TIME_STAMP_PLANT2"
+    const val LATEST_TIME_STAMP_PLANT2 = "LATEST_TIME_STAMP_PLANT2"
+    const val TIME_STAMP_PLANT2 = "TIME_STAMP_PLANT2"
+    const val FIRST_TIME_STAMP_PLANT3 = "FIRST_TIME_STAMP_PLANT3"
+    const val CURRENT_TIME_STAMP_PLANT3 = "CURRENT_TIME_STAMP_PLANT3"
+    const val LATEST_TIME_STAMP_PLANT3 = "LATEST_TIME_STAMP_PLANT3"
+    const val TIME_STAMP_PLANT3 = "TIME_STAMP_PLANT3"
+    const val FIRST_TIME_STAMP_PLANT4 = "FIRST_TIME_STAMP_PLANT4"
+    const val CURRENT_TIME_STAMP_PLANT4 = "CURRENT_TIME_STAMP_PLANT4"
+    const val LATEST_TIME_STAMP_PLANT4 = "LATEST_TIME_STAMP_PLANT4"
+    const val TIME_STAMP_PLANT4 = "TIME_STAMP_PLANT4"
+
 
 
 
@@ -140,10 +177,10 @@ object BaseConfig {
             textView.text = String.format(context.getString(R.string.tvExp), EXPERIENCE)
         }
 
-        var animatorSet = AnimatorSet()
-        var translationY = ObjectAnimator.ofFloat(textView, View.TRANSLATION_Y, 0f, -300f)
+        val animatorSet = AnimatorSet()
+        val translationY = ObjectAnimator.ofFloat(textView, View.TRANSLATION_Y, 0f, -300f)
         translationY.interpolator = AccelerateInterpolator()
-        var alpha = ObjectAnimator.ofFloat(textView, View.ALPHA, 1f, 0f)
+        val alpha = ObjectAnimator.ofFloat(textView, View.ALPHA, 1f, 0f)
         animatorSet.play(translationY).with(alpha)
         animatorSet.duration = DURATION
         translationY.duration = (DURATION / 2)
@@ -164,18 +201,18 @@ object BaseConfig {
 
     fun getItemPlant(context: Context): ArrayList<ItemCommon> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_water_the_tree,context.getString(R.string.ct_plant_1),60000L),
-            ItemCommon(R.drawable.ic_prune,context.getString(R.string.ct_plant_2),60000L),
-            ItemCommon(R.drawable.ic_sun,context.getString(R.string.ct_plant_3),60000L),
-            ItemCommon(R.drawable.ic_fertilize,context.getString(R.string.ct_plant_4),60000L),
+            ItemCommon(R.drawable.ic_water_the_tree,context.getString(R.string.ct_plant_1),2.0),
+            ItemCommon(R.drawable.ic_prune,context.getString(R.string.ct_plant_2),3.0),
+            ItemCommon(R.drawable.ic_sun,context.getString(R.string.ct_plant_3),4.0),
+            ItemCommon(R.drawable.ic_fertilize,context.getString(R.string.ct_plant_4),1.0),
         )
     }
     fun getItemPet(context: Context): ArrayList<ItemCommon> {
         return arrayListOf(
-            ItemCommon(R.drawable.ic_eat,context.getString(R.string.ct_pet_1),60000L),
-            ItemCommon(R.drawable.ic_shower,context.getString(R.string.ct_pet_2),60000L),
-            ItemCommon(R.drawable.ic_toilet,context.getString(R.string.ct_pet_3),60000L),
-            ItemCommon(R.drawable.ic_sleep,context.getString(R.string.ct_pet_4),60000L),
+            ItemCommon(R.drawable.ic_eat,context.getString(R.string.ct_pet_1),0.05),
+            ItemCommon(R.drawable.ic_shower,context.getString(R.string.ct_pet_2),0.1),
+            ItemCommon(R.drawable.ic_toilet,context.getString(R.string.ct_pet_3),0.05),
+            ItemCommon(R.drawable.ic_sleep,context.getString(R.string.ct_pet_4),0.1),
         )
     }
 
@@ -185,6 +222,10 @@ object BaseConfig {
             ItemTraining(R.drawable.ic_plant_two,PLANT),
             ItemTraining(R.drawable.ic_plant_three,PLANT),
         )
+    }
+
+    fun hoursToMilliseconds(hours: Double): Long {
+        return (hours * 60 * 60 * 1000).toLong()
     }
 
 }

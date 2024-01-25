@@ -1,29 +1,19 @@
 package com.example.base_widget.ui.details
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.base_widget.R
-import com.example.base_widget.common.hide
-import com.example.base_widget.database.AppDatabase
+import com.example.base_widget.common.show
 import com.example.base_widget.databinding.ItemAllSelectBinding
-import com.example.base_widget.model.PetModel
 import com.example.base_widget.model.PlantModel
-import com.example.base_widget.ui.shop.ItemTraining
-import com.example.base_widget.ui.shop.ShopFragmentListener
 
 
 class PlantSelectAdapter : RecyclerView.Adapter<PlantSelectAdapter.PlantSelectViewHolder>() {
     private var itemList: MutableList<PlantModel> = mutableListOf()
     var onItemClick: ((PlantModel) -> Unit)? = null
-    private var listener: PlantSelectAdapterListener? = null
+    var onDotsClick: ((view:View,item: PlantModel) -> Unit)? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: MutableList<PlantModel>) {
@@ -52,13 +42,14 @@ class PlantSelectAdapter : RecyclerView.Adapter<PlantSelectAdapter.PlantSelectVi
         fun bind(item: PlantModel) {
             binding.ivItem.setImageResource(item.image)
             binding.tvName.text = item.name
-            binding.tvLevel.hide()
+            binding.tvLevel.text = item.level
+            binding.tvLevel.show()
             binding.ccItem.post {
                 binding.ccItem.setOnClickListener {
                     onItemClick?.invoke(item)
                 }
                 binding.ivDots.setOnClickListener {
-                    listener?.setPlantOnClickListener(it,bindingAdapterPosition, item)
+                    onDotsClick?.invoke(it, item)
                 }
             }
         }
@@ -66,13 +57,4 @@ class PlantSelectAdapter : RecyclerView.Adapter<PlantSelectAdapter.PlantSelectVi
     }
 
 
-
-    fun setListener(listener: PlantSelectAdapterListener) {
-        this.listener = listener
-    }
-
-}
-
-interface PlantSelectAdapterListener {
-    fun setPlantOnClickListener(it: View, pos: Int, item: PlantModel)
 }

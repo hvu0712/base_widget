@@ -28,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
-                        "test1"
+                        "AppDatabase"
                     ).fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build()

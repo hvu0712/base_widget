@@ -1,24 +1,17 @@
 package com.example.base_widget.ui.details
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.base_widget.R
 import com.example.base_widget.databinding.ItemAllSelectBinding
 import com.example.base_widget.model.PetModel
 
 class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHolder>() {
     private var itemList: MutableList<PetModel> = mutableListOf()
     var onItemClick: ((PetModel) -> Unit)? = null
-    private var listener: PetSelectAdapterListener? = null
+    var onDotsClick: ((view:View, item: PetModel) -> Unit)? = null
     @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: MutableList<PetModel>) {
         itemList.clear()
@@ -53,19 +46,11 @@ class PetSelectAdapter : RecyclerView.Adapter<PetSelectAdapter.PetSelectViewHold
                     onItemClick?.invoke(item)
                 }
                 binding.ivDots.setOnClickListener {
-                    listener?.setPetOnClickListener(it,bindingAdapterPosition,item)
+                    onDotsClick?.invoke(it,item)
                 }
             }
         }
 
     }
 
-    fun setListener(listener: PetSelectAdapterListener) {
-        this.listener = listener
-    }
-
-}
-
-interface PetSelectAdapterListener {
-    fun setPetOnClickListener(it: View, pos: Int, item: PetModel)
 }

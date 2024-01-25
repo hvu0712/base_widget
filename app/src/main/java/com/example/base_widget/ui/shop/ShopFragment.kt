@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.base_widget.custom.CreatedListener
 import com.example.base_widget.databinding.FragmentShopBinding
-import com.example.base_widget.utils.AppUtils
 import com.example.base_widget.utils.BaseConfig
 
 class ShopFragment : Fragment() {

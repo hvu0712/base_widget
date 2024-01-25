@@ -33,9 +33,6 @@ interface PetDao {
     @Query("SELECT * FROM pet")
     fun getAllPet(): MutableList<PetModel>
 
-    @Query("DELETE FROM pet WHERE id = :petId")
-    fun deletePet(petId: Int?)
-
     @Query("SELECT * FROM pet ORDER BY id DESC LIMIT 1")
     fun getPetLatest(): PetModel
 

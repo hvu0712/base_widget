@@ -1,6 +1,7 @@
 package com.example.base_widget.custom
 
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -8,7 +9,6 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.base_widget.R
@@ -86,6 +86,7 @@ class CustomSeeBar : FrameLayout {
         initialize(context, attrs, defStyle, 0)
     }
 
+    @SuppressLint("CustomViewStyleable")
     private fun initialize(
         context: Context,
         attrs: AttributeSet?,
@@ -105,16 +106,15 @@ class CustomSeeBar : FrameLayout {
 
         val typedArray = context.obtainStyledAttributes(
             attrs,
-            R.styleable.CustomSeekBar,
+            R.styleable.PLSeekBar,
             defStyleAttr,
             defStyleRes
         )
 
-        bgBorderColor =
-            typedArray.getColor(R.styleable.CustomSeekBar_ct_backgroundBorderColor, Color.BLACK)
-        isPetThumb = typedArray.getBoolean(R.styleable.CustomSeekBar_ct_is_pet_thumb, false)
-        progressColor = typedArray.getColor(R.styleable.CustomSeekBar_ct_progressColor, Color.BLACK)
-        maxValue = typedArray.getInt(R.styleable.CustomSeekBar_ct_max_value, 100)
+        bgBorderColor = typedArray.getColor(R.styleable.PLSeekBar_ct_backgroundBorderColor, Color.BLACK)
+        isPetThumb = typedArray.getBoolean(R.styleable.PLSeekBar_ct_is_pet_thumb, false)
+        progressColor = typedArray.getColor(R.styleable.PLSeekBar_ct_progressColor, Color.BLACK)
+        maxValue = typedArray.getInt(R.styleable.PLSeekBar_ct_max_value, 100)
 
         typedArray.recycle()
     }
@@ -138,18 +138,7 @@ class CustomSeeBar : FrameLayout {
                     -12f
                 }
             } else {
-//                if (value == 10)
-//                {
-//                    when(maxValue)
-//                    {
-//                        150 -> 26f
-//                        200 -> 10.4f
-//                        250 -> 2.64f
-//                        else -> ((((value.toFloat()) / maxValue) * bgRect.width()) - (thumbHeight))
-//                    }
-//                } else {
                     ((((value.toFloat()) / maxValue) * bgRect.width()) - (thumbHeight))
-//                }
             }
         }
         val oldValue = thumbRect.left

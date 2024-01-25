@@ -16,6 +16,8 @@ data class PlantModel(
     var image: Int,
     @ColumnInfo(name = "imagePlaceHolder")
     var imagePlaceHolder: Int,
+    @ColumnInfo(name = "level")
+    var level: String,
     @ColumnInfo(name = "maturity_time")
     var maturityTime: Long,
     @ColumnInfo(name = "type")

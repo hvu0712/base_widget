@@ -47,9 +47,9 @@
     <string name="tvAddWidget">Add Widget</string>
     <string name="tvWidget">Widget:</string>
 
-    <string name="tv2x2" translatable="false">2x2</string>
-    <string name="tv4x2" translatable="false">4x2</string>
-    <string name="tv4x3" translatable="false">4x3</string>
+    <string name="tv2x2">2x2</string>
+    <string name="tv4x2">4x2</string>
+    <string name="tv4x3">4x3</string>
 
     <string name="change_name">Change name</string>
     <string name="congratulation">Congratulation</string>

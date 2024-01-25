@@ -2,11 +2,7 @@ package com.example.base_widget.ui
 
 import android.app.Dialog
 import android.content.Context
-import android.view.View
 import android.view.WindowManager
-import android.widget.RatingBar
-import android.widget.RatingBar.OnRatingBarChangeListener
-import android.widget.Toast
 import com.example.base_widget.R
 import com.example.base_widget.databinding.DialogConfirmBinding
 import com.example.base_widget.databinding.DialogRenameBinding

@@ -1,26 +1,18 @@
 package com.example.base_widget.ui.details
 
 import android.annotation.SuppressLint
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.base_widget.common.disable
-import com.example.base_widget.common.enable
-import com.example.base_widget.common.hide
 import com.example.base_widget.common.setOnClickAffect
 import com.example.base_widget.common.show
 import com.example.base_widget.databinding.ItemDetailsPetPlantBinding
-import com.example.base_widget.model.PetModel
 import com.example.base_widget.ui.shop.ItemCommon
-import kotlinx.coroutines.delay
 
 class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsPlantViewHolder>() {
     private var itemList: ArrayList<ItemCommon> = ArrayList()
-    var onItemClick: ((ItemCommon, position: Int) -> Unit)? = null
-    private var listener: DetailsAdapterListener? = null
+    var onItemClick: ((ItemCommon, position: Int, binding: ItemDetailsPetPlantBinding) -> Unit)? = null
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(newList: ArrayList<ItemCommon>) {
@@ -50,25 +42,16 @@ class DetailsAdapter : RecyclerView.Adapter<DetailsAdapter.DetailsPlantViewHolde
         fun bind(item: ItemCommon) {
             binding.ivItem.setImageResource(item.image)
             binding.root.setOnClickAffect {
-                onItemClick?.invoke(item, bindingAdapterPosition)
+                onItemClick?.invoke(item, bindingAdapterPosition, binding)
                 binding.tvTime.show()
                 binding.vCountDown.show()
                 it.disable()
-                listener?.setItemClickListener(binding)
             }
             binding.tvName.text = item.name
             binding.tvTime.text = item.time.toString()
         }
 
     }
-
-    fun setListener(listener: DetailsAdapterListener) {
-        this.listener = listener
-    }
-
 }
 
 
-interface DetailsAdapterListener {
-    fun setItemClickListener(binding: ItemDetailsPetPlantBinding)
-}

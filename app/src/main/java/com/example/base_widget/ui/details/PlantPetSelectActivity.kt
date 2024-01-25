@@ -1,15 +1,12 @@
 package com.example.base_widget.ui.details
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.base_widget.R
 import com.example.base_widget.base.BaseActivity
@@ -25,7 +22,7 @@ import com.example.base_widget.utils.BaseConfig.ITEM_SELECT
 import com.example.base_widget.utils.BaseConfig.PET
 import com.example.base_widget.utils.BaseConfig.PLANT
 
-class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), PetSelectAdapterListener, PlantSelectAdapterListener {
+class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
 
     private val petSelectAdapter = PetSelectAdapter()
     private val plantSelectAdapter = PlantSelectAdapter()
@@ -47,13 +44,11 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
                     binding.tvAllPlant.text = getString(R.string.tvAllPet)
                     binding.tvName.text = getString(R.string.tvPet)
                     petSelectAdapter.setData(appDb.petDao().getAllPet())
-                    petSelectAdapter.setListener(this)
                 }
                 PLANT -> {
                     binding.tvAllPlant.text = getString(R.string.tvAllPlant)
                     binding.tvName.text = getString(R.string.tvPlant)
                     plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
-                    plantSelectAdapter.setListener(this)
                 }
             }
         }
@@ -85,44 +80,36 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
             setResult(RESULT_OK, resultIntent)
             finish()
         }
+        petSelectAdapter.onDotsClick = {view, item ->
+            showPopupDetails(view)
+            setUpListenerPopup(item)
+        }
         plantSelectAdapter.onItemClick = {
             val resultIntent = Intent()
             resultIntent.putExtra(ITEM_SELECT,it)
             setResult(RESULT_OK, resultIntent)
             finish()
         }
+        plantSelectAdapter.onDotsClick = {view, item ->
+            showPopupDetails(view)
+            setUpListenerPopup(item)
+        }
     }
 
-    override fun setPetOnClickListener(it: View, pos: Int, item: PetModel) {
-        showPopupDetails(it)
-        setUpListenerPopup(pos, pet = item)
-    }
-
-    override fun setPlantOnClickListener(it: View, pos: Int, item: PlantModel) {
-        showPopupDetails(it)
-        setUpListenerPopup(pos, plant = item)
-    }
-
-    private fun setUpListenerPopup(pos: Int,pet: PetModel? = null, plant: PlantModel? = null) {
+    private fun <T> setUpListenerPopup(value: T) {
         popupView.findViewById<View>(R.id.tvRename).setOnClickListener {
-            when(valueBundle)
+            when(value)
             {
-                PET -> showRenameDialog(pet = pet)
-                PLANT -> showRenameDialog(plant = plant)
+                is PetModel -> showRenameDialog(value)
+                is PlantModel -> showRenameDialog(value)
             }
             detailsPopup?.dismiss()
         }
         popupView.findViewById<View>(R.id.tvDelete).setOnClickListener {
-            when(valueBundle)
+            when(value)
             {
-                PET -> {
-                    appDb.petDao().deletePet(pet!!)
-                    petSelectAdapter.setData(appDb.petDao().getAllPet())
-                }
-                PLANT -> {
-                    appDb.plantDao().deletePlant(plant!!)
-                    plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
-                }
+                is PetModel -> appDb.petDao().deletePet(value)
+                is PlantModel -> appDb.plantDao().deletePlant(value)
             }
             detailsPopup?.dismiss()
         }
@@ -130,29 +117,29 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
             detailsPopup?.dismiss()
         }
         detailsPopup?.setOnDismissListener {
-            when(valueBundle)
+            when(value)
             {
-                PET -> petSelectAdapter.setData(appDb.petDao().getAllPet())
-                PLANT -> plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                is PetModel -> petSelectAdapter.setData(appDb.petDao().getAllPet())
+                is PlantModel -> plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
             }
         }
     }
 
-    private fun showRenameDialog(pet: PetModel? = null, plant: PlantModel? = null) {
+    private fun <T> showRenameDialog(value: T) {
         commonDialog = CommonDialog(this,false)
-        when(valueBundle) {
-            PET -> commonDialog!!.setUpDialog(pet!!.imagePlaceHolder,pet.name)
-            PLANT -> commonDialog!!.setUpDialog(plant!!.imagePlaceHolder,plant.name)
+        when(value) {
+            is PetModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
+            is PlantModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
         }
         commonDialog!!.setListener(object : CommonDialog.Listener {
             override fun confirm() {
-                when(valueBundle) {
-                    PET -> {
-                        appDb.petDao().updatePetName(pet?.id,commonDialog!!.getEditTextValue())
+                when(value) {
+                    is PetModel -> {
+                        appDb.petDao().updatePetName(value.id,commonDialog!!.getEditTextValue())
                         petSelectAdapter.setData(appDb.petDao().getAllPet())
                     }
-                    PLANT -> {
-                        appDb.plantDao().updatePlantName(plant?.id,commonDialog!!.getEditTextValue())
+                    is PlantModel -> {
+                        appDb.plantDao().updatePlantName(value.id,commonDialog!!.getEditTextValue())
                         plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
                     }
                 }
@@ -177,6 +164,7 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>(), Pet
         )
     }
 
+    @SuppressLint("InflateParams")
     private fun setUpPopupDetails() {
         popupView = LayoutInflater.from(this).inflate(R.layout.popup_details, null)
         detailsPopup = PopupWindow(
