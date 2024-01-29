@@ -98,19 +98,11 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
 
     private fun <T> setUpListenerPopup(value: T) {
         popupView.findViewById<View>(R.id.tvRename).setOnClickListener {
-            when(value)
-            {
-                is PetModel -> showRenameDialog(value)
-                is PlantModel -> showRenameDialog(value)
-            }
+            showRenameDialog(value)
             detailsPopup?.dismiss()
         }
         popupView.findViewById<View>(R.id.tvDelete).setOnClickListener {
-            when(value)
-            {
-                is PetModel -> appDb.petDao().deletePet(value)
-                is PlantModel -> appDb.plantDao().deletePlant(value)
-            }
+            showDeleteDialog(value)
             detailsPopup?.dismiss()
         }
         popupView.setOnClickListener {
@@ -126,7 +118,7 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
     }
 
     private fun <T> showRenameDialog(value: T) {
-        commonDialog = CommonDialog(this,false)
+        commonDialog = CommonDialog(this,2)
         when(value) {
             is PetModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
             is PlantModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
@@ -140,6 +132,35 @@ class PlantPetSelectActivity: BaseActivity<ActivityPlantPetSelectBinding>() {
                     }
                     is PlantModel -> {
                         appDb.plantDao().updatePlantName(value.id,commonDialog!!.getEditTextValue())
+                        plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                    }
+                }
+                commonDialog?.dismiss()
+            }
+
+            override fun close() {
+                commonDialog?.dismiss()
+            }
+
+        })
+        commonDialog!!.showDialog()
+    }
+
+    private fun <T> showDeleteDialog(value: T) {
+        commonDialog = CommonDialog(this,2)
+//        when(value) {
+//            is PetModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
+//            is PlantModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
+//        }
+        commonDialog!!.setListener(object : CommonDialog.Listener {
+            override fun confirm() {
+                when(value) {
+                    is PetModel -> {
+                        appDb.petDao().deletePet(value)
+                        petSelectAdapter.setData(appDb.petDao().getAllPet())
+                    }
+                    is PlantModel -> {
+                        appDb.plantDao().deletePlant(value)
                         plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
                     }
                 }

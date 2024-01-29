@@ -5,22 +5,24 @@ import android.content.Context
 import android.view.WindowManager
 import com.example.base_widget.R
 import com.example.base_widget.databinding.DialogConfirmBinding
+import com.example.base_widget.databinding.DialogDeleteBinding
 import com.example.base_widget.databinding.DialogRenameBinding
 
-class CommonDialog(private val context: Context,private val isConfirmDialog: Boolean) : Dialog(
+class CommonDialog(private val context: Context,private val type: Int) : Dialog(
     context, R.style.BaseDialog
 ) {
     private val cBinding = DialogConfirmBinding.inflate(layoutInflater)
     private val rBinding = DialogRenameBinding.inflate(layoutInflater)
+    private val dBinding = DialogDeleteBinding.inflate(layoutInflater)
 
 
     private var listener: Listener? = null
 
     init {
-        if (isConfirmDialog) {
-            setContentView(cBinding.root)
-        } else {
-            setContentView(rBinding.root)
+        when (type) {
+            0 -> setContentView(cBinding.root)
+            1 -> setContentView(rBinding.root)
+            else -> setContentView(dBinding.root)
         }
 
         val attributes = window!!.attributes
@@ -42,34 +44,42 @@ class CommonDialog(private val context: Context,private val isConfirmDialog: Boo
     }
 
     fun getEditTextValue(): String {
-        return when (isConfirmDialog) {
-            true -> {
+        return when (type) {
+            0 -> {
                 cBinding.tvTitle.text.toString()
             }
-            else -> {
+            1 -> {
                 rBinding.editName.text.toString()
+            }
+            else -> {
+                dBinding.editName.text.toString()
             }
         }
     }
 
 
     fun setUpDialog(iconResId: Int, name: String) {
-        when(isConfirmDialog) {
-            true -> {
+        when(type) {
+            0 -> {
                 cBinding.ivSelected.setImageResource(iconResId)
             }
 
-            else -> {
+            1 -> {
                 rBinding.editName.setText(name)
                 rBinding.ivSelected.setImageResource(iconResId)
+            }
+
+            else -> {
+//                rBinding.editName.setText(name)
+//                rBinding.ivSelected.setImageResource(iconResId)
             }
         }
     }
 
     private fun onclick() {
-        when(isConfirmDialog)
+        when(type)
         {
-            true -> {
+            0 -> {
                 cBinding.btConfirm.setOnClickListener {
                    listener?.confirm()
                 }
@@ -78,11 +88,23 @@ class CommonDialog(private val context: Context,private val isConfirmDialog: Boo
                 }
             }
 
-            else -> {
+            1 -> {
                 rBinding.btConfirm.setOnClickListener {
                     listener?.confirm()
                 }
                 rBinding.btClose.setOnClickListener {
+                    listener?.close()
+                }
+            }
+
+            2 -> {
+                dBinding.btConfirm.setOnClickListener {
+                    listener?.confirm()
+                }
+                dBinding.btClose.setOnClickListener {
+                    listener?.close()
+                }
+                dBinding.btCancel.setOnClickListener {
                     listener?.close()
                 }
             }

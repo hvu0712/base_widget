@@ -11,9 +11,14 @@
     <string name="tvAllPet">All Pet</string>
     <string name="tvAnimal">Pets</string>
     <string name="tvPlant">Plant</string>
+    <string name="tvRose">Rose</string>
+    <string name="tvSunflower">Sunflower</string>
+    <string name="tvPeachBlossom">PeachBlossom</string>
     <string name="tvSeed">Seed</string>
     <string name="tvEggs">Eggs</string>
     <string name="tvCat">Cat</string>
+    <string name="tvDog">Dog</string>
+    <string name="tvRabbit">Rabbit</string>
     <string name="tvPet">Pet</string>
     <string name="tvSproutIn">Sprout in</string>
     <string name="tvExp">+ %d exp</string>
@@ -78,6 +83,7 @@
     <string name="no_result_data">No result data</string>
 
     <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string name="got_it">Got it</string>
     <string name="rename">Rename</string>
 

@@ -138,28 +138,28 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
         }
     }
 
-    private fun handlerAddPlant(name: String,position: Int) {
+    private fun handlerAddPlant(position: Int) {
         when(position) {
-            0 -> appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_rose,R.drawable.iv_rose,getString(R.string.tvLevel1),0L,position))
-            1 -> appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_sunflower,R.drawable.iv_sunflower,getString(R.string.tvLevel1),0L,position))
-            2 -> appDb.plantDao().insertPlant(PlantModel(null,name,R.drawable.iv_peach_blossom,R.drawable.iv_peach_blossom,getString(R.string.tvLevel1),0L,position))
+            0 -> appDb.plantDao().insertPlant(PlantModel(null,getString(R.string.tvRose),R.drawable.iv_rose,R.drawable.iv_rose,getString(R.string.tvLevel1),0L,position))
+            1 -> appDb.plantDao().insertPlant(PlantModel(null,getString(R.string.tvSunflower),R.drawable.iv_sunflower,R.drawable.iv_sunflower,getString(R.string.tvLevel1),0L,position))
+            2 -> appDb.plantDao().insertPlant(PlantModel(null,getString(R.string.tvPeachBlossom),R.drawable.iv_peach_blossom,R.drawable.iv_peach_blossom,getString(R.string.tvLevel1),0L,position))
         }
         val plant: PlantModel = appDb.plantDao().getPlantLatest()
         showConfirmDialog(plant)
     }
 
-    private fun handlerAddPet(name: String,position: Int) {
+    private fun handlerAddPet(position: Int) {
         when(position) {
-            0 -> appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_cat,R.drawable.iv_cat,getString(R.string.tvLevel1),0,position))
-            1 -> appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_dog,R.drawable.iv_dog,getString(R.string.tvLevel1),0,position))
-            2 -> appDb.petDao().insertPet(PetModel(null,name,R.drawable.normal_rabbit,R.drawable.iv_rabbit,getString(R.string.tvLevel1),0,position))
+            0 -> appDb.petDao().insertPet(PetModel(null,getString(R.string.tvCat),R.drawable.normal_cat,R.drawable.iv_cat,getString(R.string.tvLevel1),0,position))
+            1 -> appDb.petDao().insertPet(PetModel(null,getString(R.string.tvDog),R.drawable.normal_dog,R.drawable.iv_dog,getString(R.string.tvLevel1),0,position))
+            2 -> appDb.petDao().insertPet(PetModel(null,getString(R.string.tvRabbit),R.drawable.normal_rabbit,R.drawable.iv_rabbit,getString(R.string.tvLevel1),0,position))
         }
         val pet: PetModel = appDb.petDao().getPetLatest()
         showConfirmDialog(pet)
     }
 
     private fun <T> showConfirmDialog(value: T) {
-        commonDialog = CommonDialog(this,true)
+        commonDialog = CommonDialog(this,1)
         when(value) {
             is PetModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
             is PlantModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
@@ -180,15 +180,15 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
 
     private fun addPet(position: Int) {
         val lastIndex = appDb.petDao().getAllPet().lastIndex
-        val name = "Pet ${lastIndex + 2}"
-        handlerAddPet(name,position)
+//        val name = "Pet ${lastIndex + 2}"
+        handlerAddPet(position)
         petSelectAdapter.setData(appDb.petDao().getAllPet())
     }
 
     private fun addPlant(position: Int) {
         val lastIndex = appDb.plantDao().getAllPlant().lastIndex
-        val name = "Plant ${lastIndex + 2}"
-        handlerAddPlant(name,position)
+//        val name = "Plant ${lastIndex + 2}"
+        handlerAddPlant(position)
         plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
     }
 
@@ -207,19 +207,11 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
         }
     private fun <T> setUpListenerPopup(value: T) {
         popupView.findViewById<View>(R.id.tvRename).setOnClickListener {
-            when(value)
-            {
-                is PetModel -> showRenameDialog(value)
-                is PlantModel -> showRenameDialog(value)
-            }
+            showRenameDialog(value)
             detailsPopup?.dismiss()
         }
         popupView.findViewById<View>(R.id.tvDelete).setOnClickListener {
-            when(value)
-            {
-                is PetModel -> appDb.petDao().deletePet(value)
-                is PlantModel -> appDb.plantDao().deletePlant(value)
-            }
+            showDeleteDialog(value)
             detailsPopup?.dismiss()
         }
         popupView.setOnClickListener {
@@ -235,7 +227,7 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
     }
 
     private fun <T> showRenameDialog(value: T) {
-        commonDialog = CommonDialog(this,false)
+        commonDialog = CommonDialog(this,1)
         when(value) {
             is PetModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
             is PlantModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
@@ -263,6 +255,34 @@ class PetGardenActivity : BaseActivity<ActivityPetGardenBinding>() {
         commonDialog!!.showDialog()
     }
 
+    private fun <T> showDeleteDialog(value: T) {
+        commonDialog = CommonDialog(this,2)
+//        when(value) {
+//            is PetModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
+//            is PlantModel -> commonDialog!!.setUpDialog(value.imagePlaceHolder,value.name)
+//        }
+        commonDialog!!.setListener(object : CommonDialog.Listener {
+            override fun confirm() {
+                when(value) {
+                    is PetModel -> {
+                        appDb.petDao().deletePet(value)
+                        petSelectAdapter.setData(appDb.petDao().getAllPet())
+                    }
+                    is PlantModel -> {
+                        appDb.plantDao().deletePlant(value)
+                        plantSelectAdapter.setData(appDb.plantDao().getAllPlant())
+                    }
+                }
+                commonDialog?.dismiss()
+            }
+
+            override fun close() {
+                commonDialog?.dismiss()
+            }
+
+        })
+        commonDialog!!.showDialog()
+    }
     private fun showPopupDetails(view: View) {
         val anchorView = IntArray(2)
         view.getLocationInWindow(anchorView)
